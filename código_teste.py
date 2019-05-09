@@ -15,7 +15,7 @@ personagem = path.join(path.dirname(__file__), 'Personagem1')
 
 # Dados gerais do jogo.
 WIDTH = 1000 # Largura da tela
-HEIGHT = 600 # Altura da tela
+HEIGHT = 445 # Altura da tela
 FPS = 30 # Frames por segundo
 
 # Define algumas variáveis com as cores básicas
@@ -40,7 +40,7 @@ class Player(pygame.sprite.Sprite):
         self.image = player_img
         
         # Diminuindo o tamanho da imagem.
-        self.image = pygame.transform.scale(player_img, (60, 80))
+        self.image = pygame.transform.scale(player_img, (75, 100))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -50,7 +50,7 @@ class Player(pygame.sprite.Sprite):
         
         # Centraliza embaixo da tela.
         self.rect.centerx = WIDTH / 2
-        self.rect.bottom = HEIGHT/2-20
+        self.rect.bottom = HEIGHT/2 + 40
         
         # Velocidade da nave
         self.speedx = 0
