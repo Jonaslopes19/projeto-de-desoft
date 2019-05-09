@@ -54,6 +54,7 @@ class Player(pygame.sprite.Sprite):
         
         # Velocidade da nave
         self.speedx = 0
+        self.speedy = 0
         
         # Melhora a colisão estabelecendo um raio de um circulo
         self.radius = 25
@@ -61,13 +62,17 @@ class Player(pygame.sprite.Sprite):
     # Metodo que atualiza a posição da navinha
     def update(self):
         self.rect.x += self.speedx
-        
+        self.rect.y += self.speedy
         # Mantem dentro da tela
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
         if self.rect.left < 0:
             self.rect.left = 0
-                    
+def goup(self):
+    self.rect.bottom=HEIGHT/2 + 40
+def position(self):
+    y= self.rect.bottom
+    return y                 
 # Classe Mob que representa os meteoros
 class Mob(pygame.sprite.Sprite):
     
@@ -207,6 +212,9 @@ try:
                     player.speedx = -8
                 if event.key == pygame.K_RIGHT:
                     player.speedx = 8
+                if event.key == pygame.K_UP:
+                    player.speedy = -10
+
                 # Se for um espaço atira!
                 if event.key == pygame.K_SPACE:
                     bullet = Bullet(player.rect.centerx, player.rect.top)
@@ -221,6 +229,10 @@ try:
                     player.speedx = 0
                 if event.key == pygame.K_RIGHT:
                     player.speedx = 0
+                if event.key == pygame.K_UP:
+                    position(player)
+                    goup(player)
+                    player.speedy = 0
                     
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
