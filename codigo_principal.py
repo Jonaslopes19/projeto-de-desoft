@@ -3,6 +3,7 @@ from os import path
 from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
 from player import Player
 from Bullet import Bullet
+from mob import Mob
 
 pygame.init()
 pygame.mixer.init()
@@ -28,9 +29,15 @@ pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
 
 player = Player()
 
+mob = Mob()
+# Cria um grupo só do inimigo
+monsters = pygame.sprite.Group()
+monsters.add(mob)
+
 # Cria um grupo de todos os sprites e adiciona a nave.
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
+all_sprites.add(mob)
 
 bullets = pygame.sprite.Group()
 
