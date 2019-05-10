@@ -14,9 +14,9 @@ personagem = path.join(path.dirname(__file__), 'Personagem1')
 
 
 # Dados gerais do jogo.
-WIDTH = 1000 # Largura da tela
+WIDTH = 1200 # Largura da tela
 HEIGHT = 445 # Altura da tela
-FPS = 30 # Frames por segundo
+FPS = 60 # Frames por segundo
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)
@@ -40,7 +40,7 @@ class Player(pygame.sprite.Sprite):
         self.image = player_img
         
         # Diminuindo o tamanho da imagem.
-        self.image = pygame.transform.scale(player_img, (75, 100))
+        self.image = pygame.transform.scale(player_img, (60, 80))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -49,12 +49,11 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Centraliza embaixo da tela.
-        self.rect.centerx = WIDTH / 2
+        self.rect.centerx = WIDTH - 900
         self.rect.bottom = HEIGHT/2 + 40
         
         # Velocidade da nave
         self.speedx = 0
-        self.speedy = 0
         
         # Melhora a colisão estabelecendo um raio de um circulo
         self.radius = 25
@@ -62,17 +61,13 @@ class Player(pygame.sprite.Sprite):
     # Metodo que atualiza a posição da navinha
     def update(self):
         self.rect.x += self.speedx
-        self.rect.y += self.speedy
+        
         # Mantem dentro da tela
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
         if self.rect.left < 0:
             self.rect.left = 0
-def goup(self):
-    self.rect.bottom=HEIGHT/2 + 40
-def position(self):
-    y= self.rect.bottom
-    return y                 
+
 # Classe Mob que representa os meteoros
 class Mob(pygame.sprite.Sprite):
     
@@ -86,7 +81,7 @@ class Mob(pygame.sprite.Sprite):
         mob_img = pygame.image.load(path.join(img_dir, "meteorBrown_med1.png")).convert()
         
         # Diminuindo o tamanho da imagem.
-        self.image = pygame.transform.scale(mob_img, (50, 38))
+        self.image = pygame.transform.scale(mob_img, (80, 130))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -137,8 +132,8 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Coloca no lugar inicial definido em x, y do constutor
-        self.rect.bottom = y + 70
-        self.rect.centerx = x + 40
+        self.rect.bottom = y + 60
+        self.rect.centerx = x + 30
         self.speedx = 10
 
     # Metodo que atualiza a posição da navinha
@@ -165,7 +160,8 @@ clock = pygame.time.Clock()
 # Carrega o fundo do jogo
 background = pygame.image.load(path.join(fundos, 'Fundo.png')).convert()
 background_rect = background.get_rect()
-x = 0 
+x = 0
+
 # Carrega os sons do jogo
 pygame.mixer.music.load(path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
 pygame.mixer.music.set_volume(0.4)
@@ -186,7 +182,6 @@ all_sprites.add(player)
 # Cria um grupo para tiros
 bullets = pygame.sprite.Group()
 
-
 # Comando para evitar travamentos.
 try:
     
@@ -194,7 +189,6 @@ try:
     pygame.mixer.music.play(loops=-1)
     running = True
     while running:
-        
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
         
@@ -209,12 +203,9 @@ try:
             if event.type == pygame.KEYDOWN:
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
-                    player.speedx = -8
+                    x += 10
                 if event.key == pygame.K_RIGHT:
-                    player.speedx = 8
-                if event.key == pygame.K_UP:
-                    player.speedy = -10
-
+                    x -= 10
                 # Se for um espaço atira!
                 if event.key == pygame.K_SPACE:
                     bullet = Bullet(player.rect.centerx, player.rect.top)
@@ -226,13 +217,9 @@ try:
             if event.type == pygame.KEYUP:
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
-                    player.speedx = 0
+                    x = x
                 if event.key == pygame.K_RIGHT:
-                    player.speedx = 0
-                if event.key == pygame.K_UP:
-                    position(player)
-                    goup(player)
-                    player.speedy = 0
+                    x = x
                     
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
@@ -240,7 +227,8 @@ try:
     
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
-        screen.blit(background, (x, 0))
+        screen.blit(background, (x,0))
+        
         all_sprites.draw(screen)
         
         # Depois de desenhar tudo, inverte o display.
