@@ -3,85 +3,14 @@
 # Importando as bibliotecas necessárias.
 import pygame
 import random
-import time
+#import time
 from os import path
-
-# Estabelece a pasta que contem as figuras e sons.
-img_dir = path.join(path.dirname(__file__), 'img')
-snd_dir = path.join(path.dirname(__file__), 'snd')
-fundos = path.join(path.dirname(__file__), 'Fundos')
-personagem = path.join(path.dirname(__file__), 'Personagem1')
+from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
+#from fundo import fundo
+from player import Player
 
 
-# Dados gerais do jogo.
-WIDTH = 1000 # Largura da tela
-HEIGHT = 445 # Altura da tela
-FPS = 300 # Frames por segundo
 
-# Define algumas variáveis com as cores básicas
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-
-
-class fundo(pygame.sprite.Sprite):
-    
-    def __init__(self):
-        
-        pygame.sprite.Sprite.__init__(self)
-        
-         # Metodo que atualiza a posição da navinha
-    def update(self):
-        self.rect.x += self.speedx
-        self.rect.y += self.speedy
-        
-        
-
-# Classe Jogador que representa a nave
-class Player(pygame.sprite.Sprite):
-    
-    # Construtor da classe.
-    def __init__(self):
-        
-        # Construtor da classe pai (Sprite).
-        pygame.sprite.Sprite.__init__(self)
-        
-        # Carregando a imagem de fundo.
-        player_img = pygame.image.load(path.join(personagem, "p1.png")).convert()
-        self.image = player_img
-        
-        # Diminuindo o tamanho da imagem.
-        self.image = pygame.transform.scale(player_img, (75, 100))
-        
-        # Deixando transparente.
-        self.image.set_colorkey(BLACK)
-        
-        # Detalhes sobre o posicionamento.
-        self.rect = self.image.get_rect()
-        
-        # Centraliza embaixo da tela.
-        self.rect.centerx = WIDTH / 2
-        self.rect.bottom = HEIGHT/2 + 40
-        
-        # Velocidade da nave
-        self.speedx = 0
-        self.speedy = 0
-        
-        # Melhora a colisão estabelecendo um raio de um circulo
-        self.radius = 25
-    
-    # Metodo que atualiza a posição da navinha
-    def update(self):
-        self.rect.x += self.speedx
-        self.rect.y += self.speedy
-        # Mantem dentro da tela
-        if self.rect.right > WIDTH:
-            self.rect.right = WIDTH
-        if self.rect.left < 0:
-            self.rect.left = 0
 def goup(self):
     self.rect.bottom=HEIGHT/2 + 40
 def position(self):
