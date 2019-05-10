@@ -1,11 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu May  9 18:34:23 2019
-
-@author: eikis
-"""
-
-# -*- coding: utf-8 -*-
 
 # Importando as bibliotecas necessárias.
 import pygame
@@ -58,9 +51,11 @@ class Player(pygame.sprite.Sprite):
         # Centraliza embaixo da tela.
         self.rect.centerx = WIDTH / 2
         self.rect.bottom = HEIGHT/2 + 40
+        
         # Velocidade da nave
         self.speedx = 0
         self.speedy = 0
+        
         # Melhora a colisão estabelecendo um raio de um circulo
         self.radius = 25
     
@@ -68,7 +63,6 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
-        
         # Mantem dentro da tela
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
@@ -78,8 +72,7 @@ def goup(self):
     self.rect.bottom=HEIGHT/2 + 40
 def position(self):
     y= self.rect.bottom
-    return y
-                    
+    return y                 
 # Classe Mob que representa os meteoros
 class Mob(pygame.sprite.Sprite):
     
@@ -147,11 +140,11 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.bottom = y
         self.rect.centerx = x
         self.speedx = 10
-        
+
     # Metodo que atualiza a posição da navinha
     def update(self):
         self.rect.x += self.speedx
-        self.rect.y += self.speedy
+        
         # Se o tiro passar do inicio da tela, morre.
         if self.rect.bottom < 0:
             self.kill()
@@ -237,11 +230,9 @@ try:
                 if event.key == pygame.K_RIGHT:
                     player.speedx = 0
                 if event.key == pygame.K_UP:
-                    player.speedy = 5
                     position(player)
                     goup(player)
                     player.speedy = 0
-                    
                     
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
