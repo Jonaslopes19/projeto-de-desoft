@@ -16,7 +16,7 @@ personagem = path.join(path.dirname(__file__), 'Personagem1')
 # Dados gerais do jogo.
 WIDTH = 1200 # Largura da tela
 HEIGHT = 445 # Altura da tela
-FPS = 30 # Frames por segundo
+FPS = 60 # Frames por segundo
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)
@@ -49,7 +49,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Centraliza embaixo da tela.
-        self.rect.centerx = WIDTH / 2
+        self.rect.centerx = WIDTH - 900
         self.rect.bottom = HEIGHT/2 + 40
         
         # Velocidade da nave
@@ -67,7 +67,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH
         if self.rect.left < 0:
             self.rect.left = 0
-                    
+
 # Classe Mob que representa os meteoros
 class Mob(pygame.sprite.Sprite):
     
@@ -160,6 +160,7 @@ clock = pygame.time.Clock()
 # Carrega o fundo do jogo
 background = pygame.image.load(path.join(fundos, 'Fundo.png')).convert()
 background_rect = background.get_rect()
+x = 0
 
 # Carrega os sons do jogo
 pygame.mixer.music.load(path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
@@ -181,7 +182,6 @@ all_sprites.add(player)
 # Cria um grupo para tiros
 bullets = pygame.sprite.Group()
 
-
 # Comando para evitar travamentos.
 try:
     
@@ -189,7 +189,6 @@ try:
     pygame.mixer.music.play(loops=-1)
     running = True
     while running:
-        
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
         
@@ -204,9 +203,9 @@ try:
             if event.type == pygame.KEYDOWN:
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
-                    player.speedx = -8
+                    x += 10
                 if event.key == pygame.K_RIGHT:
-                    player.speedx = 8
+                    x -= 10
                 # Se for um espaço atira!
                 if event.key == pygame.K_SPACE:
                     bullet = Bullet(player.rect.centerx, player.rect.top)
@@ -218,9 +217,9 @@ try:
             if event.type == pygame.KEYUP:
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
-                    player.speedx = 0
+                    x = x
                 if event.key == pygame.K_RIGHT:
-                    player.speedx = 0
+                    x = x
                     
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
@@ -228,7 +227,8 @@ try:
     
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
-        screen.blit(background, background_rect)
+        screen.blit(background, (x,0))
+        
         all_sprites.draw(screen)
         
         # Depois de desenhar tudo, inverte o display.
