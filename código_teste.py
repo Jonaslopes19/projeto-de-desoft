@@ -137,8 +137,8 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Coloca no lugar inicial definido em x, y do constutor
-        self.rect.bottom = y
-        self.rect.centerx = x
+        self.rect.bottom = y + 70
+        self.rect.centerx = x + 40
         self.speedx = 10
 
     # Metodo que atualiza a posição da navinha
@@ -165,7 +165,7 @@ clock = pygame.time.Clock()
 # Carrega o fundo do jogo
 background = pygame.image.load(path.join(fundos, 'Fundo.png')).convert()
 background_rect = background.get_rect()
-
+x = 0 
 # Carrega os sons do jogo
 pygame.mixer.music.load(path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
 pygame.mixer.music.set_volume(0.4)
@@ -240,7 +240,7 @@ try:
     
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
-        screen.blit(background, background_rect)
+        screen.blit(background, (x, 0))
         all_sprites.draw(screen)
         
         # Depois de desenhar tudo, inverte o display.
