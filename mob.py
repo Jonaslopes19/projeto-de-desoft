@@ -16,7 +16,7 @@ class Mob(pygame.sprite.Sprite):
         mob_img = pygame.image.load(path.join(mobs, "Mumia.png")).convert()
         
         # Diminuindo o tamanho da imagem.
-        self.image = pygame.transform.scale(mob_img, (50, 38))
+        self.image = pygame.transform.scale(mob_img, (50, 70))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -27,7 +27,7 @@ class Mob(pygame.sprite.Sprite):
         # Sorteia um lugar inicial em x
         self.rect.x = random.randrange(WIDTH - self.rect.width)
         # Sorteia um lugar inicial em y
-        self.rect.y = HEIGHT/2 + 40
+        self.rect.y = HEIGHT/2 -20
         # Sorteia uma velocidade inicial
         self.speedx = random.randrange(-4, -1)
         self.speedy = 0
@@ -43,7 +43,7 @@ class Mob(pygame.sprite.Sprite):
         # Se o meteoro passar do final da tela, volta para cima
         if self.rect.top > HEIGHT + 10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
             self.rect.x = random.randrange(WIDTH - self.rect.width)
-            self.rect.y = HEIGHT/2 + 40
+            self.rect.y = HEIGHT/2 -20
             self.speedx = random.randrange(-4, -1)
             self.speedy = 0
             
