@@ -3,6 +3,7 @@ from os import path
 from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
 from player1 import Player
 from Bullet import Bullet
+from mob import Mob
 
 pygame.init()
 pygame.mixer.init()
@@ -27,9 +28,15 @@ pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
 
 player = Player()
 
+mobs = Mob()
+# Cria um grupo só do inimigo
+monsters = pygame.sprite.Group()
+monsters.add(mob)
+
 # Cria um grupo de todos os sprites e adiciona a nave.
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
+all_sprites.add(mob)
 
 bullets = pygame.sprite.Group()
 
@@ -75,7 +82,24 @@ try:
                     player.speedy = 0
                 if event.key == pygame.K_DOWN:
                     player.speedy = 0
-                
+        
+        # Verifica se houve colisão entre tiro e inimigo
+        hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
+        for hit in hits: # Pode haver mais de um
+            # O meteoro e destruido e precisa ser recriado
+            destroy_sound.play()
+            m = Mob() 
+            all_sprites.add(m)
+            monsters.add(m)
+        
+        # Verifica se houve colisão entre personagem e inimigo
+        hits = pygame.sprite.spritecollide(player, monsters, False, pygame.sprite.collide_circle)
+        if hits:
+            # Toca o som da colisão
+            boom_sound.play()
+            time.sleep(1) # Precisa esperar senão fecha
+            
+            running = False
                     
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
@@ -89,6 +113,8 @@ try:
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
+        
+        
         
 finally:
     

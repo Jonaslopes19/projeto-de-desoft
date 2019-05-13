@@ -11,6 +11,7 @@ img_dir = path.join(path.dirname(__file__), 'img')
 snd_dir = path.join(path.dirname(__file__), 'snd')
 fundos = path.join(path.dirname(__file__), 'Fundos')
 personagem = path.join(path.dirname(__file__), 'Personagem1')
+mobs =  path.join(path.dirname(__file__), 'Mob1')
 
 
 # Dados gerais do jogo.
