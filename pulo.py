@@ -4,11 +4,11 @@ from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
 from player import Player
 
 
-def pulo(self):
-    self.speedy = -15
+def Pulo(player):
+    player.speedy = -15
     g = 5
-    while self.rect.y < HEIGHT/2 + 40:
-        self.speedy += g        
+    while player.rect.y < HEIGHT/2 + 40:
+        player.speedy += g        
     
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.

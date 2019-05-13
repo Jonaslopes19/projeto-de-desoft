@@ -1,3 +1,5 @@
+#mob
+#time
 import time
 import pygame
 from os import path
