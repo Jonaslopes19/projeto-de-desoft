@@ -1,16 +1,15 @@
 import pygame
 from os import path
 from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
-from player import Player
+from player1 import Player
 from Bullet import Bullet
 
 pygame.init()
 pygame.mixer.init()
 
-
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Rumo a Nero")
-# Variável para o ajuste de velocidade
+
 clock = pygame.time.Clock()
 
 # Carrega o fundo do jogo

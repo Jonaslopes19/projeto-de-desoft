@@ -1,9 +1,10 @@
 import pygame
 from os import path
 from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
-from player import Player
 from Bullet import Bullet
+from player import Player
 from pulo import pulo
+
 
 pygame.init()
 pygame.mixer.init()
@@ -55,7 +56,9 @@ try:
                 if event.key == pygame.K_RIGHT:
                     vx = -8
                 if event.key == pygame.K_UP:
-                    pulo(player)
+                    player.speedy = -10
+                if event.key == pygame.K_DOWN:
+                    player.speedy = 10
                 if event.key == pygame.K_SPACE:
                     bullet = Bullet(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
@@ -67,8 +70,15 @@ try:
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
                     vx = 0
+                    player.speedx = 0
                 if event.key == pygame.K_RIGHT:
                     vx = 0
+                    player.speedx = 0
+                if event.key == pygame.K_UP:
+                    pulo
+                if event.key == pygame.K_DOWN:
+                    player.speedy = 0
+                
                     
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
