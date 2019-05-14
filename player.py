@@ -3,6 +3,15 @@ import pygame
 from init import HEIGHT, WIDTH, BLACK, personagem
 from os import path
 
+<<<<<<< HEAD
+=======
+
+
+
+
+import time
+
+>>>>>>> a2642a820802f838b053c05ab00931b8440d212e
 # Classe Jogador que representa a nave
 class Player(pygame.sprite.Sprite):
     
@@ -12,13 +21,25 @@ class Player(pygame.sprite.Sprite):
         # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
         
+        # Velocidade da nave
+        self.speedx = 0
+        self.speedy = 0
+        
         # Carregando a imagem de fundo.
-        self.imgs = []
-        n=6
-        for i in range(n):
-            self.imgs.append(pygame.image.load(path.join(personagem, "Naruto{0}.png".format(i+1))).convert())
-        self.frame = 0
-        self.image = self.imgs[self.frame]
+        if self.speedx == 0:
+            self.imgs = []
+            n=6
+            for i in range(n):
+                self.imgs.append(pygame.image.load(path.join(personagem, "Naruto{0}.png".format(i+1))).convert())
+            self.frame = 0
+            self.image = self.imgs[self.frame]
+        else:
+            self.imgs = []
+            n=6
+            for i in range(n):
+                self.imgs.append(pygame.image.load(path.join(personagem, "Run{0}.png".format(i+1))).convert())
+            self.frame = 0
+            self.image = self.imgs[self.frame]
         
         # Diminuindo o tamanho da imagem.
         self.image = pygame.transform.scale(self.image, (75, 100))
@@ -33,9 +54,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.centerx = WIDTH / 2
         self.rect.bottom = HEIGHT/2 + 40
         
-        # Velocidade da nave
-        self.speedx = 0
-        self.speedy = 0
+
         
         # Melhora a colisão estabelecendo um raio de um circulo
         self.radius = 25

@@ -66,6 +66,13 @@ try:
                     vx = 8
                 if event.key == pygame.K_RIGHT:
                     vx = -8
+                player.imgs = []
+                n=6
+                for i in range(n):
+                    player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
+                player.frame = 0
+                player.image = player.imgs[player.frame]
+                player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_UP:
                     player.speedy = -10
                 if event.key == pygame.K_DOWN:
@@ -84,6 +91,13 @@ try:
                     player.speedx = 0
                 if event.key == pygame.K_RIGHT:
                     vx = 0
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                 if event.key == pygame.K_UP:
                     player.speedy = 0
