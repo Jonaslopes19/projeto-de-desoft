@@ -13,7 +13,8 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         # Carregando a imagem de fundo.
-        player_img = pygame.image.load(path.join(personagem, "p1.png")).convert()
+
+        player_img = pygame.image.load(path.join(personagem, "Naruto1.png")).convert()
         self.image = player_img
         
         # Diminuindo o tamanho da imagem.
@@ -40,6 +41,11 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
+        for i in range(1,7):
+            player_img = pygame.image.load(path.join(personagem, "Naruto{}.png".format(i))).convert()
+            self.image = player_img
+            self.image = pygame.transform.scale(player_img, (75, 100))
+            self.image.set_colorkey(BLACK)
         # Mantem dentro da tela
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
