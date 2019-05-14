@@ -49,7 +49,7 @@ try:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
         
-        if random.randrange(1,100) == 1:
+        if random.randrange(1,100) == 0:
             mob = Mob()
             # Cria um grupo só do inimigo
             all_sprites.add(mob)
