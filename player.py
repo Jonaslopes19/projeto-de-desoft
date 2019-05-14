@@ -2,7 +2,13 @@
 import pygame
 from init import HEIGHT, WIDTH, BLACK, personagem
 from os import path
+
+
+
+
+
 import time
+
 # Classe Jogador que representa a nave
 class Player(pygame.sprite.Sprite):
     

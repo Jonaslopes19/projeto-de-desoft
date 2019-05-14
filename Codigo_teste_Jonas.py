@@ -9,11 +9,12 @@ from mob import Mob
 
 pygame.init()
 pygame.mixer.init()
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Rumo a Nero")
 
 clock = pygame.time.Clock()
-FPS=60
+
 # Carrega o fundo do jogo
 background = pygame.image.load(path.join(fundos, 'Fundo.png')).convert()
 background_rect = background.get_rect()
@@ -85,7 +86,35 @@ try:
                     vx = 0
                     player.speedx = 0
                 if event.key == pygame.K_UP:
-                    player.speedy = 0
+                    player.speedy = -25
+                    g = 5
+                    while player.speedy < 0:
+                        player.speedy += g        
+                        # Depois de processar os eventos.
+                        # Atualiza a acao de cada sprite.
+                        all_sprites.update()
+                        # A cada loop, redesenha o fundo e os sprites
+                        screen.fill(BLACK)
+                        screen.blit(background, (x, 0))
+                        all_sprites.draw(screen)
+        
+                        # Depois de desenhar tudo, inverte o display.
+                        pygame.display.flip()
+                    player.speedy = 25
+                    g = -5
+                    while player.speedy < 0:
+                        player.speedy += g        
+                        # Depois de processar os eventos.
+                        # Atualiza a acao de cada sprite.
+                        all_sprites.update()
+                        # A cada loop, redesenha o fundo e os sprites
+                        screen.fill(BLACK)
+                        screen.blit(background, (x, 0))
+                        all_sprites.draw(screen)
+        
+                        # Depois de desenhar tudo, inverte o display.
+                        pygame.display.flip()
+                        
                 if event.key == pygame.K_DOWN:
                     player.speedy = 0
         

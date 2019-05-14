@@ -26,7 +26,7 @@ class Bullet(pygame.sprite.Sprite):
         # Coloca no lugar inicial definido em x, y do constutor
         self.rect.bottom = y + 100
         self.rect.centerx = x + 40
-        self.speedx = 150
+        self.speedx = 15
 
     # Metodo que atualiza a posição da navinha
     def update(self):
