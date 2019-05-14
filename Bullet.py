@@ -11,8 +11,11 @@ class Bullet(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         # Carregando a imagem de fundo.
-        bullet_img = pygame.image.load(path.join(img_dir, "laserRed16.png")).convert()
-        self.image = bullet_img
+        kunai_img = pygame.image.load(path.join(img_dir, "kunai1.png")).convert()
+        self.image = kunai_img
+        
+        # Diminuindo o tamanho da imagem.
+        self.image = pygame.transform.scale(kunai_img, (39, 52))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -21,7 +24,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Coloca no lugar inicial definido em x, y do constutor
-        self.rect.bottom = y + 70
+        self.rect.bottom = y + 100
         self.rect.centerx = x + 40
         self.speedx = 10
 
