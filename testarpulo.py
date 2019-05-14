@@ -1,18 +1,18 @@
-import time
-import random
 import pygame
 from os import path
 from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
-from player import Player
 from Bullet import Bullet
-from mob import Mob
+from player import Player
+from pulo import pulo
+
 
 pygame.init()
 pygame.mixer.init()
 
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Rumo a Nero")
-
+# Variável para o ajuste de velocidade
 clock = pygame.time.Clock()
 
 # Carrega o fundo do jogo
@@ -30,10 +30,6 @@ pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
 
 player = Player()
 
-
-# Cria um grupo só do inimigo
-monsters = pygame.sprite.Group()
-
 # Cria um grupo de todos os sprites e adiciona a nave.
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
@@ -48,13 +44,6 @@ try:
         
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        
-        if random.randrange(1,100) == 1:
-            mob = Mob()
-            # Cria um grupo só do inimigo
-            all_sprites.add(mob)
-            monsters.add(mob)
-        
         
         for event in pygame.event.get():
             
@@ -86,27 +75,10 @@ try:
                     vx = 0
                     player.speedx = 0
                 if event.key == pygame.K_UP:
-                    player.speedy = 0
+                    pulo
                 if event.key == pygame.K_DOWN:
                     player.speedy = 0
-        
-        # Verifica se houve colisão entre tiro e inimigo
-        hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
-        for hit in hits: # Pode haver mais de um
-            # O meteoro e destruido e precisa ser recriado
-            destroy_sound.play()
-            #m = Mob() 
-            #all_sprites.add(m)
-            #monsters.add(m)
-        
-        # Verifica se houve colisão entre personagem e inimigo
-        hits = pygame.sprite.spritecollide(player, monsters, False, pygame.sprite.collide_circle)
-        if hits:
-            # Toca o som da colisão
-            boom_sound.play()
-            time.sleep(1) # Precisa esperar senão fecha
-            
-            running = False
+                
                     
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
@@ -120,8 +92,6 @@ try:
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
-        
-        
         
 finally:
     

@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 10 14:22:35 2019
-
-@author: User
-"""
+#player
 import pygame
 from init import HEIGHT, WIDTH, BLACK, personagem
 from os import path

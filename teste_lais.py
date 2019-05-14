@@ -31,7 +31,6 @@ pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
 player = Player()
 
 
-# Cria um grupo só do inimigo
 monsters = pygame.sprite.Group()
 
 # Cria um grupo de todos os sprites e adiciona a nave.
@@ -48,13 +47,12 @@ try:
         
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        
+
         if random.randrange(1,100) == 1:
             mob = Mob()
             # Cria um grupo só do inimigo
             all_sprites.add(mob)
             monsters.add(mob)
-        
         
         for event in pygame.event.get():
             
