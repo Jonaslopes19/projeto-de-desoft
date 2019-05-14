@@ -2,7 +2,6 @@
 import pygame
 from init import HEIGHT, WIDTH, BLACK, personagem
 from os import path
-from pulo import pulo
 
 # Classe Jogador que representa a nave
 class Player(pygame.sprite.Sprite):
@@ -36,9 +35,6 @@ class Player(pygame.sprite.Sprite):
         
         # Melhora a colisão estabelecendo um raio de um circulo
         self.radius = 25
-        
-        #def utilizada para pular
-        pulo(self)
     
     # Metodo que atualiza a posição da navinha
     def update(self):

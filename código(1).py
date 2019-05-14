@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Importando as bibliotecas necessárias.
+
 import pygame
 import random
 import time

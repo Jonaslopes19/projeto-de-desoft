@@ -25,7 +25,7 @@ class Mob(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Sorteia um lugar inicial em x
-        self.rect.x = random.randrange(WIDTH - self.rect.width)
+        self.rect.x = 700
         # Sorteia um lugar inicial em y
         self.rect.y = HEIGHT/2 -20
         # Sorteia uma velocidade inicial
@@ -42,7 +42,7 @@ class Mob(pygame.sprite.Sprite):
         
         # Se o meteoro passar do final da tela, volta para cima
         if self.rect.top > HEIGHT + 10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
-            self.rect.x = random.randrange(WIDTH - self.rect.width)
+            self.rect.x = 700
             self.rect.y = HEIGHT/2 -20
             self.speedx = random.randrange(-4, -1)
             self.speedy = 0
