@@ -64,15 +64,22 @@ try:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     vx = 8
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Left{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_RIGHT:
                     vx = -8
-                player.imgs = []
-                n=6
-                for i in range(n):
-                    player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
-                player.frame = 0
-                player.image = player.imgs[player.frame]
-                player.image = pygame.transform.scale(player.image, (1,1))
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_UP:
                     player.speedy = -10
                 if event.key == pygame.K_DOWN:
@@ -88,6 +95,13 @@ try:
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
                     vx = 0
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                 if event.key == pygame.K_RIGHT:
                     vx = 0

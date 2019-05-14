@@ -26,7 +26,7 @@ class Player(pygame.sprite.Sprite):
             self.imgs = []
             n=6
             for i in range(n):
-                self.imgs.append(pygame.image.load(path.join(personagem, "Naruto{0}.png".format(i+1))).convert())
+                self.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
             self.frame = 0
             self.image = self.imgs[self.frame]
         else:
@@ -48,7 +48,7 @@ class Player(pygame.sprite.Sprite):
     
         # Centraliza embaixo da tela.
         self.rect.centerx = WIDTH / 2
-        self.rect.bottom = HEIGHT/2 + 40
+        self.rect.bottom = HEIGHT/2 + 45
         
 
         
