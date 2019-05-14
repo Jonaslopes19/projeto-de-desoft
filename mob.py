@@ -13,7 +13,7 @@ class Mob(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         # Carregando a imagem de fundo.
-        mob_img = pygame.image.load(path.join(mobs, "Mumia.png")).convert()
+        mob_img = pygame.image.load(path.join(mobs, "mob1.png")).convert()
         
         # Diminuindo o tamanho da imagem.
         self.image = pygame.transform.scale(mob_img, (50, 70))
