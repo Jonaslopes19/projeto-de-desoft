@@ -7,6 +7,7 @@ from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
+from Mob3 import Mob3
 from Rasengan import Rasengan
 
 pygame.init()
@@ -54,6 +55,15 @@ try:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
+        if random.randrange(1,200) == 1:
+            mob3 = Mob3()
+            all_sprites.add(mob3)
+            monsters.add(mob3)
+            if random.randrange(1,10) == 1:
+                bullet = Bullet(mob3.rect.centerx, mob3.rect.top)
+                all_sprites.add(bullet)
+                bullets.add(bullet)
+                pew_sound.play()
         if random.randrange(1,200) == 1:
             mob = Mob()
             # Cria um grupo só do inimigo

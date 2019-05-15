@@ -2,9 +2,9 @@ import pygame
 import random
 from init import HEIGHT, WIDTH, BLACK, mobs
 from os import path
-
+from Bullet import Bullet
 # Classe Mob que representa o inimigo
-class Mob2(pygame.sprite.Sprite):
+class Mob3(pygame.sprite.Sprite):
     
     # Construtor da classe.
     def __init__(self):
@@ -31,10 +31,11 @@ class Mob2(pygame.sprite.Sprite):
         # Sorteia um lugar inicial em y
         self.rect.y = HEIGHT/2 -45
         # Sorteia uma velocidade inicial
-        self.speedx = random.randrange(-2, -1)
+        self.speedx = 0
         self.speedy = 0
         self.step = 5
         self.ticks = 0
+            
         # Melhora a colisão estabelecendo um raio de um circulo
         self.radius = int(self.rect.width * .85 / 2)
         
