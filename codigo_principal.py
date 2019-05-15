@@ -154,6 +154,7 @@ try:
             
             running = False
                     
+        
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
         all_sprites.update()
