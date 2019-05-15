@@ -7,6 +7,7 @@ from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
+from Rasengan import Rasengan
 
 pygame.init()
 pygame.mixer.init()
@@ -102,6 +103,21 @@ try:
                     all_sprites.add(bullet)
                     bullets.add(bullet)
                     pew_sound.play()
+                if event.key == pygame.K_m:
+                    player.imgs = []
+                    n=5
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Punch{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.step=5
+                    player.image = pygame.transform.scale(player.image, (1,1))
+                    ras = Rasengan(player.rect.centerx, player.rect.top)
+                    all_sprites.add(ras)
+                    bullets.add(ras)
+                    pew_sound.play()
+
+                                
                     
             # Verifica se soltou alguma tecla.
             if event.type == pygame.KEYUP:
@@ -140,6 +156,15 @@ try:
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     player.step=10
+                if event.key == pygame.K_m:
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
+                    player.speedx = 0
         
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
