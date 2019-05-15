@@ -3,12 +3,6 @@ import pygame
 from init import HEIGHT, WIDTH, BLACK, personagem
 from os import path
 
-
-
-
-
-import time
-
 class Player(pygame.sprite.Sprite):
     
     # Construtor da classe.

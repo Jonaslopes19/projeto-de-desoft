@@ -30,7 +30,7 @@ pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
 
 player = Player()
 
-
+#player.rect.bottom = HEIGHT/2 + 40
 # Cria um grupo só do inimigo
 monsters = pygame.sprite.Group()
 
@@ -67,9 +67,29 @@ try:
                 if event.key == pygame.K_RIGHT:
                     vx = -8
                 if event.key == pygame.K_UP:
-                    player.speedy = -10
-                if event.key == pygame.K_DOWN:
-                    player.speedy = 10
+                    player.speedy = -15
+                    g = 1e-1
+                    cair=True
+                    while cair:
+                        if player.rect.bottom == HEIGHT/2 + 40:
+                            player.speedy = 0
+                            cair=False
+                        player.speedy += g        
+                        # Depois de processar os eventos.
+                        # Atualiza a acao de cada sprite.
+                        all_sprites.update()
+    
+                        # A cada loop, redesenha o fundo e os sprites
+                        screen.fill(BLACK)
+                        x+= vx
+                        screen.blit(background, (x, 0))
+                        all_sprites.draw(screen)
+            
+                # Depois de desenhar tudo, inverte o display.
+                        pygame.display.flip()
+                        
+                        
+                        
                 if event.key == pygame.K_SPACE:
                     bullet = Bullet(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
@@ -81,40 +101,10 @@ try:
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
                     vx = 0
-                    player.speedx = 0
                 if event.key == pygame.K_RIGHT:
                     vx = 0
-                    player.speedx = 0
                 if event.key == pygame.K_UP:
-                    player.speedy = -25
-                    g = 5
-                    while player.speedy < 0:
-                        player.speedy += g        
-                        # Depois de processar os eventos.
-                        # Atualiza a acao de cada sprite.
-                        all_sprites.update()
-                        # A cada loop, redesenha o fundo e os sprites
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-        
-                        # Depois de desenhar tudo, inverte o display.
-                        pygame.display.flip()
-                    player.speedy = 25
-                    g = -5
-                    while player.speedy < 0:
-                        player.speedy += g        
-                        # Depois de processar os eventos.
-                        # Atualiza a acao de cada sprite.
-                        all_sprites.update()
-                        # A cada loop, redesenha o fundo e os sprites
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-        
-                        # Depois de desenhar tudo, inverte o display.
-                        pygame.display.flip()
-                        
+                    player.speedy = 0
                 if event.key == pygame.K_DOWN:
                     player.speedy = 0
         
