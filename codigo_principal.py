@@ -6,6 +6,7 @@ from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
 from player import Player
 from Bullet import Bullet
 from mob import Mob
+from Mob2 import Mob2
 
 pygame.init()
 pygame.mixer.init()
@@ -48,8 +49,11 @@ try:
         
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        
         if random.randrange(1,100) == 1:
+            mob2 = Mob2()
+            all_sprites.add(mob2)
+            monsters.add(mob2)
+        if random.randrange(1,100) == 0:
             mob = Mob()
             # Cria um grupo só do inimigo
             all_sprites.add(mob)
