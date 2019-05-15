@@ -23,6 +23,7 @@ class Player(pygame.sprite.Sprite):
                 self.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
             self.frame = 0
             self.image = self.imgs[self.frame]
+            self.step = 5
         else:
             self.imgs = []
             n=6
@@ -30,6 +31,7 @@ class Player(pygame.sprite.Sprite):
                 self.imgs.append(pygame.image.load(path.join(personagem, "Run{0}.png".format(i+1))).convert())
             self.frame = 0
             self.image = self.imgs[self.frame]
+            self.step = 5
         
         # Diminuindo o tamanho da imagem.
         self.image = pygame.transform.scale(self.image, (75, 100))
