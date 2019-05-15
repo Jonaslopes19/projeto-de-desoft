@@ -15,7 +15,7 @@ class Bullet(pygame.sprite.Sprite):
         self.image = kunai_img
         
         # Diminuindo o tamanho da imagem.
-        self.image = pygame.transform.scale(kunai_img, (39, 52))
+        self.image = pygame.transform.scale(kunai_img, (60, 72))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)

@@ -49,7 +49,7 @@ try:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
         
-        if random.randrange(1,100) == 0:
+        if random.randrange(1,100) == 1:
             mob = Mob()
             # Cria um grupo só do inimigo
             all_sprites.add(mob)
@@ -64,20 +64,35 @@ try:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     vx = 8
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Left{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_RIGHT:
                     vx = -8
-                player.imgs = []
-                n=6
-                for i in range(n):
-                    player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
-                player.frame = 0
-                player.image = player.imgs[player.frame]
-                player.image = pygame.transform.scale(player.image, (1,1))
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_UP:
                     player.speedy = -10
                 if event.key == pygame.K_DOWN:
                     player.speedy = 10
                 if event.key == pygame.K_SPACE:
+                    player.imgs = []
+                    n=5
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Punch{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
+                    player.step=5
                     bullet = Bullet(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
                     bullets.add(bullet)
@@ -88,6 +103,13 @@ try:
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
                     vx = 0
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                 if event.key == pygame.K_RIGHT:
                     vx = 0
@@ -103,6 +125,16 @@ try:
                     player.speedy = 0
                 if event.key == pygame.K_DOWN:
                     player.speedy = 0
+                if event.key == pygame.K_SPACE:
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
+                    player.speedx = 0
+                    player.step=10
         
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
