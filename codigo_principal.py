@@ -53,7 +53,7 @@ try:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
-        if random.randrange(1,100) == 0:
+        if random.randrange(1,200) == 1:
             mob = Mob()
             # Cria um grupo só do inimigo
             all_sprites.add(mob)
@@ -73,6 +73,7 @@ try:
                     for i in range(n):
                         player.imgs.append(pygame.image.load(path.join("Left{0}.png".format(i+1))).convert())
                     player.frame = 0
+                    player.step = 5
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_RIGHT:
@@ -95,8 +96,8 @@ try:
                         player.imgs.append(pygame.image.load(path.join("Punch{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
-                    player.image = pygame.transform.scale(player.image, (1,1))
                     player.step=5
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     bullet = Bullet(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
                     bullets.add(bullet)

@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
         # Melhora a colisão estabelecendo um raio de um circulo
         self.radius = 25
         
-        self.step = 10
+        self.step = 5
         self.ticks = 0
     
     # Metodo que atualiza a posição da navinha
