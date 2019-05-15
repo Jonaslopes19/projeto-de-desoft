@@ -105,13 +105,13 @@ try:
                     pew_sound.play()
                 if event.key == pygame.K_m:
                     player.imgs = []
-                    n=5
+                    n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Punch{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join("R{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.step=5
-                    player.image = pygame.transform.scale(player.image, (1,1))
+                    player.image = pygame.transform.scale(player.image, (11,1))
                     ras = Rasengan(player.rect.centerx, player.rect.top)
                     all_sprites.add(ras)
                     bullets.add(ras)
