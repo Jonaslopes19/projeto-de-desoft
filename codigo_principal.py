@@ -22,7 +22,7 @@ x = 0
 vx=0
 
 # Carrega os sons do jogo
-pygame.mixer.music.load(path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
+pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
 pygame.mixer.music.set_volume(0.4)
 boom_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
 destroy_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
@@ -154,6 +154,7 @@ try:
             
             running = False
                     
+        
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
         all_sprites.update()
