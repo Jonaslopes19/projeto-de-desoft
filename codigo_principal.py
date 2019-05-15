@@ -14,7 +14,7 @@ pygame.init()
 pygame.mixer.init()
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Rumo a Nero")
+pygame.display.set_caption("Corrida Naruto")
 
 clock = pygame.time.Clock()
 
