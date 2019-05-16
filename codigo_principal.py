@@ -96,23 +96,6 @@ try:
                     player.image = pygame.image.load(path.join("JumpNar.png")).convert()
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedy = -10
-                    g = 1
-                    i=0
-                    while player.rect.y < HEIGHT/2-40:
-                        player.rect.y += player.speedy
-                        player.speedy += g
-                        all_sprites.update()
-                        print(i)
-                        i+=1
-                        time.sleep(1.7e-2)
-    
-                        # A cada loop, redesenha o fundo e os sprites
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-                        
-                        # Depois de desenhar tudo, inverte o display.
-                        pygame.display.flip()
                 if event.key == pygame.K_DOWN:
                     player.speedy = 10
                 if event.key == pygame.K_SPACE:
