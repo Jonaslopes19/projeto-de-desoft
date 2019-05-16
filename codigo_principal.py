@@ -59,11 +59,6 @@ try:
             mob3 = Mob3()
             all_sprites.add(mob3)
             monsters.add(mob3)
-            if random.randrange(1,10) == 0:
-                bullet = Bullet(mob3.rect.centerx, mob3.rect.top)
-                all_sprites.add(bullet)
-                bullets.add(bullet)
-                pew_sound.play()
         if random.randrange(1,200) == 0:
             mob = Mob()
             # Cria um grupo só do inimigo
@@ -98,6 +93,11 @@ try:
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_UP:
+                    player.imgs.append(pygame.image.load(path.join("JumpNar.png")).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.step=5
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedy = -10
                     g = 1
                     i=0
@@ -171,6 +171,13 @@ try:
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                 if event.key == pygame.K_UP:
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedy = 0
                 if event.key == pygame.K_DOWN:
                     player.speedy = 0
