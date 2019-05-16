@@ -51,20 +51,20 @@ try:
         
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,100) == 1:
+        if random.randrange(1,100) == 0:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
-        if random.randrange(1,200) == 1:
+        if random.randrange(1,200) == 0:
             mob3 = Mob3()
             all_sprites.add(mob3)
             monsters.add(mob3)
-            if random.randrange(1,10) == 1:
+            if random.randrange(1,10) == 0:
                 bullet = Bullet(mob3.rect.centerx, mob3.rect.top)
                 all_sprites.add(bullet)
                 bullets.add(bullet)
                 pew_sound.play()
-        if random.randrange(1,200) == 1:
+        if random.randrange(1,200) == 0:
             mob = Mob()
             # Cria um grupo só do inimigo
             all_sprites.add(mob)
@@ -94,10 +94,11 @@ try:
                     for i in range(n):
                         player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
                     player.frame = 0
+                    player.step = 5
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_UP:
-                    player.speedy = -15
+                    player.speedy = -10
                     g = 1
                     i=0
                     while player.rect.y < HEIGHT/2-40:
@@ -138,7 +139,7 @@ try:
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.step=5
-                    player.image = pygame.transform.scale(player.image, (11,1))
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     ras = Rasengan(player.rect.centerx, player.rect.top)
                     all_sprites.add(ras)
                     bullets.add(ras)
@@ -177,21 +178,25 @@ try:
                     player.imgs = []
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
-                    player.step=10
+                    player.step=5
                 if event.key == pygame.K_m:
                     player.imgs = []
+                    player.steps = 5
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
                     player.frame = 0
+                    player.steps = 5
                     player.image = player.imgs[player.frame]
+                    
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
+
         
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
