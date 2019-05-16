@@ -60,6 +60,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.speedy
         
         
+        
         self.ticks +=1
         
         if self.ticks % self.step == 0:
@@ -88,3 +89,4 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH
         if self.rect.left < 0:
             self.rect.left = 0
+
