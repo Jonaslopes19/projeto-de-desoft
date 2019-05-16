@@ -51,7 +51,7 @@ try:
         
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,100) == 0:
+        if random.randrange(1,100) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
@@ -93,10 +93,7 @@ try:
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_UP:
-                    player.imgs.append(pygame.image.load(path.join("JumpNar.png")).convert())
-                    player.frame = 0
-                    player.image = player.imgs[player.frame]
-                    player.step=5
+                    player.image = pygame.image.load(path.join("JumpNar.png")).convert()
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedy = -10
                     g = 1
@@ -219,7 +216,7 @@ try:
         if hits:
             # Toca o som da colisão
             boom_sound.play()
-            time.sleep(1) # Precisa esperar senão fecha
+            time.sleep(5) # Precisa esperar senão fecha
             
             running = False
                     
