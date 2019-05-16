@@ -1,17 +1,16 @@
 import time
-import random
 import pygame
 from os import path
 from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
 from player import Player
 from Bullet import Bullet
-from mob import Mob
+from Rasengan import Rasengan
 
 pygame.init()
 pygame.mixer.init()
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Rumo a Nero")
+pygame.display.set_caption("Corrida Naruto")
 
 clock = pygame.time.Clock()
 
@@ -22,14 +21,13 @@ x = 0
 vx=0
 
 # Carrega os sons do jogo
-pygame.mixer.music.load(path.join(snd_dir, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
+pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
 pygame.mixer.music.set_volume(0.4)
 boom_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
 destroy_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
 pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
 
 player = Player()
-
 
 # Cria um grupo só do inimigo
 monsters = pygame.sprite.Group()
@@ -42,18 +40,13 @@ bullets = pygame.sprite.Group()
 
 try:
     
-    pygame.mixer.music.play(loops=-1)
+    #pygame.mixer.music.play(loops=-1)
     running = True
     while running:
         
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
         
-        if random.randrange(1,100) == 1:
-            mob = Mob()
-            # Cria um grupo só do inimigo
-            all_sprites.add(mob)
-            monsters.add(mob)
         
         
         for event in pygame.event.get():
@@ -69,6 +62,7 @@ try:
                     for i in range(n):
                         player.imgs.append(pygame.image.load(path.join("Left{0}.png".format(i+1))).convert())
                     player.frame = 0
+                    player.step = 5
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                 if event.key == pygame.K_RIGHT:
@@ -85,21 +79,18 @@ try:
                     player.speedy = -15
                     g = 1
                     i=0
-                    while player.rect.y < HEIGHT/2-40:
+                    while player.rect.bottom < HEIGHT/2 + 55.5:
                         player.rect.y += player.speedy
                         player.speedy += g
                         all_sprites.update()
                         print(i)
                         i+=1
-                        time.sleep(1.7e-2)
-    
-                        # A cada loop, redesenha o fundo e os sprites
+                        time.sleep(1e-2)
                         screen.fill(BLACK)
                         screen.blit(background, (x, 0))
                         all_sprites.draw(screen)
-                        
-                        # Depois de desenhar tudo, inverte o display.
                         pygame.display.flip()
+                        
                 if event.key == pygame.K_DOWN:
                     player.speedy = 10
                 if event.key == pygame.K_SPACE:
@@ -109,12 +100,27 @@ try:
                         player.imgs.append(pygame.image.load(path.join("Punch{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
-                    player.image = pygame.transform.scale(player.image, (1,1))
                     player.step=5
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     bullet = Bullet(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
                     bullets.add(bullet)
                     pew_sound.play()
+                if event.key == pygame.K_m:
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("R{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.step=5
+                    player.image = pygame.transform.scale(player.image, (11,1))
+                    ras = Rasengan(player.rect.centerx, player.rect.top)
+                    all_sprites.add(ras)
+                    bullets.add(ras)
+                    pew_sound.play()
+
+                                
                     
             # Verifica se soltou alguma tecla.
             if event.type == pygame.KEYUP:
@@ -129,7 +135,6 @@ try:
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
-                    player.step = 5
                 if event.key == pygame.K_RIGHT:
                     vx = 0
                     player.imgs = []
@@ -140,7 +145,6 @@ try:
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
-                    player.step = 5
                 if event.key == pygame.K_UP:
                     player.speedy = 0
                 if event.key == pygame.K_DOWN:
@@ -155,7 +159,15 @@ try:
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     player.step=10
-                    
+                if event.key == pygame.K_m:
+                    player.imgs = []
+                    n=6
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
+                    player.speedx = 0
         
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
@@ -175,6 +187,7 @@ try:
             
             running = False
                     
+        
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
         all_sprites.update()
