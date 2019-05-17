@@ -1,83 +1,45 @@
-# -*- coding: utf-8 -*-
-
-# Importando as bibliotecas necessárias.
 import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT 
+from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT
 from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan
-from screen import init_screen
-from tt import game_screen
-
-# Inicialização do Pygame.
-pygame.init()
-pygame.mixer.init()
-
-# Tamanho da tela.
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-
-# Nome do jogo
-pygame.display.set_caption("Naruto Run")
-
-# Comando para evitar travamentos.
-try:
-    state = INIT
-    while state != QUIT:
-        if state == INIT:
-            state = init_screen(screen)
-        elif state == GAME:
-            state = game_screen(screen)
-        else:
-            state = QUIT
-finally:
-    pygame.quit()
 
 
-pygame.init()
-pygame.mixer.init()
-
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Corrida Naruto")
-
-clock = pygame.time.Clock()
-
-# Carrega o fundo do jogo
-background = pygame.image.load(path.join(fundos, 'Fundo4.jpg')).convert()
-background_rect = background.get_rect()
-x = 0 
-vx=0
-
-# Carrega os sons do jogo
-pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
-pygame.mixer.music.set_volume(0.4)
-boom_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
-destroy_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
-pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
-
-player = Player()
-
-
-# Cria um grupo só do inimigo
-monsters = pygame.sprite.Group()
-
-# Cria um grupo de todos os sprites e adiciona a nave.
-all_sprites = pygame.sprite.Group()
-all_sprites.add(player)
-
-bullets = pygame.sprite.Group()
-
-try:
+def game_screen(screen):
     
+    clock = pygame.time.Clock()
+    # Carrega o fundo do jogo
+    background = pygame.image.load(path.join('Fundo4.jpg')).convert()
+    background_rect = background.get_rect()
+    x = 0 
+    vx = 0
+    # Carrega os sons do jogo
+    pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
+    pygame.mixer.music.set_volume(0.4)
+    boom_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
+    destroy_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
+    pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
+    
+    player = Player()
+    # Cria um grupo só do inimigo
+    monsters = pygame.sprite.Group()
+    
+    # Cria um grupo de todos os sprites e adiciona a nave.
+    all_sprites = pygame.sprite.Group()
+    all_sprites.add(player)
+    
+    bullets = pygame.sprite.Group()
     pygame.mixer.music.play(loops=-1)
-    running = True
-    while running:
-        
+    PLAYING = 0
+    state = PLAYING
+    DONE = 2
+    while state != DONE:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
         if random.randrange(1,100) == 1:
@@ -108,7 +70,7 @@ try:
                     player.imgs = []
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Left{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Left{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.step = 5
                     player.image = player.imgs[player.frame]
@@ -119,7 +81,7 @@ try:
                     player.imgs = []
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Run{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.step = 5
                     player.image = player.imgs[player.frame]
@@ -158,7 +120,7 @@ try:
                     player.imgs = []
                     n=5
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Punch{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Punch{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.step=5
@@ -171,7 +133,7 @@ try:
                     player.imgs = []
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("R{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "R{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.step=5
@@ -191,7 +153,7 @@ try:
                     player.imgs = []
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Naruto{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
@@ -201,7 +163,7 @@ try:
                     player.imgs = []
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Naruto{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
@@ -212,7 +174,7 @@ try:
                         player.imgs = []
                         n=6
                         for i in range(n):
-                            player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                            player.imgs.append(pygame.image.load(path.join(img_dir, "Naruto{0}.png".format(i+1))).convert())
                         player.frame = 0
                         player.image = player.imgs[player.frame]
                         player.image = pygame.transform.scale(player.image, (1,1))
@@ -223,7 +185,7 @@ try:
                     player.imgs = []
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Run{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
@@ -234,7 +196,7 @@ try:
                     player.steps = 5
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Run{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.steps = 5
                     player.image = player.imgs[player.frame]
@@ -286,9 +248,6 @@ try:
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
-        
-        
-        
-finally:
     
-    pygame.quit()
+    return QUIT
+        
