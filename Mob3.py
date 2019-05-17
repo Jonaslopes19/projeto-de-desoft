@@ -16,13 +16,14 @@ class Mob3(pygame.sprite.Sprite):
         self.imgs = []
         n=6
         for i in range(n):
-            self.imgs.append(pygame.image.load(path.join("Ns{0}.png".format(i+1))).convert())
+            self.imgs.append(pygame.image.load(path.join("KiW{0}.png".format(i+1))).convert())
         self.frame = 0
         self.image = self.imgs[self.frame]
+        self.image = pygame.transform.scale(self.image, (100, 100))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
-        self.image = pygame.transform.scale(self.image, (75, 100))
+
         # Detalhes sobre o posicionamento.
         self.rect = self.image.get_rect()
         
