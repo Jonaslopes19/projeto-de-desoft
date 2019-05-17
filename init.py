@@ -9,6 +9,7 @@ from os import path
 # Estabelece a pasta que contem as figuras e sons.
 img_dir = path.join(path.dirname(__file__), 'img')
 snd_dir = path.join(path.dirname(__file__), 'snd')
+fnt_dir = path.join(path.dirname(__file__), 'font')
 fundos = path.join(path.dirname(__file__), 'Fundos')
 personagem = path.join(path.dirname(__file__), 'Personagem1')
 mobs =  path.join(path.dirname(__file__), 'Mob1')

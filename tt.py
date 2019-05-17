@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT
+from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, YELLOW, fnt_dir
 from player import Player
 from Bullet import Bullet
 from mob import Mob
@@ -10,15 +10,24 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Power
 
+def load_assets(img_dir, snd_dir, fnt_dir):
+    assets = {}
+    assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
+    return assets
 
 def game_screen(screen):
     contador = 0
+    score = 0
     clock = pygame.time.Clock()
     # Carrega o fundo do jogo
     background = pygame.image.load(path.join('Fundo4.jpg')).convert()
     background_rect = background.get_rect()
     x = 0 
     vx = 0
+    
+    assets = load_assets(img_dir, snd_dir, fnt_dir)
+    score_font = assets["score_font"]
+    
     # Carrega os sons do jogo
     pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
     pygame.mixer.music.set_volume(0.4)
@@ -430,6 +439,7 @@ def game_screen(screen):
             # O meteoro e destruido e precisa ser recriado
             destroy_sound.play()
             contador += 1
+            score += 100
             #m = Mob() 
             #all_sprites.add(m)
             #monsters.add(m)
@@ -441,7 +451,6 @@ def game_screen(screen):
             boom_sound.play()
             time.sleep(5) # Precisa esperar senão fecha
             
-            running = False
                     
         
         # Depois de processar os eventos.
@@ -458,6 +467,11 @@ def game_screen(screen):
             screen.blit(background, (rel_x, 0))
         all_sprites.draw(screen)
         
+        # Desenha o score
+        text_surface = score_font.render("{:08d}".format(score), True, YELLOW)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (500, -100 )
+        screen.blit(text_surface, text_rect)
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
