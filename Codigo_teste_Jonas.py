@@ -78,7 +78,7 @@ try:
                 if event.key == pygame.K_UP:
                     print(HEIGHT/2 - 45)
                     player.speedy = -15
-                    g = 1.3
+                    g = 0.5
                     i=0
                     
                     while player.rect.y < HEIGHT/2 - 45:

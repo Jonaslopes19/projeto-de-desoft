@@ -44,7 +44,7 @@ class Player(pygame.sprite.Sprite):
     
         # Centraliza embaixo da tela.
         self.rect.x = WIDTH / 2 -150
-        self.rect.y= HEIGHT/2 - 44
+        self.rect.y= HEIGHT/2 - 45.5
         
 
         
@@ -89,6 +89,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH
         if self.rect.left < 0:
             self.rect.left = 0
-        if self.rect.y > HEIGHT/2 - 44:
-            self.rect.y = HEIGHT/2 - 44
+        if self.rect.y < -30:
+            self.rect.y = -30
+        if self.rect.y > HEIGHT/2 - 45.5:
+            self.rect.y = HEIGHT/2 - 45.5
+print(HEIGHT/2 - 45.5)
 
