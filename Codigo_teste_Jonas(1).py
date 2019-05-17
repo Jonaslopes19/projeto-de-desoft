@@ -93,8 +93,8 @@ try:
                         
                 if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
                     vx = -8
-                    player.speedy = -2
-                    g = 2
+                    player.speedy = -1
+                    g = 1.5
                     while player.rect.y < HEIGHT/2 - 45.5:#gravidade
                         x += vx
                         player.speedy +=g 

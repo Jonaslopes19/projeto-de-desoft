@@ -94,7 +94,6 @@ try:
                     player.step = 5
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
-<<<<<<< HEAD
                     
                 if event.key == pygame.K_UP:#pulo
                     player.speedy = -15
@@ -108,12 +107,20 @@ try:
                         all_sprites.draw(screen)
                         pygame.display.flip()
                         
-=======
-                if event.key == pygame.K_UP:
-                    player.image = pygame.image.load(path.join("JumpNar.png")).convert()
-                    player.image = pygame.transform.scale(player.image, (1,1))
-                    player.speedy = -10
->>>>>>> f705fe518519f1ddc2a2cc0b14761f126c1c7cfd
+                if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
+                    vx = -8
+                    player.speedy = -1
+                    g = 1.5
+                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
+                        x += vx
+                        player.speedy +=g 
+                        all_sprites.update()
+                        time.sleep(1e-2)
+                        screen.fill(BLACK)
+                        screen.blit(background, (x, 0))
+                        all_sprites.draw(screen)
+                        pygame.display.flip()
+                        
                 if event.key == pygame.K_DOWN:
                     player.speedy = 10
                     
@@ -201,10 +208,9 @@ try:
                     player.frame = 0
                     player.steps = 5
                     player.image = player.imgs[player.frame]
-                    
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
-
+                    
             while player.rect.y < HEIGHT/2 - 45.5:#gravidade
                 player.speedy +=g 
                 all_sprites.update()
