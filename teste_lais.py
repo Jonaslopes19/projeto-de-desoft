@@ -20,10 +20,12 @@ pygame.display.set_caption("Corrida Naruto")
 clock = pygame.time.Clock()
 
 # Carrega o fundo do jogo
-background = pygame.image.load(path.join(fundos, 'Fundo.png')).convert()
+background = pygame.image.load(path.join(fundos, 'Fundo2.png')).convert()
 background_rect = background.get_rect()
+
 x = 0 
 vx=0
+
 
 # Carrega os sons do jogo
 pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
@@ -49,6 +51,21 @@ plat1 = Plataforma(700, HEIGHT-300, 50, 50)
 #Cria plataforma 2
 plat2 = Plataforma(900, HEIGHT-300, 50, 50)
 
+#Cria plataforma 3
+plat3 = Plataforma (600, HEIGHT-300, 50,50 )
+
+#Cria plataforma 4 
+plat4 =  Plataforma (650, HEIGHT-300, 50, 50)
+
+#Cria plataforma 5
+plat5 =  Plataforma (1100, HEIGHT-300, 50, 50)
+
+#Cria plataforma 6
+plat6 =  Plataforma (1150, HEIGHT-300, 50, 50)
+
+#Cria plataforma 7 
+plat7 =  Plataforma (1500, HEIGHT-300, 50, 50)
+
 # Cria um grupo de todos os sprites e adiciona a nave.
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
@@ -58,6 +75,21 @@ plataformas.add(plat1)
 
 all_sprites.add(plat2)
 plataformas.add(plat2)
+
+all_sprites.add(plat3)
+plataformas.add(plat3)
+
+all_sprites.add(plat4)
+plataformas.add(plat4)
+
+all_sprites.add(plat5)
+plataformas.add(plat5)
+
+all_sprites.add(plat6)
+plataformas.add(plat6)
+
+all_sprites.add(plat7)
+plataformas.add(plat7)
 
 bullets = pygame.sprite.Group()
 
@@ -225,9 +257,21 @@ try:
     
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
+        rel_x = x % background.get_rect().width
         x+= vx
-        screen.blit(background, (x, 0))
+        screen.blit(background, (rel_x -background.get_rect().width , 0))
+        plat1.rect.x +=vx
+        plat2.rect.x +=vx
+        plat3.rect.x +=vx
+        plat4.rect.x +=vx
+        plat5.rect.x +=vx
+        plat6.rect.x +=vx
+        plat7.rect.x +=vx
+        
+        if  rel_x  < WIDTH:
+            screen.blit(background, (rel_x, 0))
         all_sprites.draw(screen)
+        
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()

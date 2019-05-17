@@ -245,9 +245,14 @@ try:
     
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
+        rel_x = x % background.get_rect().width
         x+= vx
-        screen.blit(background, (x, 0))
+        screen.blit(background, (rel_x -background.get_rect().width , 0))
+        
+        if  rel_x  < WIDTH:
+            screen.blit(background, (rel_x, 0))
         all_sprites.draw(screen)
+        
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
