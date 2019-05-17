@@ -2,6 +2,7 @@ import pygame
 import random
 from init import HEIGHT, WIDTH, BLACK, mobs
 from os import path
+from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT 
 
 # Classe Mob que representa o inimigo
 class Mob2(pygame.sprite.Sprite):
@@ -16,7 +17,7 @@ class Mob2(pygame.sprite.Sprite):
         self.imgs = []
         n=6
         for i in range(n):
-            self.imgs.append(pygame.image.load(path.join("Ns{0}.png".format(i+1))).convert())
+            self.imgs.append(pygame.image.load(path.join(img_dir, "Ns{0}.png".format(i+1))).convert())
         self.frame = 0
         self.image = self.imgs[self.frame]
         

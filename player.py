@@ -2,6 +2,7 @@
 import pygame
 from init import HEIGHT, WIDTH, BLACK, personagem
 from os import path
+from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT
 
 class Player(pygame.sprite.Sprite):
     
@@ -20,7 +21,7 @@ class Player(pygame.sprite.Sprite):
             self.imgs = []
             n=6
             for i in range(n):
-                self.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                self.imgs.append(pygame.image.load(path.join(img_dir, "Naruto{0}.png".format(i+1))).convert())
             self.frame = 0
             self.image = self.imgs[self.frame]
             self.step = 5
@@ -28,7 +29,7 @@ class Player(pygame.sprite.Sprite):
             self.imgs = []
             n=6
             for i in range(n):
-                self.imgs.append(pygame.image.load(path.join(personagem, "Run{0}.png".format(i+1))).convert())
+                self.imgs.append(pygame.image.load(path.join(img_dir, "Run{0}.png".format(i+1))).convert())
             self.frame = 0
             self.image = self.imgs[self.frame]
             self.step = 5
