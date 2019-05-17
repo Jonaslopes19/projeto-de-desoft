@@ -11,7 +11,7 @@ from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3
-from Rasengan import Rasengan
+from Rasengan import Rasengan, Power 
 from screen import init_screen
 from tt import game_screen
 
