@@ -79,24 +79,10 @@ try:
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     
-                if event.key == pygame.K_UP:#pulo
-                    player.speedy = -20
+                if event.key == pygame.K_UP and player.rect.y == HEIGHT/2 - 45.5:#pulo
+                    player.speedy = -15
                     g = 1
                     while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        player.speedy +=g 
-                        all_sprites.update()
-                        time.sleep(1e-2)
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-                        pygame.display.flip()
-                        
-                if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
-                    vx = -8
-                    player.speedy = -1
-                    g = 1.5
-                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        x += vx
                         player.speedy +=g 
                         all_sprites.update()
                         time.sleep(1e-2)
@@ -233,7 +219,7 @@ try:
                         
                     player.speedy +=g 
                     all_sprites.update()
-                    time.sleep(1e-2)
+                    time.sleep(8e-3)
                     screen.fill(BLACK)
                     screen.blit(background, (x, 0))
                     all_sprites.draw(screen)
