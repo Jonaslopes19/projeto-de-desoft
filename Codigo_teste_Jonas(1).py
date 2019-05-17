@@ -29,6 +29,7 @@ pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
 
 player = Player()
 
+
 # Cria um grupo só do inimigo
 monsters = pygame.sprite.Group()
 
@@ -40,7 +41,7 @@ bullets = pygame.sprite.Group()
 
 try:
     
-    #pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.play(loops=-1)
     running = True
     while running:
         
@@ -55,6 +56,7 @@ try:
                 running = False
             
             if event.type == pygame.KEYDOWN:
+                
                 if event.key == pygame.K_LEFT:
                     vx = 8
                     player.imgs = []
@@ -65,6 +67,7 @@ try:
                     player.step = 5
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
+                    
                 if event.key == pygame.K_RIGHT:
                     vx = -8
                     player.imgs = []
@@ -72,21 +75,30 @@ try:
                     for i in range(n):
                         player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
                     player.frame = 0
+                    player.step = 5
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     
-                if event.key == pygame.K_UP:
-                    print(HEIGHT/2 - 45)
-                    player.speedy = -15
-                    g = 1.3
-                    i=0
-                    
-                    while player.rect.y < HEIGHT/2 - 45:
-                        player.rect.y += player.speedy
-                        player.speedy += g
+                if event.key == pygame.K_UP:#pulo
+                    player.speedy = -20
+                    g = 1
+                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
+                        player.speedy +=g 
                         all_sprites.update()
-                        print(i)
-                        i+=1
+                        time.sleep(1e-2)
+                        screen.fill(BLACK)
+                        screen.blit(background, (x, 0))
+                        all_sprites.draw(screen)
+                        pygame.display.flip()
+                        
+                if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
+                    vx = -8
+                    player.speedy = -1
+                    g = 1.5
+                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
+                        x += vx
+                        player.speedy +=g 
+                        all_sprites.update()
                         time.sleep(1e-2)
                         screen.fill(BLACK)
                         screen.blit(background, (x, 0))
@@ -95,6 +107,7 @@ try:
                         
                 if event.key == pygame.K_DOWN:
                     player.speedy = 10
+                    
                 if event.key == pygame.K_SPACE:
                     player.imgs = []
                     n=5
@@ -116,14 +129,14 @@ try:
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.step=5
-                    player.image = pygame.transform.scale(player.image, (11,1))
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     ras = Rasengan(player.rect.centerx, player.rect.top)
                     all_sprites.add(ras)
                     bullets.add(ras)
                     pew_sound.play()
 
                                 
-                    
+            #################################        
             # Verifica se soltou alguma tecla.
             if event.type == pygame.KEYUP:
                 # Dependendo da tecla, altera a velocidade.
@@ -148,29 +161,85 @@ try:
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                 if event.key == pygame.K_UP:
-                    player.speedy = 0
+                    if event.key == pygame.K_RIGHT:
+                        vx = 0
+                        player.imgs = []
+                        n=6
+                        for i in range(n):
+                            player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                        player.frame = 0
+                        player.image = player.imgs[player.frame]
+                        player.image = pygame.transform.scale(player.image, (1,1))
+                    player.speedx = 0
                 if event.key == pygame.K_DOWN:
                     player.speedy = 0
                 if event.key == pygame.K_SPACE:
                     player.imgs = []
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
-                    player.step=10
+                    player.step=5
                 if event.key == pygame.K_m:
                     player.imgs = []
+                    player.steps = 5
                     n=6
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join("Naruto{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
                     player.frame = 0
+                    player.steps = 5
                     player.image = player.imgs[player.frame]
+                    
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
-        
+                   ######################### 
+                while player.rect.y < HEIGHT/2 - 45.5:#gravidade
+                    if event.key == pygame.K_LEFT:
+                        vx = 8
+                        player.imgs = []
+                        n=6
+                        for i in range(n):
+                            player.imgs.append(pygame.image.load(path.join("Left{0}.png".format(i+1))).convert())
+                        player.frame = 0
+                        player.step = 5
+                        player.image = player.imgs[player.frame]
+                        player.image = pygame.transform.scale(player.image, (1,1))
+                        all_sprites.update()
+                        time.sleep(1e-2)
+                        screen.fill(BLACK)
+                        screen.blit(background, (x, 0))
+                        all_sprites.draw(screen)
+                        pygame.display.flip()
+                    
+                    if event.key == pygame.K_RIGHT:
+                        vx = -8
+                        player.imgs = []
+                        n=6
+                        for i in range(n):
+                            player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
+                        player.frame = 0
+                        player.step = 5
+                        player.image = player.imgs[player.frame]
+                        player.image = pygame.transform.scale(player.image, (1,1))
+                        all_sprites.update()
+                        time.sleep(1e-2)
+                        screen.fill(BLACK)
+                        screen.blit(background, (x, 0))
+                        all_sprites.draw(screen)
+                        pygame.display.flip()
+                        
+                    player.speedy +=g 
+                    all_sprites.update()
+                    time.sleep(1e-2)
+                    screen.fill(BLACK)
+                    screen.blit(background, (x, 0))
+                    all_sprites.draw(screen)
+                    pygame.display.flip()
+                
+                    
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
         for hit in hits: # Pode haver mais de um
@@ -185,7 +254,7 @@ try:
         if hits:
             # Toca o som da colisão
             boom_sound.play()
-            time.sleep(1) # Precisa esperar senão fecha
+            time.sleep(5) # Precisa esperar senão fecha
             
             running = False
                     
