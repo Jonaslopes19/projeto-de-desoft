@@ -14,9 +14,10 @@ class Mob3(pygame.sprite.Sprite):
         
         # Carregando a imagem de fundo.           
         self.imgs = []
-        n=6
+        n=7
         for i in range(n):
-            self.imgs.append(pygame.image.load(path.join("KiW{0}.png".format(i+1))).convert())
+            
+            self.imgs.append(pygame.image.load(path.join("Ki{0}.png".format(i+1))).convert())
         self.frame = 0
         self.image = self.imgs[self.frame]
         self.image = pygame.transform.scale(self.image, (100, 100))

@@ -5,6 +5,7 @@ from os import path
 from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS
 from player import Player
 from Bullet import Bullet
+from Bullet import Bullet_inv
 from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3
@@ -42,7 +43,7 @@ all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 
 bullets = pygame.sprite.Group()
-
+inv = pygame.sprite.Group()
 try:
     
     pygame.mixer.music.play(loops=-1)
@@ -55,11 +56,16 @@ try:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
-        if random.randrange(1,200) == 0:
+        if random.randrange(1,200) == 1:
             mob3 = Mob3()
             all_sprites.add(mob3)
+            if random.randrange(1,50) == 1:
+                inv = Bullet(mob3.rect.centerx, player.rect.top)
+                all_sprites.add(inv)
+                inv.add(inv)
+                pew_sound.play()
             monsters.add(mob3)
-        if random.randrange(1,200) == 0:
+        if random.randrange(1,200) == 1:
             mob = Mob()
             # Cria um grupo só do inimigo
             all_sprites.add(mob)
@@ -87,7 +93,7 @@ try:
                 if event.key == pygame.K_RIGHT:
                     vx = -8
                     player.imgs = []
-                    n=6
+                    n=4
                     for i in range(n):
                         player.imgs.append(pygame.image.load(path.join("Run{0}.png".format(i+1))).convert())
                     player.frame = 0
