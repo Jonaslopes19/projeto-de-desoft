@@ -10,6 +10,12 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan
 
+
+def init_screen(screen):
+    # Carrega o fundo da tela inicial
+    background = pygame.image.load(path.join('tela3.png')).convert()
+    background_rect = background.get_rect()
+    
 pygame.init()
 pygame.mixer.init()
 
@@ -42,15 +48,16 @@ all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 
 bullets = pygame.sprite.Group()
-
 try:
     
     pygame.mixer.music.play(loops=-1)
     running = True
+    
     while running:
         
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
+        
         if random.randrange(1,100) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
