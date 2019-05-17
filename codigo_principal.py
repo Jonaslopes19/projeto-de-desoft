@@ -19,7 +19,7 @@ pygame.display.set_caption("Corrida Naruto")
 clock = pygame.time.Clock()
 
 # Carrega o fundo do jogo
-background = pygame.image.load(path.join(fundos, 'Fundo.png')).convert()
+background = pygame.image.load(path.join(fundos, 'Fundo2.jpg')).convert()
 background_rect = background.get_rect()
 x = 0 
 vx=0

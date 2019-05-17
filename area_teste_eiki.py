@@ -12,9 +12,11 @@ from Rasengan import Rasengan
 
 
 def init_screen(screen):
-    # Carrega o fundo da tela inicial
-    background = pygame.image.load(path.join('tela3.png')).convert()
-    background_rect = background.get_rect()
+    r=True
+    while r:
+        # Carrega o fundo da tela inicial
+        background = pygame.image.load(path.join('tela3.png')).convert()
+        background_rect = background.get_rect()
     
 pygame.init()
 pygame.mixer.init()
@@ -25,7 +27,7 @@ pygame.display.set_caption("Corrida Naruto")
 clock = pygame.time.Clock()
 
 # Carrega o fundo do jogo
-background = pygame.image.load(path.join(fundos, 'Fundo.png')).convert()
+background = pygame.image.load(path.join(fundos, 'Fundo1.png')).convert()
 background_rect = background.get_rect()
 x = 0 
 vx=0
@@ -66,7 +68,7 @@ try:
             mob3 = Mob3()
             all_sprites.add(mob3)
             monsters.add(mob3)
-        if random.randrange(1,200) == 0:
+        if random.randrange(1,200) == 1:
             mob = Mob()
             # Cria um grupo só do inimigo
             all_sprites.add(mob)
