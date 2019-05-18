@@ -1,11 +1,11 @@
 import pygame
-from init import HEIGHT, WIDTH, BLACK, plataforma
+from init import BLACK, plataforma
 from os import path
 
 class Plataforma(pygame.sprite.Sprite):
     
     # Construtor da classe.
-    def __init__(self, x, y, w, h):
+    def __init__(self, x, y, tam):
         
         # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
@@ -15,7 +15,7 @@ class Plataforma(pygame.sprite.Sprite):
         self.image = plataforma_img
         
         # Diminuindo o tamanho da imagem.
-        self.image = pygame.transform.scale(plataforma_img, (50, 38))
+        self.image = pygame.transform.scale(plataforma_img, (50 * tam, 50))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -27,4 +27,5 @@ class Plataforma(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         
-        
+    def move(self, vx):
+        self.rect.x += vx
