@@ -300,11 +300,11 @@ def game_screen(screen):
                 if event.key == pygame.K_RIGHT:
                     vx = -8
                     player.imgs = []
-                    n=6
+                    n=8
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "M{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
                     player.frame = 0
-                    player.step = 5
+                    player.step = 3
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     
