@@ -8,7 +8,7 @@ from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3
-from Rasengan import Rasengan, Power
+from Rasengan import Rasengan, Power, Nrpower
 
 def load_assets(img_dir, snd_dir, fnt_dir):
     assets = {}
@@ -339,22 +339,22 @@ def game_screen(screen):
                     
                 if event.key == pygame.K_SPACE:
                     player.imgs = []
-                    n=5
+                    n=10
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "NrP{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "P{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.step = 5
                     player.image = pygame.transform.scale(player.image, (1,1))
-                    bullet = Bullet(player.rect.centerx, player.rect.top)
+                    bullet = Nrpower(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
                     bullets.add(bullet)
                     pew_sound.play()
                 if event.key == pygame.K_m:
                     player.imgs = []
-                    n=10
+                    n=5
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "P{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "NrP{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.step = 3

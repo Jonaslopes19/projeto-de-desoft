@@ -16,7 +16,7 @@ from screen import init_screen
 from tt import game_screen
 
 # Inicialização do Pygame.
-pygame.init()
+pygame.init() 
 pygame.mixer.init()
 
 # Tamanho da tela.
