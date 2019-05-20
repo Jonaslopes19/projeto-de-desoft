@@ -341,10 +341,10 @@ def game_screen(screen):
                     player.imgs = []
                     n=5
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "Flip{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "NrP{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
-                    player.step=5
+                    player.step = 5
                     player.image = pygame.transform.scale(player.image, (1,1))
                     bullet = Bullet(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
@@ -352,12 +352,12 @@ def game_screen(screen):
                     pew_sound.play()
                 if event.key == pygame.K_m:
                     player.imgs = []
-                    n=4
+                    n=10
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "MP{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "P{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
-                    player.step=5
+                    player.step = 3
                     player.image = pygame.transform.scale(player.image, (1,1))
                     powe = Power(player.rect.centerx, player.rect.top)
                     all_sprites.add(powe)
@@ -372,9 +372,9 @@ def game_screen(screen):
                 if event.key == pygame.K_LEFT:
                     vx = 0
                     player.imgs = []
-                    n=6
+                    n=8
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "M{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
@@ -382,9 +382,9 @@ def game_screen(screen):
                 if event.key == pygame.K_RIGHT:
                     vx = 0
                     player.imgs = []
-                    n=6
+                    n=8
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "M{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
@@ -393,9 +393,9 @@ def game_screen(screen):
                     if event.key == pygame.K_RIGHT:
                         vx = 0
                         player.imgs = []
-                        n=6
+                        n=8
                         for i in range(n):
-                            player.imgs.append(pygame.image.load(path.join(img_dir, "M{0}.png".format(i+1))).convert())
+                            player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
                         player.frame = 0
                         player.image = player.imgs[player.frame]
                         player.image = pygame.transform.scale(player.image, (1,1))
@@ -404,9 +404,9 @@ def game_screen(screen):
                     player.speedy = 0
                 if event.key == pygame.K_SPACE:
                     player.imgs = []
-                    n=6
+                    n=8
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "M{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
@@ -415,9 +415,9 @@ def game_screen(screen):
                 if event.key == pygame.K_m:
                     player.imgs = []
                     player.steps = 5
-                    n=6
+                    n=8
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "M{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.steps = 5
                     player.image = player.imgs[player.frame]

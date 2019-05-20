@@ -27,7 +27,7 @@ pygame.display.set_caption("Naruto Run")
 
 # Comando para evitar travamentos.
 try:
-    state = INIT
+    state = INIT 
     while state != QUIT:
         if state == INIT:
             state = init_screen(screen)
