@@ -9,6 +9,7 @@ from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan
+
 def init_screen(screen):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
