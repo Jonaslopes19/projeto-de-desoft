@@ -7,7 +7,7 @@ from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
-from Mob3 import Mob3
+from Mob3 import Mob3, Mob4
 from Rasengan import Rasengan, Power, Nrpower, Nrm
 
 #def load_assets(img_dir, snd_dir, fnt_dir):
@@ -63,15 +63,19 @@ def game_screen(screen):
     while state != DONE and contador < 3:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,100) == 1:
+        if random.randrange(1,100) == 0:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
-        if random.randrange(1,200) == 1:
+        if random.randrange(1,200) == 0:
             mob3 = Mob3()
             all_sprites.add(mob3)
             monsters.add(mob3)
-        if random.randrange(1,200) == 1:
+        if random.randrange(1,100) == 1:
+            mob3 = Mob4()
+            all_sprites.add(mob3)
+            monsters.add(mob3)
+        if random.randrange(1,200) == 0:
             mob = Mob()
 
             # Cria um grupo só do inimigo
