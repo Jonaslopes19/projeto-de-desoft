@@ -5,7 +5,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT 
+from init_eiki import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT 
 from player import Player
 from Bullet import Bullet
 from mob import Mob
@@ -13,7 +13,7 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Power 
 from screen import init_screen
-from game import game_screen
+from game_eiki import game_screen
 
 # Inicialização do Pygame.
 pygame.init() 
