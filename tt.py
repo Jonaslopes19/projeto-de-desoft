@@ -8,7 +8,7 @@ from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3
-from Rasengan import Rasengan, Power, Nrpower
+from Rasengan import Rasengan, Power, Nrpower, Nrm
 
 def load_assets(img_dir, snd_dir, fnt_dir):
     assets = {}
@@ -357,9 +357,9 @@ def game_screen(screen):
                         player.imgs.append(pygame.image.load(path.join(img_dir, "NrP{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.image = player.imgs[player.frame]
-                    player.step = 3
+                    player.step = 5
                     player.image = pygame.transform.scale(player.image, (1,1))
-                    powe = Power(player.rect.centerx, player.rect.top)
+                    powe = Nrm(player.rect.centerx, player.rect.top)
                     all_sprites.add(powe)
                     bullets.add(powe)
                     pew_sound.play()
