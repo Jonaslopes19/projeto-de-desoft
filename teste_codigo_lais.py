@@ -2,8 +2,8 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, YELLOW, fnt_dir
-from player import Player
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, YELLOW, fnt_dir
+from teste_player_lais import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
@@ -11,14 +11,14 @@ from Mob3 import Mob3
 from Rasengan import Rasengan, Power, Nrpower, Nrm
 from plataforma import Plataforma
 
-#font_name = pygame.font.match_font('arial')
-#def draw_text(surf, text, size, x, y):
-    #font = pygame.font.Font(font_name, size)
-    #text_surface = font.render(text, True, WHITE)
-    #text_rect = text_surface.get_rect()
-    #text_rect.midtop = (x, y)
-    #surf.blit(text_surface, text_rect)
-    
+font_name = pygame.font.match_font('arial')
+def draw_text(surf, text, size, x, y):
+    font = pygame.font.Font(font_name, 40)
+    text_surface = font.render(text, True, WHITE)
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (WIDTH/2, 50)
+    surf.blit(text_surface, text_rect)
+
 
 def game_screen(screen):
     contador = 0
@@ -29,6 +29,7 @@ def game_screen(screen):
     x = 0 
     vx = 0
     
+    #gravidade
     
     
     # Carrega os sons do jogo
@@ -56,7 +57,7 @@ def game_screen(screen):
     DONE = 2
     
     #Cria Pontuação
-    #score = 0
+    score = 0
     
     while state != DONE and contador < 3:
         # Ajusta a velocidade do jogo.
@@ -241,7 +242,7 @@ def game_screen(screen):
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
         for hit in hits:
             # Pode haver mais de um
-            #score += 50 
+            score += 50 
             # O meteoro e destruido e precisa ser recriado
             destroy_sound.play()
             contador += 1
@@ -458,7 +459,7 @@ def game_screen(screen):
             # O meteoro e destruido e precisa ser recriado
             destroy_sound.play()
             contador += 1
-            #score += 100
+            score += 100
             #m = Mob() 
             #all_sprites.add(m)
             #monsters.add(m)
@@ -475,6 +476,11 @@ def game_screen(screen):
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
         all_sprites.update()
+        
+        #hits = pygame.sprites.groupcollide(player, plataformas, False)
+        #if hits:
+            #player.rect.y = hits[0].rect.top
+            #player.speedy = 0
     
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
@@ -491,7 +497,7 @@ def game_screen(screen):
         all_sprites.draw(screen)
         
         #pontuação
-        #draw_text(screen, str(score), 18, WIDTH/2, 400)
+        draw_text(screen, str(score), 18, WIDTH/2, 400)
         
         
         

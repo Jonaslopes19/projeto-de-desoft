@@ -3,7 +3,7 @@ import random
 import pygame
 from os import path
 from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, fnt_dir
-from player import Player
+from teste_player_lais import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2

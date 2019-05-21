@@ -13,7 +13,7 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Power 
 from screen import init_screen
-from tt import game_screen
+from game import game_screen
 
 # Inicialização do Pygame.
 pygame.init() 

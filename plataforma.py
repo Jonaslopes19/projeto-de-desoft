@@ -10,7 +10,7 @@ class Plataforma(pygame.sprite.Sprite):
         # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
         
-        # Carregando a imagem de fundo.
+        # Carregando a imagem da plataforma.
         plataforma_img = pygame.image.load(path.join(plataforma, "blocos4.png")).convert()
         self.image = plataforma_img
         

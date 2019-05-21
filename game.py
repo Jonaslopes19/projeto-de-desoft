@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, YELLOW, fnt_dir
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, YELLOW, fnt_dir
 from player import Player
 from Bullet import Bullet
 from mob import Mob
@@ -10,14 +10,23 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Power, Nrpower, Nrm
 
-def load_assets(img_dir, snd_dir, fnt_dir):
-    assets = {}
-    assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
-    return assets
+#def load_assets(img_dir, snd_dir, fnt_dir):
+    #assets = {}
+    #assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
+    #return assets
+#load_assets  
+font_name = pygame.font.match_font('arial')
+def draw_text(surf, text, size, x, y):
+    font = pygame.font.Font(font_name, 40)
+    text_surface = font.render(text, True, WHITE)
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (WIDTH/2, 50)
+    surf.blit(text_surface, text_rect)
+
 
 def game_screen(screen):
     contador = 0
-    score = 0
+    
     clock = pygame.time.Clock()
     # Carrega o fundo do jogo
     background = pygame.image.load(path.join('Fundo4.jpg')).convert()
@@ -25,8 +34,11 @@ def game_screen(screen):
     x = 0 
     vx = 0
     
-    assets = load_assets(img_dir, snd_dir, fnt_dir)
-    score_font = assets["score_font"]
+    #Cria pontuação
+    score = 0
+    
+    #assets = load_assets(img_dir, snd_dir, fnt_dir)
+    #score_font = assets["score_font"]
     
     # Carrega os sons do jogo
     pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
@@ -227,6 +239,7 @@ def game_screen(screen):
             # O meteoro e destruido e precisa ser recriado
             destroy_sound.play()
             contador += 1
+            score += 50
             #m = Mob() 
             #all_sprites.add(m)
             #monsters.add(m)
@@ -468,10 +481,13 @@ def game_screen(screen):
         all_sprites.draw(screen)
         
         # Desenha o score
-        text_surface = score_font.render("{:08d}".format(score), True, YELLOW)
-        text_rect = text_surface.get_rect()
-        text_rect.midtop = (500, -100 )
-        screen.blit(text_surface, text_rect)
+        #text_surface = score_font.render("{:08d}".format(score), True, YELLOW)
+        #text_rect = text_surface.get_rect()
+        #text_rect.midtop = (500, -100 )
+        #screen.blit(text_surface, text_rect)
+        
+        #pontuação
+        draw_text(screen, str(score), 18, WIDTH/2, 400)
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
