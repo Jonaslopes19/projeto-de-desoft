@@ -63,15 +63,15 @@ def game_screen(screen):
     while state != DONE and contador < 3:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,1000) == 1:
+        if random.randrange(1,100) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
-        if random.randrange(1,2000) == 1:
+        if random.randrange(1,200) == 1:
             mob3 = Mob3()
             all_sprites.add(mob3)
             monsters.add(mob3)
-        if random.randrange(1,2000) == 1:
+        if random.randrange(1,200) == 1:
             mob = Mob()
 
             # Cria um grupo só do inimigo
