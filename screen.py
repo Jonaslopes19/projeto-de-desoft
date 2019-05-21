@@ -14,7 +14,7 @@ def init_screen(screen):
     clock = pygame.time.Clock()
 
     # Carrega o fundo da tela inicial
-    background = pygame.image.load(path.join('tela3.png')).convert()
+    background = pygame.image.load(path.join('Inicio4.png')).convert()
     background_rect = background.get_rect()
 
     running = True
