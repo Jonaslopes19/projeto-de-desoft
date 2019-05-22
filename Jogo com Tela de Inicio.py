@@ -1,17 +1,8 @@
 # -*- coding: utf-8 -*-
 
 # Importando as bibliotecas necessárias.
-import time
-import random
 import pygame
-from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT 
-from player import Player
-from Bullet import Bullet
-from mob import Mob
-from Mob2 import Mob2
-from Mob3 import Mob3
-from Rasengan import Rasengan, Power 
+from init import HEIGHT, WIDTH, INIT, GAME, QUIT
 from screen import init_screen
 from game import game_screen
 
