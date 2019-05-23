@@ -8,7 +8,7 @@ from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3, Mob4
-from Rasengan import Rasengan, Power, Nrpower, Nrm
+from Rasengan import Rasengan, Power, Nrpower, Nrm, PowerMob
 
 #def load_assets(img_dir, snd_dir, fnt_dir):
     #assets = {}
