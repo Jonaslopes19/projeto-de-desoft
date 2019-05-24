@@ -69,7 +69,7 @@ def game_screen(screen):
     running=True
     
 ## Primeiro while
-    while state != DONE and contador < 25 and running:
+    while state != DONE and contador < 5 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
         if random.randrange(1,200) == 1:
@@ -248,7 +248,7 @@ def game_screen(screen):
         
 
 ##Segundo while
-    while state != DONE and contador >= 25 and running:
+    while state != DONE and contador >= 5 and running:
         
         # Ajusta a velocidade do jogo.
         
