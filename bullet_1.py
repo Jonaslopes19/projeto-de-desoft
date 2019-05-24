@@ -15,7 +15,7 @@ class Bullet1(pygame.sprite.Sprite):
         self.image = kunai_img
         
         # Diminuindo o tamanho da imagem.
-        self.image = pygame.transform.scale(kunai_img, (60, 72))
+        self.image = pygame.transform.scale(kunai_img, (40, 48))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -24,9 +24,9 @@ class Bullet1(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Coloca no lugar inicial definido em x, y do constutor
-        self.rect.bottom = y + 80
-        self.rect.centerx = x - 65
-        self.speedx = -10
+        self.rect.bottom = y + 140
+        self.rect.centerx = x - 300
+        self.speedx = -15
 
     # Metodo que atualiza a posição da navinha
     def update(self):

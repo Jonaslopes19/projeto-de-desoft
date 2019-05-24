@@ -72,14 +72,13 @@ def game_screen(screen):
     while state != DONE and contador < 25 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,50) == 1:
+        if random.randrange(1,200) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
-            if mob2.rect.x-player.rect.x <= 350:
-                disparo = Bullet1(mob2.rect.centerx, mob2.rect.top)
-                all_sprites.add(disparo)
-                bullets.add(disparo)
+            disparo = Bullet1(mob2.rect.centerx, mob2.rect.top)
+            all_sprites.add(disparo)
+            bullets.add(disparo)
         
         
         for event in pygame.event.get():
@@ -258,7 +257,7 @@ def game_screen(screen):
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
-            if mob2.rect.x-player.rect.x <= 350:
+            if mob2.rect.x-player.rect.x <= 450:
                 disparo = Bullet1(player.rect.centerx, player.rect.top)
                 all_sprites.add(disparo)
                 bullets.add(disparo)
