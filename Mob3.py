@@ -85,11 +85,11 @@ class Mob4(pygame.sprite.Sprite):
         self.imgs = []
         n=18
         for i in range(n):
-            
             self.imgs.append(pygame.image.load(path.join(img_dir, "Sasori_walk{0}.png".format(i+1))).convert())
         self.frame = 0
         self.image = self.imgs[self.frame]
-        self.image = pygame.transform.scale(self.image, (200, 200))
+
+        self.imgs[self.frame] = pygame.transform.scale(self.image, (400, 400))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -100,7 +100,7 @@ class Mob4(pygame.sprite.Sprite):
         # Sorteia um lugar inicial em x
         self.rect.x = 700
         # Sorteia um lugar inicial em y
-        self.rect.y = HEIGHT/2 -45
+        self.rect.y = HEIGHT/2 -50
         # Sorteia uma velocidade inicial
         self.speedx = -1
         self.speedy = 0
