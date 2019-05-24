@@ -20,12 +20,11 @@ from Rasengan import Rasengan, Nrpower, Nrm
 
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
-    font = pygame.font.Font(font_name, 40)
+    font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, WHITE)
     text_rect = text_surface.get_rect()
-    text_rect.midtop = (WIDTH/2, 50)
+    text_rect.midtop = (x, y)
     surf.blit(text_surface, text_rect)
-
 
 def game_screen(screen):
     
@@ -41,7 +40,7 @@ def game_screen(screen):
     
     #Cria pontuação
     score = 0
-    
+    chakra = 150
     #assets = load_assets(img_dir, snd_dir, fnt_dir)
     #score_font = assets["score_font"]
     
@@ -71,7 +70,7 @@ def game_screen(screen):
     while state != DONE and contador < 5 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,500) == 1 or 2:
+        if random.randrange(1,800) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
@@ -109,7 +108,8 @@ def game_screen(screen):
                 if event.key == pygame.K_UP and player.rect.y == HEIGHT/2 - 45.5:#pulo
                     player.speedy = -20
                     
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE and chakra >= 5:
+                    chakra -= 5
                     player.imgs = []
                     n=5
                     for i in range(n):
@@ -123,7 +123,8 @@ def game_screen(screen):
                     bullets.add(bullet)
                     pew_sound.play()
                     
-                if event.key == pygame.K_m:
+                if event.key == pygame.K_m and chakra >= 50:
+                    chakra -= 50
                     player.imgs = []
                     n=6
                     for i in range(n):
@@ -209,6 +210,10 @@ def game_screen(screen):
             time.sleep(5) # Precisa esperar senão fecha
             
             running = False
+            
+        chakra += 0.5
+        if chakra > 150:
+            chakra =150
         vx = -8            
         x += vx
         # Depois de processar os eventos.
@@ -225,6 +230,12 @@ def game_screen(screen):
             screen.blit(background, (rel_x, 0))
         all_sprites.draw(screen)
         
+        #pontuação
+        draw_text(screen, str(score), 40, WIDTH/2, 0)
+        
+        #chakra
+        draw_text(screen, str(chakra), 40, WIDTH/2+400, 0)
+        
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
@@ -237,7 +248,7 @@ def game_screen(screen):
         # Ajusta a velocidade do jogo.
         
         clock.tick(FPS)
-        if random.randrange(1,100) == 1:
+        if random.randrange(1,600) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
@@ -276,7 +287,8 @@ def game_screen(screen):
                     player.speedy = -15
                     g = 1
                     
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE and chakra>=10:
+                    chakra-=10
                     player.imgs = []
                     n=10
                     for i in range(n):
@@ -290,7 +302,8 @@ def game_screen(screen):
                     bullets.add(bullet)
                     pew_sound.play()
                     
-                if event.key == pygame.K_m:
+                if event.key == pygame.K_m and chakra >= 25:
+                    chakra -= 25
                     player.imgs = []
                     n=5
                     for i in range(n):
@@ -319,6 +332,7 @@ def game_screen(screen):
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
+                    
                 if event.key == pygame.K_RIGHT:
                     vx = 0
                     player.imgs = []
@@ -329,6 +343,7 @@ def game_screen(screen):
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
+                    
                 if event.key == pygame.K_UP:
                     if event.key == pygame.K_RIGHT:
                         vx = 0
@@ -364,6 +379,8 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     
+        
+                    
         if player.rect.y < HEIGHT/2 - 45.5:#gravidade
             player.speedy +=g 
                     
@@ -384,7 +401,10 @@ def game_screen(screen):
             # Toca o som da colisão
             boom_sound.play()
             time.sleep(5) # Precisa esperar senão fecha
-            
+        
+        chakra += 1
+        if chakra > 149.5:
+            chakra =150
         vx = -8            
         x += vx
         # Depois de processar os eventos.
@@ -407,8 +427,12 @@ def game_screen(screen):
         #screen.blit(text_surface, text_rect)
         
         #pontuação
-        draw_text(screen, str(score), 18, WIDTH/2, 400)
+        draw_text(screen, str(score), 40, WIDTH/2-100, 0)
+        draw_text(screen, "Score", 50, WIDTH/2-350, 0)
         
+        #chakra
+        draw_text(screen, str(chakra), 40, WIDTH/2+400, 0)
+        draw_text(screen, "Chakra", 50, WIDTH/2+50, 0)
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
     
