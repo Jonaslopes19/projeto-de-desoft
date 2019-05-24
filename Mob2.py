@@ -28,9 +28,9 @@ class Mob2(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Sorteia um lugar inicial em x
-        self.rect.x = 700
+        self.rect.x = 950
         # Sorteia um lugar inicial em y
-        self.rect.y = HEIGHT/2 -45
+        self.rect.y = HEIGHT/2 - 90 
         # Sorteia uma velocidade inicial
         self.speedx = random.randrange(-2, -1)
         self.speedy = 0

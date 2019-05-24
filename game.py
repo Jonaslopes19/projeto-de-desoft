@@ -9,6 +9,7 @@ from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Nrpower, Nrm
+from bullet_1 import Bullet1
 
 #def load_assets(img_dir, snd_dir, fnt_dir):
     #assets = {}
@@ -40,6 +41,7 @@ def game_screen(screen):
     
     #Cria pontuação
     score = 0
+    
     chakra = 150
     #assets = load_assets(img_dir, snd_dir, fnt_dir)
     #score_font = assets["score_font"]
@@ -67,13 +69,17 @@ def game_screen(screen):
     running=True
     
 ## Primeiro while
-    while state != DONE and contador < 5 and running:
+    while state != DONE and contador < 25 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,800) == 1:
+        if random.randrange(1,50) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
+            if mob2.rect.x-player.rect.x <= 350:
+                disparo = Bullet1(mob2.rect.centerx, mob2.rect.top)
+                all_sprites.add(disparo)
+                bullets.add(disparo)
         
         
         for event in pygame.event.get():
@@ -231,11 +237,11 @@ def game_screen(screen):
         all_sprites.draw(screen)
         
         #pontuação
-        draw_text(screen, str(score), 40, WIDTH/2, 0)
-        
+        draw_text(screen, str(score), 35, WIDTH/2, 0)
+        draw_text(screen, "Score", 40, WIDTH/2-150, 0)
         #chakra
-        draw_text(screen, str(chakra), 40, WIDTH/2+400, 0)
-        
+        draw_text(screen, str(chakra), 35, WIDTH/2+400, 0)
+        draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
@@ -243,15 +249,19 @@ def game_screen(screen):
         
 
 ##Segundo while
-    while state != DONE and contador >= 5 and running:
+    while state != DONE and contador >= 25 and running:
         
         # Ajusta a velocidade do jogo.
         
         clock.tick(FPS)
-        if random.randrange(1,600) == 1:
+        if random.randrange(1,200) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
+            if mob2.rect.x-player.rect.x <= 350:
+                disparo = Bullet1(player.rect.centerx, player.rect.top)
+                all_sprites.add(disparo)
+                bullets.add(disparo)
         
         
         for event in pygame.event.get():
@@ -283,7 +293,7 @@ def game_screen(screen):
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     
-                if event.key == pygame.K_UP:#pulo
+                if event.key == pygame.K_UP and player.rect.y == HEIGHT/2 - 45.5:#pulo
                     player.speedy = -15
                     g = 1
                     
@@ -427,12 +437,12 @@ def game_screen(screen):
         #screen.blit(text_surface, text_rect)
         
         #pontuação
-        draw_text(screen, str(score), 40, WIDTH/2-100, 0)
-        draw_text(screen, "Score", 50, WIDTH/2-350, 0)
-        
+        draw_text(screen, str(score), 35, WIDTH/2, 0)
+        draw_text(screen, "Score", 40, WIDTH/2-150, 0)
         #chakra
-        draw_text(screen, str(chakra), 40, WIDTH/2+400, 0)
-        draw_text(screen, "Chakra", 50, WIDTH/2+50, 0)
+        draw_text(screen, str(chakra), 35, WIDTH/2+400, 0)
+        draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
+        
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
     
