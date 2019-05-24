@@ -368,6 +368,7 @@ def game_screen(screen):
                     
                 if event.key == pygame.K_SPACE:
                     player.imgs = []
+                    chakra -= 25
                     n=8
                     for i in range(n):
                         player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
@@ -380,6 +381,7 @@ def game_screen(screen):
                 if event.key == pygame.K_m:
                     player.imgs = []
                     player.steps = 5
+                    chakra -= 25
                     n=8
                     for i in range(n):
                         player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
