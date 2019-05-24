@@ -1,8 +1,8 @@
 #player
 import pygame
-from init import HEIGHT, WIDTH, BLACK, personagem
+from init import HEIGHT, WIDTH, BLACK, personagem, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT
+from init import img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT
 
 class Player(pygame.sprite.Sprite):
     
@@ -40,6 +40,17 @@ class Player(pygame.sprite.Sprite):
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
     
+        morte_anim = []
+        for i in range(7):
+            img = (pygame.image.load(path.join(img_dir, "MorteNr{0}.png".format(i+1))).convert())
+            #img = pygame.image.load(path.join(img_dir, filename)).convert()
+            img = pygame.transform.scale(img, (32, 32))        
+            img.set_colorkey(BLACK)
+            morte_anim.append(img)
+        self.morte_anim = morte_anim
+        self.morte_frame = 0
+
+    
         # Detalhes sobre o posicionamento.
         self.rect = self.image.get_rect()
     
@@ -54,6 +65,9 @@ class Player(pygame.sprite.Sprite):
         
         self.step = 5
         self.ticks = 0
+        
+        self.state = PLAYER_STATE_VIVO
+        self.vidas = 3
     
     # Metodo que atualiza a posição da navinha
     def update(self):
@@ -82,8 +96,12 @@ class Player(pygame.sprite.Sprite):
             self.rect.x = center[0]
             self.rect.y = center[1]
         
-        
-        
+        if self.state == PLAYER_STATE_MORRENDO:
+            self.image = self.morte_anim[self.morte_frame]
+            self.morte_frame += 1
+            if self.morte_frame == len(self.morte_anim):
+                self.state = PLAYER_STATE_MORTO
+                self.morte_frame = 0
         
         # Mantem dentro da tela
         if self.rect.right > WIDTH:
@@ -93,6 +111,8 @@ class Player(pygame.sprite.Sprite):
         if self.rect.y < -30:
             self.rect.y = -30
         if self.rect.y > HEIGHT/2 - 45.5:
-            self.rect.y = HEIGHT/2 - 45.5
-print(HEIGHT/2 - 45.5)
-
+            self.rect.y = HEIGHT/2 - 45.5  
+            
+    def morrer(self):
+        self.state = PLAYER_STATE_MORRENDO
+        self.vidas -= 1

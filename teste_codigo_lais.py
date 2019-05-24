@@ -301,10 +301,6 @@ def game_screen(screen):
             all_sprites.add(plat)
             plataformas.add(plat)
             
-            
-            # Cria um grupo só do inimigo
-            all_sprites.add(mob)
-            monsters.add(mob)
         
         
         for event in pygame.event.get():

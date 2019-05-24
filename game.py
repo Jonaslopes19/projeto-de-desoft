@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, QUIT
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, QUIT, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
 from player import Player
 from Bullet import Bullet
 from mob import Mob
@@ -76,6 +76,11 @@ def game_screen(screen):
     while state != DONE and contador < 25 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
+        if random.randrange(1,100) == 1:
+            mob1 = Mob3()
+            all_sprites.add(mob1)
+            monsters.add(mob1)
+            
         if random.randrange(1,200) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
@@ -220,12 +225,14 @@ def game_screen(screen):
         
         # Verifica se houve colisão entre personagem e inimigo
         hits = pygame.sprite.spritecollide(player, monsters, False, pygame.sprite.collide_circle)
-        if hits:
+        for hit in hits:
             # Toca o som da colisão
             boom_sound.play()
-            time.sleep(5) # Precisa esperar senão fecha
-            
-            running = False
+            hit.kill()
+            player.morrer()
+
+        print(player.vidas)
+        running = player.vidas >= 0
             
         chakra += 0.5
         if chakra > 150:
@@ -429,7 +436,8 @@ def game_screen(screen):
         if hits:
             # Toca o som da colisão
             boom_sound.play()
-            time.sleep(5) # Precisa esperar senão fecha
+            hits.kill() # Precisa esperar senão fecha
+            
         
         chakra += 1
         if chakra > 149.5:
