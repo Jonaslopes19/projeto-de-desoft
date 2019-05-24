@@ -2,19 +2,22 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, YELLOW, fnt_dir
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, QUIT
 from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3
-from Rasengan import Rasengan, Power, Nrpower, Nrm
+from Rasengan import Rasengan, Nrpower, Nrm
 
 #def load_assets(img_dir, snd_dir, fnt_dir):
     #assets = {}
     #assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
     #return assets
 #load_assets  
+#print
+
+
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
     font = pygame.font.Font(font_name, 40)
@@ -25,12 +28,14 @@ def draw_text(surf, text, size, x, y):
 
 
 def game_screen(screen):
+    
+    g = 1
+    
     contador = 0
     
     clock = pygame.time.Clock()
     # Carrega o fundo do jogo
     background = pygame.image.load(path.join('Fundo4.jpg')).convert()
-    background_rect = background.get_rect()
     x = 0 
     vx = 0
     
@@ -60,23 +65,16 @@ def game_screen(screen):
     PLAYING = 0
     state = PLAYING
     DONE = 2
-    while state != DONE and contador < 3:
+    running=True
+    
+## Primeiro while
+    while state != DONE and contador < 5 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,1000) == 1:
+        if random.randrange(1,500) == 1 or 2:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
-        if random.randrange(1,2000) == 1:
-            mob3 = Mob3()
-            all_sprites.add(mob3)
-            monsters.add(mob3)
-        if random.randrange(1,2000) == 1:
-            mob = Mob()
-
-            # Cria um grupo só do inimigo
-            all_sprites.add(mob)
-            monsters.add(mob)
         
         
         for event in pygame.event.get():
@@ -108,34 +106,8 @@ def game_screen(screen):
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     
-                if event.key == pygame.K_UP:#pulo
-                    player.speedy = -15
-                    g = 1
-                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        player.speedy +=g 
-                        all_sprites.update()
-                        time.sleep(1e-2)
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-                        pygame.display.flip()
-                        
-                if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
-                    vx = -8
-                    player.speedy = -1
-                    g = 1.5
-                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        x += vx
-                        player.speedy +=g 
-                        all_sprites.update()
-                        time.sleep(1e-2)
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-                        pygame.display.flip()
-                        
-                if event.key == pygame.K_DOWN:
-                    player.speedy = 10
+                if event.key == pygame.K_UP and player.rect.y == HEIGHT/2 - 45.5:#pulo
+                    player.speedy = -20
                     
                 if event.key == pygame.K_SPACE:
                     player.imgs = []
@@ -150,6 +122,7 @@ def game_screen(screen):
                     all_sprites.add(bullet)
                     bullets.add(bullet)
                     pew_sound.play()
+                    
                 if event.key == pygame.K_m:
                     player.imgs = []
                     n=6
@@ -179,6 +152,7 @@ def game_screen(screen):
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
+                    
                 if event.key == pygame.K_RIGHT:
                     vx = 0
                     player.imgs = []
@@ -189,19 +163,7 @@ def game_screen(screen):
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
-                if event.key == pygame.K_UP:
-                    if event.key == pygame.K_RIGHT:
-                        vx = 0
-                        player.imgs = []
-                        n=6
-                        for i in range(n):
-                            player.imgs.append(pygame.image.load(path.join(img_dir, "Naruto{0}.png".format(i+1))).convert())
-                        player.frame = 0
-                        player.image = player.imgs[player.frame]
-                        player.image = pygame.transform.scale(player.image, (1,1))
-                    player.speedx = 0
-                if event.key == pygame.K_DOWN:
-                    player.speedy = 0
+                    
                 if event.key == pygame.K_SPACE:
                     player.imgs = []
                     n=6
@@ -212,6 +174,7 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     player.step=5
+                    
                 if event.key == pygame.K_m:
                     player.imgs = []
                     player.steps = 5
@@ -224,14 +187,8 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     
-            while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                player.speedy +=g 
-                all_sprites.update()
-                time.sleep(1e-2)
-                screen.fill(BLACK)
-                screen.blit(background, (x, 0))
-                all_sprites.draw(screen)
-                pygame.display.flip()
+        if player.rect.y < HEIGHT/2 - 45.5:#gravidade
+            player.speedy += g
                     
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
@@ -252,8 +209,8 @@ def game_screen(screen):
             time.sleep(5) # Precisa esperar senão fecha
             
             running = False
-                    
-        
+        vx = -8            
+        x += vx
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
         all_sprites.update()
@@ -261,7 +218,7 @@ def game_screen(screen):
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
         rel_x = x % background.get_rect().width
-        x+= vx
+        
         screen.blit(background, (rel_x -background.get_rect().width , 0))
         
         if  rel_x  < WIDTH:
@@ -273,23 +230,17 @@ def game_screen(screen):
         pygame.display.flip()
         
         
-    while state != DONE and contador >= 3:
+
+##Segundo while
+    while state != DONE and contador >= 5 and running:
+        
         # Ajusta a velocidade do jogo.
+        
         clock.tick(FPS)
         if random.randrange(1,100) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
-        if random.randrange(1,200) == 1:
-            mob3 = Mob3()
-            all_sprites.add(mob3)
-            monsters.add(mob3)
-        if random.randrange(1,200) == 1:
-            mob = Mob()
-
-            # Cria um grupo só do inimigo
-            all_sprites.add(mob)
-            monsters.add(mob)
         
         
         for event in pygame.event.get():
@@ -324,31 +275,6 @@ def game_screen(screen):
                 if event.key == pygame.K_UP:#pulo
                     player.speedy = -15
                     g = 1
-                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        player.speedy +=g 
-                        all_sprites.update()
-                        time.sleep(1e-2)
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-                        pygame.display.flip()
-                        
-                if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
-                    vx = -8
-                    player.speedy = -1
-                    g = 1.5
-                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        x += vx
-                        player.speedy +=g 
-                        all_sprites.update()
-                        time.sleep(1e-2)
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-                        pygame.display.flip()
-                        
-                if event.key == pygame.K_DOWN:
-                    player.speedy = 10
                     
                 if event.key == pygame.K_SPACE:
                     player.imgs = []
@@ -363,6 +289,7 @@ def game_screen(screen):
                     all_sprites.add(bullet)
                     bullets.add(bullet)
                     pew_sound.play()
+                    
                 if event.key == pygame.K_m:
                     player.imgs = []
                     n=5
@@ -413,8 +340,7 @@ def game_screen(screen):
                         player.image = player.imgs[player.frame]
                         player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
-                if event.key == pygame.K_DOWN:
-                    player.speedy = 0
+                    
                 if event.key == pygame.K_SPACE:
                     player.imgs = []
                     n=8
@@ -425,6 +351,7 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     player.step=5
+                    
                 if event.key == pygame.K_m:
                     player.imgs = []
                     player.steps = 5
@@ -437,14 +364,8 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     
-            while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                player.speedy +=g 
-                all_sprites.update()
-                time.sleep(1e-2)
-                screen.fill(BLACK)
-                screen.blit(background, (x, 0))
-                all_sprites.draw(screen)
-                pygame.display.flip()
+        if player.rect.y < HEIGHT/2 - 45.5:#gravidade
+            player.speedy +=g 
                     
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
@@ -464,8 +385,8 @@ def game_screen(screen):
             boom_sound.play()
             time.sleep(5) # Precisa esperar senão fecha
             
-                    
-        
+        vx = -8            
+        x += vx
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
         all_sprites.update()
@@ -473,7 +394,6 @@ def game_screen(screen):
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
         rel_x = x % background.get_rect().width
-        x+= vx
         screen.blit(background, (rel_x -background.get_rect().width , 0))
         
         if  rel_x  < WIDTH:
