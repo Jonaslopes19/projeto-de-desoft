@@ -10,6 +10,7 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Nrpower, Nrm
 from bullet_1 import Bullet1
+from plataforma import Plataforma
 
 #def load_assets(img_dir, snd_dir, fnt_dir):
     #assets = {}
@@ -57,6 +58,9 @@ def game_screen(screen):
     # Cria um grupo só do inimigo
     monsters = pygame.sprite.Group()
     
+    #Cria um grupo para plataformas
+    plataformas = pygame.sprite.Group()
+    
     # Cria um grupo de todos os sprites e adiciona a nave.
     all_sprites = pygame.sprite.Group()
     all_sprites.add(player)
@@ -69,7 +73,7 @@ def game_screen(screen):
     running=True
     
 ## Primeiro while
-    while state != DONE and contador < 5 and running:
+    while state != DONE and contador < 25 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
         if random.randrange(1,200) == 1:
@@ -79,6 +83,13 @@ def game_screen(screen):
             disparo = Bullet1(mob2.rect.centerx, mob2.rect.top)
             all_sprites.add(disparo)
             bullets.add(disparo)
+        
+        if random.randrange(1, 50) == 1:
+            #Cria plataforma
+            tamanhos = [1, 3, 5]
+            plat = Plataforma(WIDTH, HEIGHT-325, tamanhos[random.randrange(0, 3)])
+            all_sprites.add(plat)
+            plataformas.add(plat)
         
         
         for event in pygame.event.get():
@@ -248,7 +259,7 @@ def game_screen(screen):
         
 
 ##Segundo while
-    while state != DONE and contador >= 5 and running:
+    while state != DONE and contador >= 25 and running:
         
         # Ajusta a velocidade do jogo.
         
@@ -261,6 +272,13 @@ def game_screen(screen):
                 disparo = Bullet1(player.rect.centerx, player.rect.top)
                 all_sprites.add(disparo)
                 bullets.add(disparo)
+            
+        if random.randrange(1, 50) == 1:
+            #Cria plataforma
+            tamanhos = [1, 3, 5]
+            plat = Plataforma(WIDTH, HEIGHT-325, tamanhos[random.randrange(0, 3)])
+            all_sprites.add(plat)
+            plataformas.add(plat)
         
         
         for event in pygame.event.get():
@@ -421,6 +439,12 @@ def game_screen(screen):
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
         all_sprites.update()
+        
+        #Colisão entre plataforma e personagem
+        hits = pygame.sprite.spritecollide(player, plataformas, False)
+        if hits:
+            player.rect.y = hits[0].rect.top
+            player.speedy = 0
     
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
@@ -443,6 +467,12 @@ def game_screen(screen):
         #chakra
         draw_text(screen, str(chakra), 35, WIDTH/2+400, 0)
         draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
+        
+        if  rel_x  < WIDTH:
+            screen.blit(background, (rel_x, 0))
+            
+        for p in plataformas:
+            p.move(vx)   
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()

@@ -10,13 +10,14 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Power, Nrpower, Nrm
 from plataforma import Plataforma
-
+from morte import Morte
+#plataforma
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
     font = pygame.font.Font(font_name, 40)
     text_surface = font.render(text, True, WHITE)
     text_rect = text_surface.get_rect()
-    text_rect.midtop = (WIDTH/2, 50)
+    text_rect.midtop = (x, y)
     surf.blit(text_surface, text_rect)
 
 
@@ -30,7 +31,7 @@ def game_screen(screen):
     vx = 0
     
     #gravidade
-    
+    g = 1
     
     # Carrega os sons do jogo
     pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
@@ -54,10 +55,15 @@ def game_screen(screen):
     pygame.mixer.music.play(loops=-1)
     PLAYING = 0
     state = PLAYING
+    MORRENDO= 1
     DONE = 2
+    
     
     #Cria Pontuação
     score = 0
+    
+    #Cria Vidas
+    vidas=3
     
     while state != DONE and contador < 3:
         # Ajusta a velocidade do jogo.
@@ -80,7 +86,7 @@ def game_screen(screen):
         if random.randrange(1, 50) == 1:
             #Cria plataforma
             tamanhos = [1, 3, 5]
-            plat = Plataforma(WIDTH, HEIGHT-300, tamanhos[random.randrange(0, 3)])
+            plat = Plataforma(WIDTH, HEIGHT-325, tamanhos[random.randrange(0, 3)])
             all_sprites.add(plat)
             plataformas.add(plat)
         
@@ -115,29 +121,6 @@ def game_screen(screen):
                     
                 if event.key == pygame.K_UP:#pulo
                     player.speedy = -15
-                    g = 1
-                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        player.speedy +=g 
-                        all_sprites.update()
-                        time.sleep(1e-2)
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-                        pygame.display.flip()
-                        
-                if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
-                    vx = -8
-                    player.speedy = -1
-                    g = 1.5
-                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        x += vx
-                        player.speedy +=g 
-                        all_sprites.update()
-                        time.sleep(1e-2)
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-                        pygame.display.flip()
                         
                 if event.key == pygame.K_DOWN:
                     player.speedy = 10
@@ -155,6 +138,7 @@ def game_screen(screen):
                     all_sprites.add(bullet)
                     bullets.add(bullet)
                     pew_sound.play()
+                    
                 if event.key == pygame.K_m:
                     player.imgs = []
                     n=6
@@ -229,14 +213,8 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     
-            while player.rect.y < HEIGHT/2 - 45.5:#gravidade
+        if player.rect.y < HEIGHT/2 - 45.5:#gravidade
                 player.speedy +=g 
-                all_sprites.update()
-                time.sleep(1e-2)
-                screen.fill(BLACK)
-                screen.blit(background, (x, 0))
-                all_sprites.draw(screen)
-                pygame.display.flip()
                     
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
@@ -257,8 +235,23 @@ def game_screen(screen):
             # Toca o som da colisão
             boom_sound.play()
             time.sleep(5) # Precisa esperar senão fecha
+            #morte
+            morte = Morte(hit.rect.center)
+            all_sprites.add(morte)
             
-            running = False
+            boom_sound.play()
+            all_sprites.add(morte)
+            state = MORRENDO
+            morte_tick = pygame.time.get_ticks()
+            morte_duration = morte.frame_ticks * len(morte.morte_anim) + 400
+            if vidas<=0:
+                player.kill()
+                running = False
+            else:
+                vidas-=1
+                
+                
+            
                     
         
         # Depois de processar os eventos.
@@ -279,6 +272,13 @@ def game_screen(screen):
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
         
+    #Desenha pontuação
+    draw_text(screen, str(score), 18, WIDTH/2, 50)
+    #Desenha vidas
+    draw_text(screen, str(vidas), 18, WIDTH/2, 80)
+        
+        
+    g = 0
         
     while state != DONE and contador >= 3:
         # Ajusta a velocidade do jogo.
@@ -294,6 +294,14 @@ def game_screen(screen):
         if random.randrange(1,200) == 1:
             mob = Mob()
 
+        if random.randrange(1, 50) == 1:
+            #Cria plataforma
+            tamanhos = [1, 3, 5]
+            plat = Plataforma(WIDTH, HEIGHT-325, tamanhos[random.randrange(0, 3)])
+            all_sprites.add(plat)
+            plataformas.add(plat)
+            
+            
             # Cria um grupo só do inimigo
             all_sprites.add(mob)
             monsters.add(mob)
@@ -330,22 +338,8 @@ def game_screen(screen):
                     
                 if event.key == pygame.K_UP:#pulo
                     player.speedy = -15
-                    g = 1
-                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        player.speedy +=g 
-                        all_sprites.update()
-                        time.sleep(1e-2)
-                        screen.fill(BLACK)
-                        screen.blit(background, (x, 0))
-                        all_sprites.draw(screen)
-                        pygame.display.flip()
-                        
-                if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
-                    vx = -8
-                    player.speedy = -1
-                    g = 1.5
-                    while player.rect.y < HEIGHT/2 - 45.5:#gravidade
-                        x += vx
+                    
+                    if player.rect.y < HEIGHT/2 - 45.5:#gravidade
                         player.speedy +=g 
                         all_sprites.update()
                         time.sleep(1e-2)
@@ -444,14 +438,10 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     
-            while player.rect.y < HEIGHT/2 - 45.5:#gravidade
+            if player.rect.y < HEIGHT/2 - 45.5:#gravidade
                 player.speedy +=g 
-                all_sprites.update()
                 time.sleep(1e-2)
-                screen.fill(BLACK)
-                screen.blit(background, (x, 0))
-                all_sprites.draw(screen)
-                pygame.display.flip()
+                
                     
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
@@ -463,12 +453,41 @@ def game_screen(screen):
             #m = Mob() 
             #all_sprites.add(m)
             #monsters.add(m)
+            
+            
+        # No lugar do meteoro antigo, adicionar uma explosão.
+        
+        
         
         # Verifica se houve colisão entre personagem e inimigo
         hits = pygame.sprite.spritecollide(player, monsters, False, pygame.sprite.collide_circle)
         if hits:
             # Toca o som da colisão
+            morte = Morte(hit.rect.center)
+            all_sprites.add(morte)
+            
             boom_sound.play()
+            all_sprites.add(morte)
+            state = MORRENDO
+            morte_tick = pygame.time.get_ticks()
+            morte_duration = morte.frame_ticks * len(morte.morte_anim) + 400
+            if vidas<=0:
+                player.kill()
+                state = DONE
+            else:
+                vidas-=1
+                state = MORRENDO
+                now = pygame.time.get_ticks()
+                if now - morte_tick > morte_duration:
+                    state = PLAYING
+                
+                
+            
+        #elif state == MORRENDO:
+           # now = pygame.time.get_ticks()
+            #if now - morte_tick > morte_duration:
+             #   state = DONE
+                
             time.sleep(5) # Precisa esperar senão fecha
             
                     
@@ -477,10 +496,10 @@ def game_screen(screen):
         # Atualiza a acao de cada sprite.
         all_sprites.update()
         
-        #hits = pygame.sprites.groupcollide(player, plataformas, False)
-        #if hits:
-            #player.rect.y = hits[0].rect.top
-            #player.speedy = 0
+        hits = pygame.sprite.spritecollide(player, plataformas, False)
+        if hits:
+            player.rect.y = hits[0].rect.top
+            player.speedy = 0
     
         # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
@@ -496,8 +515,10 @@ def game_screen(screen):
             
         all_sprites.draw(screen)
         
-        #pontuação
-        draw_text(screen, str(score), 18, WIDTH/2, 400)
+        #Desenha pontuação
+        draw_text(screen, str(score), 18, WIDTH/2, 50)
+        #Desenha vidas
+        draw_text(screen, str(vidas), 18, WIDTH/2, 80)
         
         
         
