@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, YELLOW, fnt_dir
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, fundos, FPS, INIT, GAME, OVER, QUIT, YELLOW, fnt_dir
 from teste_player_lais import Player
 from Bullet import Bullet
 from mob import Mob
@@ -10,7 +10,7 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Power, Nrpower, Nrm
 from plataforma import Plataforma
-from morte import Morte
+#from morte import Morte
 #plataforma
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
@@ -234,21 +234,21 @@ def game_screen(screen):
         if hits:
             # Toca o som da colisão
             boom_sound.play()
-            time.sleep(5) # Precisa esperar senão fecha
+            #time.sleep(5) # Precisa esperar senão fecha
             #morte
-            morte = Morte(hit.rect.center)
-            all_sprites.add(morte)
+            #morte = Morte(hit.rect.center)
+            #all_sprites.add(morte)
             
             boom_sound.play()
-            all_sprites.add(morte)
-            state = MORRENDO
-            morte_tick = pygame.time.get_ticks()
-            morte_duration = morte.frame_ticks * len(morte.morte_anim) + 400
-            if vidas<=0:
-                player.kill()
-                running = False
-            else:
-                vidas-=1
+            #all_sprites.add(morte)
+            #state = MORRENDO
+            #morte_tick = pygame.time.get_ticks()
+            #morte_duration = morte.frame_ticks * len(morte.morte_anim) + 400
+            #if vidas<=0:
+            player.kill()
+            running = False
+            #else:
+                #vidas-=1
                 
                 
             
@@ -275,7 +275,7 @@ def game_screen(screen):
     #Desenha pontuação
     draw_text(screen, str(score), 18, WIDTH/2, 50)
     #Desenha vidas
-    draw_text(screen, str(vidas), 18, WIDTH/2, 80)
+    #draw_text(screen, str(vidas), 18, WIDTH/2, 80)
         
         
     g = 0
@@ -459,23 +459,23 @@ def game_screen(screen):
         hits = pygame.sprite.spritecollide(player, monsters, False, pygame.sprite.collide_circle)
         if hits:
             # Toca o som da colisão
-            morte = Morte(hit.rect.center)
-            all_sprites.add(morte)
+            #morte = Morte(hit.rect.center)
+            #all_sprites.add(morte)
             
             boom_sound.play()
-            all_sprites.add(morte)
-            state = MORRENDO
-            morte_tick = pygame.time.get_ticks()
-            morte_duration = morte.frame_ticks * len(morte.morte_anim) + 400
-            if vidas<=0:
-                player.kill()
-                state = DONE
-            else:
-                vidas-=1
-                state = MORRENDO
-                now = pygame.time.get_ticks()
-                if now - morte_tick > morte_duration:
-                    state = PLAYING
+            #all_sprites.add(morte)
+            #state = MORRENDO
+            #morte_tick = pygame.time.get_ticks()
+            #morte_duration = morte.frame_ticks * len(morte.morte_anim) + 400
+            #if vidas<=0:
+            player.kill()
+            state = DONE
+            #else:
+                #vidas-=1
+                #state = MORRENDO
+                #now = pygame.time.get_ticks()
+                #if now - morte_tick > morte_duration:
+                    #state = PLAYING
                 
                 
             
@@ -514,12 +514,12 @@ def game_screen(screen):
         #Desenha pontuação
         draw_text(screen, str(score), 18, WIDTH/2, 50)
         #Desenha vidas
-        draw_text(screen, str(vidas), 18, WIDTH/2, 80)
+        #draw_text(screen, str(vidas), 18, WIDTH/2, 80)
         
         
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
     
-    return QUIT
+    return OVER
         

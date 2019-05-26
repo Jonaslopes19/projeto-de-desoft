@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT 
+from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, OVER, QUIT 
 from teste_player_lais import Player
 from Bullet import Bullet
 from mob import Mob
@@ -10,7 +10,8 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Power 
 from teste_screen_lais import init_screen
-from teste_codigo_lais import game_screen
+from lais_game import game_screen
+from gameover import over_screen
 
 # Inicialização do Pygame.
 pygame.init() 
@@ -30,6 +31,8 @@ try:
             state = init_screen(screen)
         elif state == GAME:
             state = game_screen(screen)
+        elif state == OVER:
+            state = over_screen(screen)
         else:
             state = QUIT
 finally:
