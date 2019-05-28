@@ -24,8 +24,8 @@ class Bullet1(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Coloca no lugar inicial definido em x, y do constutor
-        self.rect.bottom = y + 140
-        self.rect.centerx = x - 300
+        self.rect.bottom = y
+        self.rect.centerx = x 
         self.speedx = -15
 
     # Metodo que atualiza a posição da navinha

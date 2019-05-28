@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, QUIT, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, OVER, QUIT, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
 from player import Player
 from Bullet import Bullet
 from mob import Mob
@@ -10,6 +10,7 @@ from Mob2 import Mob2
 from Mob3 import Mob3
 from Rasengan import Rasengan, Nrpower, Nrm
 from bullet_1 import Bullet1
+
 
 
 #def load_assets(img_dir, snd_dir, fnt_dir):
@@ -455,13 +456,9 @@ def game_screen(screen):
         #chakra
         draw_text(screen, str(chakra), 35, WIDTH/2+400, 0)
         draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
-        
-        if  rel_x  < WIDTH:
-            screen.blit(background, (rel_x, 0))
-            
-        
+                            
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
     
-    return QUIT
+    return OVER
         

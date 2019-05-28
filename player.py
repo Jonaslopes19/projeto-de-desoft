@@ -100,7 +100,10 @@ class Player(pygame.sprite.Sprite):
             self.image = self.morte_anim[self.morte_frame]
             self.morte_frame += 1
             if self.morte_frame == len(self.morte_anim):
-                self.state = PLAYER_STATE_MORTO
+                if self.vidas <= 0:
+                    self.state = PLAYER_STATE_MORTO
+                else:
+                    self.state = PLAYER_STATE_VIVO
                 self.morte_frame = 0
         
         # Mantem dentro da tela
