@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, QUIT, OVER, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, QUIT, OVER, HS_FILE, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
 from player import Player
 from Bullet import Bullet
 from mob import Mob
@@ -28,6 +28,10 @@ def draw_text(surf, text, size, x, y):
     text_rect.midtop = (x, y)
     surf.blit(text_surface, text_rect)
 
+
+
+
+
 def game_screen(screen):
     
     g = 1
@@ -46,6 +50,8 @@ def game_screen(screen):
     chakra = 150
     #assets = load_assets(img_dir, snd_dir, fnt_dir)
     #score_font = assets["score_font"]
+    
+    
     
     # Carrega os sons do jogo
     pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
@@ -69,6 +75,7 @@ def game_screen(screen):
     state = PLAYING
     DONE = 2
     running=True
+    load_data()
     
 ## Primeiro while
     while state != DONE and contador < 25 and running:
@@ -442,6 +449,9 @@ def game_screen(screen):
         if  rel_x  < WIDTH:
             screen.blit(background, (rel_x, 0))
         all_sprites.draw(screen)
+
+
+        
         
         # Desenha o score
         #text_surface = score_font.render("{:08d}".format(score), True, YELLOW)
@@ -456,6 +466,7 @@ def game_screen(screen):
         draw_text(screen, str(chakra), 35, WIDTH/2+400, 0)
         draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
         
+        
         if  rel_x  < WIDTH:
             screen.blit(background, (rel_x, 0))
             
@@ -464,4 +475,4 @@ def game_screen(screen):
         pygame.display.flip()
     
     return OVER
-        
+       

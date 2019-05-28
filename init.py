@@ -20,6 +20,7 @@ plataforma = path.join(path.dirname(__file__), 'plataforma')
 WIDTH = 1000 # Largura da tela
 HEIGHT = 445 # Altura da tela
 FPS = 60 # Frames por segundo
+HS_FILE = "highscore.txt"
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)

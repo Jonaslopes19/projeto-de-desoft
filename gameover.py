@@ -1,13 +1,32 @@
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, fnt_dir
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, fnt_dir, HS_FILE
 
+
+
+font_name = pygame.font.match_font('arial')
+def draw_text(surf, text, size, x, y):
+    font = pygame.font.Font(font_name, size)
+    text_surface = font.render(text, True, WHITE)
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (x, y)
+    surf.blit(text_surface, text_rect)
+
+def load_data(self):
+    #high score
+    dir = path.dirname(__dirname__)
+    with open(path.join(dir, HS_FILE), 'w') as f:
+        try:
+            highscore = int(f.read())
+        except:
+            highscore = 0
 
 def over_screen(screen):
     # Carrega o fundo da tela inicial
     background = pygame.image.load(path.join('gameover.png')).convert()
     background_rect = background.get_rect()
     
+
     
     running = True
     while running:
@@ -29,6 +48,8 @@ def over_screen(screen):
                     running = False
     
     
+        draw_text(screen, "High Score: " + str(highscore), 40, WIDTH/2, 200)
+         
         screen.fill(BLACK);
         screen.blit(background, background_rect)
     
