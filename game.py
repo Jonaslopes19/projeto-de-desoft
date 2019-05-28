@@ -229,7 +229,10 @@ def game_screen(screen):
         chakra += 0.5
         if chakra > 150:
             chakra =150
-            vx = -8            
+        if chakra > 149.5:
+            chakra =150
+        vx = -8 - (score/1000)  
+        print (vx)
         x += vx
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
@@ -428,7 +431,8 @@ def game_screen(screen):
         chakra += 1
         if chakra > 149.5:
             chakra =150
-        vx = -8            
+        vx = -8 - (score/1000)      
+        print (vx)
         x += vx
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
