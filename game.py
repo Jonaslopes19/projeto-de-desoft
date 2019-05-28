@@ -7,7 +7,7 @@ from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
-from Mob3 import Mob3, Mob4
+from Mob3 import Mob3, Mob4, Amaterasu
 from Rasengan import Rasengan, Nrpower, Nrm
 from bullet_1 import Bullet1
 
@@ -78,8 +78,7 @@ def game_screen(screen):
         if random.randrange(1,100) == 1:
             mob1 = Mob3()
             all_sprites.add(mob1)
-            monsters.add(mob1)
-            
+            monsters.add(mob1)   
         if random.randrange(1,100) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
@@ -89,7 +88,10 @@ def game_screen(screen):
             bullets.add(disparo)
         if random.randrange(1,100) == 1:
             mob4 = Mob4()
+            am = Amaterasu()
+            all_sprites.add(am)
             all_sprites.add(mob4)
+            monsters.add(am)
             monsters.add(mob4)
         
         
