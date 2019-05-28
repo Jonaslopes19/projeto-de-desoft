@@ -7,7 +7,7 @@ from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
-from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Sasori, Kisame
+from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Sasori, Kisame, Water
 from Rasengan import Rasengan, Nrpower, Nrm
 from bullet_1 import Bullet1
 
@@ -72,39 +72,13 @@ def game_screen(screen):
     running=True
     
 ## Primeiro while
-    while state != DONE and contador < 25 and running:
+    while state != DONE and score < 500 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,100) == 0:
-            mob1 = Mob3()
+        if random.randrange(1,50) == 1:
+            mob1 = Mob2()
             all_sprites.add(mob1)
             monsters.add(mob1)   
-        if random.randrange(1,100) == 0:
-            mob2 = Mob2()
-            all_sprites.add(mob2)
-            monsters.add(mob2)
-            disparo = Bullet1(mob2.rect.centerx, mob2.rect.top)
-            all_sprites.add(disparo)
-            bullets.add(disparo)
-        if random.randrange(1,100) == 0:
-            mob4 = Mob4()
-            am = Amaterasu()
-            all_sprites.add(am)
-            all_sprites.add(mob4)
-            monsters.add(am)
-            monsters.add(mob4)
-        if random.randrange(1,300) == 0:
-            power = Golpetras()
-            all_sprites.add(power)
-            monsters.add(power)
-        if random.randrange(1,50) == 0:
-            sas = Sasori()
-            all_sprites.add(sas)
-            monsters.add(sas)
-        if random.randrange(1,30) == 1:
-            ki = Kisame()
-            all_sprites.add(ki)
-            monsters.add(ki)
         
         
         for event in pygame.event.get():
@@ -279,20 +253,45 @@ def game_screen(screen):
         
 
 ##Segundo while
-    while state != DONE and contador >= 25 and running:
+    while state != DONE and score >= 500  and running:
         
         # Ajusta a velocidade do jogo.
         
         clock.tick(FPS)
-        if random.randrange(1,200) == 1:
-            mob2 = Mob2()
-            all_sprites.add(mob2)
-            monsters.add(mob2)
-            if mob2.rect.x-player.rect.x <= 450:
-                disparo = Bullet1(player.rect.centerx, player.rect.top)
-                all_sprites.add(disparo)
-                bullets.add(disparo)
-
+        if score >= 500:
+            if random.randrange(1,200) == 1:
+                mob3 = Mob3()
+                all_sprites.add(mob3)
+                monsters.add(mob3)
+            if random.randrange(1,300) == 1:
+                mob4 = Mob4()
+                am = Amaterasu()
+                all_sprites.add(am)
+                all_sprites.add(mob4)
+                monsters.add(am)
+                monsters.add(mob4)
+                
+        if score >= 1000:
+            if random.randrange(1,300) == 1:
+                power = Golpetras()
+                all_sprites.add(power)
+                monsters.add(power)
+                
+        if score >= 2000:
+            if random.randrange(1,400) == 1:
+                sas = Sasori()
+                all_sprites.add(sas)
+                monsters.add(sas)
+                
+        if score >= 3000:   
+            if random.randrange(1,100) == 1:
+                ki = Kisame()
+                all_sprites.add(ki)
+                monsters.add(ki)
+                wa = Water()
+                all_sprites.add(wa)
+                monsters.add(wa)
+        
         
         
         for event in pygame.event.get():
@@ -440,15 +439,18 @@ def game_screen(screen):
         
         # Verifica se houve colisão entre personagem e inimigo
         hits = pygame.sprite.spritecollide(player, monsters, False, pygame.sprite.collide_circle)
-        if hits:
+        for hit in hits:
             # Toca o som da colisão
             boom_sound.play()
-            hits.kill() # Precisa esperar senão fecha
+            hit.kill()
+            player.morrer()
             
+        print(player.vidas)
+        running = player.vidas >= 0
         
         chakra += 1
-        if chakra > 149.5:
-            chakra =150
+        if chakra > 399.5:
+            chakra =400
         vx = -8 - (score/1000)      
         print (vx)
         x += vx
@@ -471,13 +473,16 @@ def game_screen(screen):
         #text_rect = text_surface.get_rect()
         #text_rect.midtop = (500, -100 )
         #screen.blit(text_surface, text_rect)
-        
+        vidas = player.vidas
         #pontuação
         draw_text(screen, str(score), 35, WIDTH/2, 0)
         draw_text(screen, "Score", 40, WIDTH/2-150, 0)
         #chakra
         draw_text(screen, str(chakra), 35, WIDTH/2+400, 0)
         draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
+        #Vida
+        draw_text(screen, str(vidas), 35, WIDTH/2-350, 0)
+        draw_text(screen, "Vida", 40, WIDTH/2-450, 0)
                             
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()

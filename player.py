@@ -42,9 +42,9 @@ class Player(pygame.sprite.Sprite):
     
         morte_anim = []
         for i in range(7):
+            
             img = (pygame.image.load(path.join(img_dir, "MorteNr{0}.png".format(i+1))).convert())
-            #img = pygame.image.load(path.join(img_dir, filename)).convert()
-            img = pygame.transform.scale(img, (32, 32))        
+            img = pygame.transform.scale(img, (100, 100))        
             img.set_colorkey(BLACK)
             morte_anim.append(img)
         self.morte_anim = morte_anim
@@ -97,14 +97,19 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = center[1]
         
         if self.state == PLAYER_STATE_MORRENDO:
+            if self.ticks % self.step == 0:
+                self.morte_frame += 1
             self.image = self.morte_anim[self.morte_frame]
-            self.morte_frame += 1
-            if self.morte_frame == len(self.morte_anim):
+            if self.morte_frame == 6:
                 if self.vidas <= 0:
                     self.state = PLAYER_STATE_MORTO
                 else:
                     self.state = PLAYER_STATE_VIVO
                 self.morte_frame = 0
+                
+        if self.vidas == 2:
+            self.state = PLAYER_STATE_MORTO
+            
         
         # Mantem dentro da tela
         if self.rect.right > WIDTH:
