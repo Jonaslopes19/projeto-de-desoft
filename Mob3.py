@@ -83,13 +83,13 @@ class Mob4(pygame.sprite.Sprite):
         
         # Carregando a imagem de fundo.           
         self.imgs = []
-        n=18
+        n=9
         for i in range(n):
-            self.imgs.append(pygame.image.load(path.join(img_dir, "Sasori_walk{0}.png".format(i+1))).convert())
+            
+            self.imgs.append(pygame.image.load(path.join(img_dir, "Itachi_walk{0}.png".format(i+1))).convert())
         self.frame = 0
         self.image = self.imgs[self.frame]
-
-        self.imgs[self.frame] = pygame.transform.scale(self.image, (400, 400))
+        self.image = pygame.transform.scale(self.image, (100, 100))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -100,17 +100,17 @@ class Mob4(pygame.sprite.Sprite):
         # Sorteia um lugar inicial em x
         self.rect.x = 700
         # Sorteia um lugar inicial em y
-        self.rect.y = HEIGHT/2 -50
+        self.rect.y = HEIGHT/2 -45
         # Sorteia uma velocidade inicial
-        self.speedx = -1
+        self.speedx = -8
         self.speedy = 0
-        self.step = 5
+        self.step = 10
         self.ticks = 0
             
         # Melhora a colisão estabelecendo um raio de um circulo
         self.radius = int(self.rect.width * .85 / 2)
         
-    # Metodo que atualiza a posição do personagem
+        # Metodo que atualiza a posição do personagem
     def update(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
@@ -140,4 +140,5 @@ class Mob4(pygame.sprite.Sprite):
             self.rect.y = HEIGHT/2 -20
             self.speedx = random.randrange(-2, -1)
             self.speedy = 0
+        
             

@@ -7,7 +7,7 @@ from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
-from Mob3 import Mob3
+from Mob3 import Mob3, Mob4
 from Rasengan import Rasengan, Nrpower, Nrm
 from bullet_1 import Bullet1
 
@@ -80,13 +80,17 @@ def game_screen(screen):
             all_sprites.add(mob1)
             monsters.add(mob1)
             
-        if random.randrange(1,200) == 1:
+        if random.randrange(1,100) == 1:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
             disparo = Bullet1(mob2.rect.centerx, mob2.rect.top)
             all_sprites.add(disparo)
             bullets.add(disparo)
+        if random.randrange(1,100) == 1:
+            mob4 = Mob4()
+            all_sprites.add(mob4)
+            monsters.add(mob4)
         
         
         for event in pygame.event.get():
