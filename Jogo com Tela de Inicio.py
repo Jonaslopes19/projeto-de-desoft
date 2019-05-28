@@ -1,4 +1,4 @@
-     # -*- coding: utf-8 -*-
+      # -*- coding: utf-8 -*-
 
 # Importando as bibliotecas necessárias.
 import pygame
@@ -31,3 +31,4 @@ try:
             state = QUIT
 finally:
     pygame.quit()
+ 

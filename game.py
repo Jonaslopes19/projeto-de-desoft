@@ -7,7 +7,7 @@ from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
-from Mob3 import Mob3, Mob4
+from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Sasori, Kisame
 from Rasengan import Rasengan, Nrpower, Nrm
 from bullet_1 import Bullet1
 
@@ -75,22 +75,36 @@ def game_screen(screen):
     while state != DONE and contador < 25 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,100) == 1:
+        if random.randrange(1,100) == 0:
             mob1 = Mob3()
             all_sprites.add(mob1)
-            monsters.add(mob1)
-            
-        if random.randrange(1,100) == 1:
+            monsters.add(mob1)   
+        if random.randrange(1,100) == 0:
             mob2 = Mob2()
             all_sprites.add(mob2)
             monsters.add(mob2)
             disparo = Bullet1(mob2.rect.centerx, mob2.rect.top)
             all_sprites.add(disparo)
             bullets.add(disparo)
-        if random.randrange(1,100) == 1:
+        if random.randrange(1,100) == 0:
             mob4 = Mob4()
+            am = Amaterasu()
+            all_sprites.add(am)
             all_sprites.add(mob4)
+            monsters.add(am)
             monsters.add(mob4)
+        if random.randrange(1,300) == 0:
+            power = Golpetras()
+            all_sprites.add(power)
+            monsters.add(power)
+        if random.randrange(1,50) == 0:
+            sas = Sasori()
+            all_sprites.add(sas)
+            monsters.add(sas)
+        if random.randrange(1,30) == 1:
+            ki = Kisame()
+            all_sprites.add(ki)
+            monsters.add(ki)
         
         
         for event in pygame.event.get():
