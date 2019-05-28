@@ -246,6 +246,9 @@ def game_screen(screen):
         #chakra
         draw_text(screen, str(chakra), 35, WIDTH/2+400, 0)
         draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
+        #Vida
+        draw_text(screen, str(vidas), 35, WIDTH/2-350, 0)
+        draw_text(screen, "Vida", 40, WIDTH/2-450, 0)
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
