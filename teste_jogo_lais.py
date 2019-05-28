@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, OVER, QUIT 
+from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, OVER, QUIT,  HS_FILE 
 from teste_player_lais import Player
 from Bullet import Bullet
 from mob import Mob
