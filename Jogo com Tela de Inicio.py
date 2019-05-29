@@ -12,7 +12,8 @@ pygame.init()
 pygame.mixer.init()
 
 # Tamanho da tela.
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WI
+                                  DTH, HEIGHT))
 
 # Nome do jogo
 pygame.display.set_caption("Naruto Run")
