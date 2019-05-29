@@ -4,6 +4,9 @@ from init import HEIGHT, WIDTH, BLACK, personagem, PLAYER_STATE_MORRENDO, PLAYER
 from os import path
 from init import img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT
 
+
+#vidas
+
 class Player(pygame.sprite.Sprite):
     
     # Construtor da classe.

@@ -1,14 +1,7 @@
-import time
-import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, fnt_dir
-from player import Player
-from Bullet import Bullet
-from mob import Mob
-from Mob2 import Mob2
-from Mob3 import Mob3
-from Rasengan import Rasengan
+from init import BLACK, FPS, GAME, QUIT
+
 
 def init_screen(screen):
     # Variável para o ajuste de velocidade

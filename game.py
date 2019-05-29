@@ -89,7 +89,7 @@ def game_screen(screen):
             if event.type == pygame.KEYDOWN:
                 
                 if event.key == pygame.K_LEFT:
-                    vx = 8
+                    player.speedx = -4
                     player.imgs = []
                     n=6
                     for i in range(n):
@@ -100,7 +100,7 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     
                 if event.key == pygame.K_RIGHT:
-                    vx = -8
+                    player.speedx = 4
                     player.imgs = []
                     n=6
                     for i in range(n):
@@ -113,8 +113,8 @@ def game_screen(screen):
                 if event.key == pygame.K_UP and player.rect.y == HEIGHT/2 - 45.5:#pulo
                     player.speedy = -20
                     
-                if event.key == pygame.K_SPACE and chakra >= 5:
-                    chakra -= 5
+                if event.key == pygame.K_SPACE and chakra >= 10:
+                    chakra -= 10
                     player.imgs = []
                     n=5
                     for i in range(n):
@@ -149,7 +149,7 @@ def game_screen(screen):
             if event.type == pygame.KEYUP:
                 # Dependendo da tecla, altera a velocidade.
                 if event.key == pygame.K_LEFT:
-                    vx = 0
+                    player.speedx = 0
                     player.imgs = []
                     n=6
                     for i in range(n):
@@ -160,7 +160,7 @@ def game_screen(screen):
                     player.speedx = 0
                     
                 if event.key == pygame.K_RIGHT:
-                    vx = 0
+                    player.speedx = 0
                     player.imgs = []
                     n=6
                     for i in range(n):
@@ -215,14 +215,13 @@ def game_screen(screen):
             hit.kill()
             player.morrer()
 
-        print(player.vidas)
         running = player.vidas >= 0
             
         chakra += 0.5
-        if chakra > 150:
-            chakra =150
         if chakra > 149.5:
             chakra =150
+        elif chakra < 0.5:
+            chakra = 0
         vx = -8 - (score/1000)  
         print (vx)
         x += vx
@@ -247,14 +246,12 @@ def game_screen(screen):
         draw_text(screen, str(chakra), 35, WIDTH/2+400, 0)
         draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
         #Vida
-        draw_text(screen, str(vidas), 35, WIDTH/2-350, 0)
+        draw_text(screen, str(player.vidas), 35, WIDTH/2-350, 0)
         draw_text(screen, "Vida", 40, WIDTH/2-450, 0)
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
         
-        
-
 ##Segundo while
     while state != DONE and score >= 500  and running:
         
@@ -305,7 +302,7 @@ def game_screen(screen):
             if event.type == pygame.KEYDOWN:
                 
                 if event.key == pygame.K_LEFT:
-                    vx = 8
+                    player.speedx = -4
                     player.imgs = []
                     n=5
                     for i in range(n):
@@ -316,7 +313,7 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     
                 if event.key == pygame.K_RIGHT:
-                    vx = -8
+                    player.speedx = 4
                     player.imgs = []
                     n=8
                     for i in range(n):
@@ -330,8 +327,8 @@ def game_screen(screen):
                     player.speedy = -15
                     g = 1
                     
-                if event.key == pygame.K_SPACE and chakra>=10:
-                    chakra-=10
+                if event.key == pygame.K_SPACE and chakra>=20:
+                    chakra-=20
                     player.imgs = []
                     n=10
                     for i in range(n):
@@ -454,6 +451,8 @@ def game_screen(screen):
         chakra += 1
         if chakra > 399.5:
             chakra =400
+        elif chakra < 0.5:
+            chakra = 0
         vx = -8 - (score/1000)      
         print (vx)
         x += vx
@@ -472,11 +471,8 @@ def game_screen(screen):
         all_sprites.draw(screen)
         
         # Desenha o score
-        #text_surface = score_font.render("{:08d}".format(score), True, YELLOW)
-        #text_rect = text_surface.get_rect()
-        #text_rect.midtop = (500, -100 )
-        #screen.blit(text_surface, text_rect)
         vidas = player.vidas
+        
         #pontuação
         draw_text(screen, str(score), 35, WIDTH/2, 0)
         draw_text(screen, "Score", 40, WIDTH/2-150, 0)
