@@ -7,7 +7,7 @@ from player import Player
 from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
-from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Sasori, Kisame, Water
+from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Sasori, Kisame, Water, Deidara, Bird
 from Rasengan import Rasengan, Nrpower, Nrm
 from bullet_1 import Bullet1
 
@@ -79,6 +79,13 @@ def game_screen(screen):
             mob1 = Mob2()
             all_sprites.add(mob1)
             monsters.add(mob1)   
+        if random.randrange(1,100) == 1:
+            deid = Deidara()
+            all_sprites.add(deid)
+            monsters.add(deid)
+            bird = Bird()
+            all_sprites.add(bird)
+            monsters.add(bird) 
         
         
         for event in pygame.event.get():
@@ -304,9 +311,9 @@ def game_screen(screen):
                 if event.key == pygame.K_LEFT:
                     player.speedx = -4
                     player.imgs = []
-                    n=5
+                    n=2
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "Flip{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Dash{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.step = 5
                     player.image = player.imgs[player.frame]
@@ -315,9 +322,9 @@ def game_screen(screen):
                 if event.key == pygame.K_RIGHT:
                     player.speedx = 4
                     player.imgs = []
-                    n=8
+                    n=2
                     for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Dash{0}.png".format(i+1))).convert())
                     player.frame = 0
                     player.step = 3
                     player.image = player.imgs[player.frame]
