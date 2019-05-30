@@ -30,8 +30,6 @@ def draw_text(surf, text, size, x, y):
 
 
 
-
-
 def game_screen(screen):
     
     g = 1
@@ -51,7 +49,12 @@ def game_screen(screen):
     #assets = load_assets(img_dir, snd_dir, fnt_dir)
     #score_font = assets["score_font"]
     
-    
+    dir = path.dirname(__file__)
+    with open(path.join(dir, HS_FILE), 'w') as f:
+        try:
+            highscore = int(f.read())
+        except:
+            highscore = 0
     
     # Carrega os sons do jogo
     pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
@@ -75,7 +78,12 @@ def game_screen(screen):
     state = PLAYING
     DONE = 2
     running=True
-    load_data()
+    
+    
+    
+                
+            
+            
     
 ## Primeiro while
     while state != DONE and contador < 25 and running:
@@ -257,6 +265,8 @@ def game_screen(screen):
         #chakra
         draw_text(screen, str(chakra), 35, WIDTH/2+400, 0)
         draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
+        
+        
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
@@ -467,12 +477,45 @@ def game_screen(screen):
         draw_text(screen, "Chakra", 40, WIDTH/2+200, 0)
         
         
+        
+        
+        
+        
         if  rel_x  < WIDTH:
             screen.blit(background, (rel_x, 0))
+            
+    if player.vidas<0:
+        state==OVER
+        if score > highscore:
+            highscore = score
+            draw_text ((background, " NEW HIGH SCORE!", 40, WIDTH/2-150, 200))
+            with open(path.join(dir, HS_FILE), 'w') as f:
+                f.white(str(score))
+        else: 
+            draw_text(background, str(score), 35, WIDTH/2, 100)
+            draw_text(background, "Score", 40, WIDTH/2-150, 100)
+            
+            draw_text(background, str(highscore), 35, WIDTH/2, 200)
+            draw_text(background, "High Score", 40, WIDTH/2-150, 200)
+                
+            
+        
+                
+            
             
         
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
     
     return OVER
+
+
+
+
+
+
+
+
+
+
        
