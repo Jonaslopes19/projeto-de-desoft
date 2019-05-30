@@ -579,7 +579,7 @@ class Bird(pygame.sprite.Sprite):
         # Sorteia um lugar inicial em y
         self.rect.y = HEIGHT/2 -60
         # Sorteia uma velocidade inicial
-        self.speedx = -0.5
+        self.speedx = -1
         self.speedy = 0
         self.step = 5
         self.ticks = 0

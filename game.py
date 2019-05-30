@@ -75,17 +75,10 @@ def game_screen(screen):
     while state != DONE and score < 500 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,50) == 1:
+        if random.randrange(1,100) == 1:
             mob1 = Mob2()
             all_sprites.add(mob1)
-            monsters.add(mob1)   
-        if random.randrange(1,100) == 1:
-            deid = Deidara()
-            all_sprites.add(deid)
-            monsters.add(deid)
-            bird = Bird()
-            all_sprites.add(bird)
-            monsters.add(bird) 
+            monsters.add(mob1)    
         
         
         for event in pygame.event.get():
@@ -266,10 +259,15 @@ def game_screen(screen):
         
         clock.tick(FPS)
         if score >= 500:
-            if random.randrange(1,200) == 1:
-                mob3 = Mob3()
-                all_sprites.add(mob3)
-                monsters.add(mob3)
+            if random.randrange(1,300) == 1:
+                deid = Deidara()
+                all_sprites.add(deid)
+                monsters.add(deid)
+                bird = Bird()
+                all_sprites.add(bird)
+                monsters.add(bird)
+               
+        if score >= 1000:
             if random.randrange(1,300) == 1:
                 mob4 = Mob4()
                 am = Amaterasu()
@@ -278,20 +276,25 @@ def game_screen(screen):
                 monsters.add(am)
                 monsters.add(mob4)
                 
-        if score >= 1000:
-            if random.randrange(1,300) == 1:
+        if score >= 2000:
+            if random.randrange(1,400) == 1:
+                tobi = Mob3()
+                all_sprites.add(tobi)
+                monsters.add(tobi)
+                
+            if random.randrange(1,500) == 1:
                 power = Golpetras()
                 all_sprites.add(power)
                 monsters.add(power)
                 
-        if score >= 2000:
+        if score >= 3000:
             if random.randrange(1,400) == 1:
                 sas = Sasori()
                 all_sprites.add(sas)
                 monsters.add(sas)
                 
-        if score >= 3000:   
-            if random.randrange(1,100) == 1:
+        if score >= 4000:   
+            if random.randrange(1,700) == 1:
                 ki = Kisame()
                 all_sprites.add(ki)
                 monsters.add(ki)
@@ -331,8 +334,16 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     
                 if event.key == pygame.K_UP and player.rect.y == HEIGHT/2 - 45.5:#pulo
-                    player.speedy = -15
+                    player.speedy = -20
                     g = 1
+                    player.imgs = []
+                    n=8
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Jump{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.step = 8
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
                     
                 if event.key == pygame.K_SPACE and chakra>=20:
                     chakra-=20
@@ -392,6 +403,14 @@ def game_screen(screen):
                     player.speedx = 0
                     
                 if event.key == pygame.K_UP:
+                    player.imgs = []
+                    n=8
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
+                    player.speedx = 0
                     if event.key == pygame.K_RIGHT:
                         vx = 0
                         player.imgs = []
