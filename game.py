@@ -372,7 +372,7 @@ def game_screen(screen):
                     pew_sound.play()
                     
                 if event.key == pygame.K_m and chakra >= 25:
-                    chakra -= 25
+                    chakra -= 300
                     player.imgs = []
                     n=5
                     for i in range(n):
