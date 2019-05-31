@@ -278,7 +278,7 @@ def game_screen(screen):
                 all_sprites.add(bird)
                 monsters.add(bird)
                
-        if score >= 1000:
+        if score >= 500:
             if random.randrange(1,300) == 1:
                 mob4 = Mob4()
                 am = Amaterasu()
@@ -287,24 +287,24 @@ def game_screen(screen):
                 monsters.add(am)
                 monsters.add(mob4)
                 
-        if score >= 2000:
-            if random.randrange(1,400) == 1:
+        if score >= 500:
+            if random.randrange(1,200) == 1:
                 tobi = Mob3()
                 all_sprites.add(tobi)
                 monsters.add(tobi)
                 
-            if random.randrange(1,500) == 1:
+            if random.randrange(1,200) == 1:
                 power = Golpetras()
                 all_sprites.add(power)
                 monsters.add(power)
                 
-        if score >= 3000:
+        if score >= 2000:
             if random.randrange(1,400) == 1:
                 sas = Sasori()
                 all_sprites.add(sas)
                 monsters.add(sas)
                 
-        if score >= 4000:   
+        if score >= 3000:   
             if random.randrange(1,700) == 1:
                 ki = Kisame()
                 all_sprites.add(ki)
