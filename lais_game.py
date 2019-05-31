@@ -12,6 +12,7 @@ from Rasengan import Rasengan, Nrpower, Nrm
 from bullet_1 import Bullet1
 
 
+
 #def load_assets(img_dir, snd_dir, fnt_dir):
     #assets = {}
     #assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
@@ -21,6 +22,9 @@ from bullet_1 import Bullet1
 
 
 font_name = pygame.font.match_font('arial')
+highscore = 0
+score = 0
+
 def draw_text(surf, text, size, x, y):
     font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, WHITE)
@@ -484,19 +488,19 @@ def game_screen(screen):
         if  rel_x  < WIDTH:
             screen.blit(background, (rel_x, 0))
             
-    if player.vidas<0:
-        state==OVER
-        if score > highscore:
-            highscore = score
-            draw_text ((background, " NEW HIGH SCORE!", 40, WIDTH/2-150, 200))
-            with open(path.join(dir, HS_FILE), 'w') as f:
-                f.white(str(score))
-        else: 
-            draw_text(background, str(score), 35, WIDTH/2, 100)
-            draw_text(background, "Score", 40, WIDTH/2-150, 100)
+    #if player.vidas<0:
+       # state==OVER
+       # if score > highscore:
+        #    highscore = score
+         #   draw_text(background, " NEW HIGH SCORE!", 40, WIDTH/2-150, 200)
+          #  with open(path.join(dir, HS_FILE), 'w') as f:
+           #     f.white(str(score))
+        #else: 
+         #   draw_text(background, str(score), 35, WIDTH/2, 100)
+          #  draw_text(background, "Score", 40, WIDTH/2-150, 100)
             
-            draw_text(background, str(highscore), 35, WIDTH/2, 200)
-            draw_text(background, "High Score", 40, WIDTH/2-150, 200)
+           # draw_text(background, str(highscore), 35, WIDTH/2, 200)
+            #draw_text(background, "High Score", 40, WIDTH/2-150, 200)
                 
             
         
@@ -507,7 +511,7 @@ def game_screen(screen):
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
     
-    return OVER
+    return (OVER, score, highscore)
 
 
 

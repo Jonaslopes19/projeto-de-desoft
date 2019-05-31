@@ -13,7 +13,7 @@ def draw_text(surf, text, size, x, y):
     surf.blit(text_surface, text_rect)
 
 
-def over_screen(screen):
+def over_screen(screen, score, highscore):
     # Carrega o fundo da tela inicial
     background = pygame.image.load(path.join('gameover.png')).convert()
     background_rect = background.get_rect()
@@ -37,6 +37,19 @@ def over_screen(screen):
                 if event.key == pygame.K_q:
                     state = QUIT
                     running = False
+                    
+        if score > highscore:
+            highscore = score
+            draw_text(background, " NEW HIGH SCORE!", 60, WIDTH/2, 100)
+            dir = path.dirname(__file__)
+            with open(path.join(dir, HS_FILE), 'w') as f:
+                f.write(str(score))
+        else: 
+            draw_text(background, str(score), 60, WIDTH/2+150, 150)
+            draw_text(background, "Score", 60, WIDTH/2, 150)
+            
+            draw_text(background, str(highscore), 60, WIDTH/2+160, 200)
+            draw_text(background, "High Score", 60, WIDTH/2, 200)
     
     
         
