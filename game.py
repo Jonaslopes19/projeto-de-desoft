@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, OVER, QUIT, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, OVER, QUIT,HS_FILE, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
 from player import Player
 from Bullet import Bullet
 from mob import Mob
@@ -20,6 +20,8 @@ from bullet_1 import Bullet1
 #load_assets  
 #print
 
+highscore = 0
+score = 0
 
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
@@ -28,6 +30,8 @@ def draw_text(surf, text, size, x, y):
     text_rect = text_surface.get_rect()
     text_rect.midtop = (x, y)
     surf.blit(text_surface, text_rect)
+    
+
 
 def game_screen(screen):
     
@@ -47,6 +51,13 @@ def game_screen(screen):
     chakra = 150
     #assets = load_assets(img_dir, snd_dir, fnt_dir)
     #score_font = assets["score_font"]
+    
+    dir = path.dirname(__file__)
+    with open(path.join(dir, HS_FILE), 'w') as f:
+        try:
+            highscore = int(f.read())
+        except:
+            highscore = 0
     
     # Carrega os sons do jogo
     pygame.mixer.music.load(path.join(snd_dir, 'naruto.mp3'))
@@ -512,5 +523,7 @@ def game_screen(screen):
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
     
-    return OVER
+    if score > highscore:
+        highscore=score
+    return (OVER, score, highscore)
         

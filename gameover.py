@@ -4,7 +4,7 @@ from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, fundos, FPS, INI
 
 
 
-font_name = pygame.font.match_font('arial')
+font_name = pygame.font.match_font('times new roman')
 def draw_text(surf, text, size, x, y):
     font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, WHITE)
@@ -48,7 +48,7 @@ def over_screen(screen, score, highscore):
             draw_text(background, str(score), 60, WIDTH/2+150, 150)
             draw_text(background, "Score", 60, WIDTH/2, 150)
             
-            draw_text(background, str(highscore), 60, WIDTH/2+160, 200)
+            draw_text(background, str(highscore), 60, WIDTH/2+180, 200)
             draw_text(background, "High Score", 60, WIDTH/2, 200)
     
     

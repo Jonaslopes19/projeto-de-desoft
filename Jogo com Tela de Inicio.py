@@ -2,7 +2,7 @@
 
 # Importando as bibliotecas necessárias.
 import pygame
-from init import HEIGHT, WIDTH, INIT, GAME, OVER, QUIT
+from init import HEIGHT, WIDTH, INIT, GAME, OVER, QUIT, HS_FILE
 from screen import init_screen
 from game import game_screen
 from gameover import over_screen
@@ -15,6 +15,8 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Nome do jogo
 pygame.display.set_caption("Naruto Run")
+score = 0
+highscore = 0
 
 # Comando para evitar travamentos.
 try:
@@ -23,9 +25,9 @@ try:
         if state == INIT:
             state = init_screen(screen)
         elif state == GAME:
-            state = game_screen(screen)
+            state, score, highscore = game_screen(screen) 
         elif state == OVER:
-            state = over_screen(screen)
+            state = over_screen(screen, score, highscore)
         else:
             state = QUIT
 finally:
