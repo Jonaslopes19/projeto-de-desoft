@@ -3,8 +3,8 @@
 # Importando as bibliotecas necessárias.
 import pygame
 from init import HEIGHT, WIDTH, INIT, GAME, OVER, QUIT
-from screen import init_screen
-from game import game_screen
+from jonas2 import init_screen
+from jonas1 import game_screen
 from gameover import over_screen
 
 # Inicialização do Pygame.
