@@ -8,7 +8,7 @@ from Bullet import Bullet
 from mob import Mob
 from Mob2 import Mob2
 from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Sasori, Kisame, Water, Deidara, Bird
-from Rasengan import Rasengan, Nrpower, Nrm
+from Rasengan import Rasengan, Nrpower, Nrm, Clone
 from bullet_1 import Bullet1
 
 
@@ -74,7 +74,7 @@ def game_screen(screen):
     # Cria um grupo de todos os sprites e adiciona a nave.
     all_sprites = pygame.sprite.Group()
     all_sprites.add(player)
-    
+    power = pygame.sprite.Group()
     bullets = pygame.sprite.Group()
     pygame.mixer.music.play(loops=-1)
     PLAYING = 0
@@ -86,7 +86,7 @@ def game_screen(screen):
     while state != DONE and score < 500 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,100) == 1:
+        if random.randrange(1,75) == 1:
             mob1 = Mob2()
             all_sprites.add(mob1)
             monsters.add(mob1)    
@@ -278,7 +278,7 @@ def game_screen(screen):
                 all_sprites.add(bird)
                 monsters.add(bird)
                
-        if score >= 500:
+        if score >= 1000:
             if random.randrange(1,300) == 1:
                 mob4 = Mob4()
                 am = Amaterasu()
@@ -293,19 +293,19 @@ def game_screen(screen):
                 all_sprites.add(tobi)
                 monsters.add(tobi)
                 
-            if random.randrange(1,200) == 1:
-                power = Golpetras()
-                all_sprites.add(power)
-                monsters.add(power)
+            if random.randrange(1,500) == 1:
+                madara = Golpetras()
+                all_sprites.add(madara)
+                monsters.add(madara)
                 
-        if score >= 2000:
+        if score >= 1300:
             if random.randrange(1,400) == 1:
                 sas = Sasori()
                 all_sprites.add(sas)
                 monsters.add(sas)
                 
-        if score >= 3000:   
-            if random.randrange(1,700) == 1:
+        if score >= 2000:   
+            if random.randrange(1,500) == 1:
                 ki = Kisame()
                 all_sprites.add(ki)
                 monsters.add(ki)
@@ -372,7 +372,7 @@ def game_screen(screen):
                     pew_sound.play()
                     
                 if event.key == pygame.K_m and chakra >= 25:
-                    chakra -= 25
+                    chakra -= 300
                     player.imgs = []
                     n=5
                     for i in range(n):
@@ -383,7 +383,22 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     powe = Nrm(player.rect.centerx, player.rect.top)
                     all_sprites.add(powe)
-                    bullets.add(powe)
+                    power.add(powe)
+                    pew_sound.play()
+                
+                if event.key == pygame.K_n and chakra >= 25:
+                    chakra -= 25
+                    player.imgs = []
+                    n=5
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "NrP{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.image = player.imgs[player.frame]
+                    player.step = 5
+                    player.image = pygame.transform.scale(player.image, (1,1))
+                    clone = Clone(player.rect.centerx, player.rect.top)
+                    all_sprites.add(clone)
+                    bullets.add(clone)
                     pew_sound.play()
 
                                 
@@ -457,6 +472,19 @@ def game_screen(screen):
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
+                
+                if event.key == pygame.K_n:
+                    player.imgs = []
+                    player.steps = 5
+                    chakra -= 25
+                    n=8
+                    for i in range(n):
+                        player.imgs.append(pygame.image.load(path.join(img_dir, "Nr{0}.png".format(i+1))).convert())
+                    player.frame = 0
+                    player.steps = 5
+                    player.image = player.imgs[player.frame]
+                    player.image = pygame.transform.scale(player.image, (1,1))
+                    player.speedx = 0
                     
         
                     
@@ -470,10 +498,14 @@ def game_screen(screen):
             destroy_sound.play()
             contador += 1
             score += 100
-            #m = Mob() 
-            #all_sprites.add(m)
-            #monsters.add(m)
-        
+            
+        hits = pygame.sprite.groupcollide(monsters, power, True, False)
+        for hit in hits: # Pode haver mais de um
+            # O meteoro e destruido e precisa ser recriado
+            destroy_sound.play()
+            contador += 1
+            score += 100
+            
         # Verifica se houve colisão entre personagem e inimigo
         hits = pygame.sprite.spritecollide(player, monsters, False, pygame.sprite.collide_circle)
         for hit in hits:
