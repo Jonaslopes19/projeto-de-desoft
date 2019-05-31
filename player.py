@@ -90,7 +90,7 @@ class Player(pygame.sprite.Sprite):
             
             center = [self.rect.x, self.rect.y]
             self.image = self.imgs[self.frame]
-            self.image = pygame.transform.scale(self.image, (75, 100))
+            self.image = pygame.transform.scale(self.image, (100, 100))
     
             # Deixando transparente.
             self.image.set_colorkey(BLACK)
