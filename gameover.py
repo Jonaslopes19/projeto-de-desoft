@@ -18,6 +18,11 @@ def over_screen(screen, score, highscore):
     background = pygame.image.load(path.join('gameover.png')).convert()
     background_rect = background.get_rect()
     
+    pygame.mixer.music.load(path.join(snd_dir, 'sadness.mp3'))
+    pygame.mixer.music.set_volume(0.4)
+    
+    pygame.mixer.music.play(loops=-1)
+    
     
     running = True
     while running:
