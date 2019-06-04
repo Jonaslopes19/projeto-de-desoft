@@ -64,7 +64,13 @@ def game_screen(screen):
     pygame.mixer.music.set_volume(0.4)
     boom_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
     destroy_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
-    pew_sound = pygame.mixer.Sound(path.join(snd_dir, 'pew.wav'))
+    kunai_sound = pygame.mixer.Sound(path.join(snd_dir, 'kunai_sound.wav'))
+    rasengan_sound = pygame.mixer.Sound(path.join(snd_dir, 'rasengan.wav'))
+    rasenshuriken_sound = pygame.mixer.Sound(path.join(snd_dir, 'Rasenshurikenlongo.wav'))
+    kage_bushin = pygame.mixer.Sound(path.join(snd_dir, 'Som_Kagebushin.wav'))
+    amaterasu_sound = pygame.mixer.Sound(path.join(snd_dir, 'Amaterasu.wav'))
+    madara_voice = pygame.mixer.Sound(path.join(snd_dir, 'madara_voice.wav'))
+    
     
     player = Player()
     # Cria um grupo só do inimigo
@@ -137,7 +143,7 @@ def game_screen(screen):
                     bullet = Bullet(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
                     bullets.add(bullet)
-                    pew_sound.play()
+                    kunai_sound.play()
                     
                 if event.key == pygame.K_m and chakra >= 50:
                     chakra -= 50
@@ -152,7 +158,7 @@ def game_screen(screen):
                     ras = Rasengan(player.rect.centerx, player.rect.top)
                     all_sprites.add(ras)
                     bullets.add(ras)
-                    pew_sound.play()
+                    rasengan_sound.play()
 
                                 
             #################################        
@@ -282,6 +288,7 @@ def game_screen(screen):
             if random.randrange(1,300) == 1:
                 mob4 = Mob4()
                 am = Amaterasu()
+                amaterasu_sound.play()
                 all_sprites.add(am)
                 all_sprites.add(mob4)
                 monsters.add(am)
@@ -294,6 +301,7 @@ def game_screen(screen):
                 monsters.add(tobi)
                 
             if random.randrange(1,500) == 1:
+                madara_voice.play()
                 madara = Golpetras()
                 all_sprites.add(madara)
                 monsters.add(madara)
@@ -347,29 +355,13 @@ def game_screen(screen):
                 if event.key == pygame.K_UP and player.rect.y == HEIGHT/2 - 45.5:#pulo
                     player.speedy = -20
                     g = 1
-                    player.imgs = []
-                    n=8
-                    for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "Jump{0}.png".format(i+1))).convert())
-                    player.frame = 0
-                    player.step = 8
-                    player.image = player.imgs[player.frame]
-                    player.image = pygame.transform.scale(player.image, (1,1))
                     
                 if event.key == pygame.K_SPACE and chakra>=20:
                     chakra-=20
-                    player.imgs = []
-                    n=10
-                    for i in range(n):
-                        player.imgs.append(pygame.image.load(path.join(img_dir, "P{0}.png".format(i+1))).convert())
-                    player.frame = 0
-                    player.image = player.imgs[player.frame]
-                    player.step = 5
-                    player.image = pygame.transform.scale(player.image, (1,1))
                     bullet = Nrpower(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
                     bullets.add(bullet)
-                    pew_sound.play()
+                    rasengan_sound.play()
                     
                 if event.key == pygame.K_m and chakra >= 25:
                     chakra -= 300
@@ -384,7 +376,7 @@ def game_screen(screen):
                     powe = Nrm(player.rect.centerx, player.rect.top)
                     all_sprites.add(powe)
                     power.add(powe)
-                    pew_sound.play()
+                    rasenshuriken_sound.play()
                 
                 if event.key == pygame.K_n and chakra >= 25:
                     chakra -= 25
@@ -399,7 +391,7 @@ def game_screen(screen):
                     clone = Clone(player.rect.centerx, player.rect.top)
                     all_sprites.add(clone)
                     bullets.add(clone)
-                    pew_sound.play()
+                    kage_bushin.play()
 
                                 
             #################################        
@@ -514,7 +506,6 @@ def game_screen(screen):
             hit.kill()
             player.morrer()
             
-        print(player.vidas)
         running = player.vidas >= 0
         
         chakra += 1
@@ -522,15 +513,10 @@ def game_screen(screen):
             chakra =400
         elif chakra < 0.5:
             chakra = 0
-        vx = -8 - (score/1000)      
-        print (vx)
+        vx = -8 - (score/1000)
         x += vx
-        # Depois de processar os eventos.
-        # Atualiza a acao de cada sprite.
         all_sprites.update()
         
-        
-        # A cada loop, redesenha o fundo e os sprites
         screen.fill(BLACK)
         rel_x = x % background.get_rect().width
         screen.blit(background, (rel_x -background.get_rect().width , 0))
