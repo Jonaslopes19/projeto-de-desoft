@@ -482,6 +482,7 @@ def game_screen(screen):
                     
         if player.rect.y < HEIGHT/2 - 45.5:#gravidade
             player.speedy +=g 
+            
                     
         # Verifica se houve colisão entre tiro e inimigo
         hits = pygame.sprite.groupcollide(monsters, bullets, True, True)
@@ -508,13 +509,15 @@ def game_screen(screen):
             
         running = player.vidas >= 0
         
-        chakra += 1
+        chakra += 0.5
         if chakra > 399.5:
             chakra =400
         elif chakra < 0.5:
             chakra = 0
         vx = -8 - (score/1000)
         x += vx
+        # Depois de processar os eventos.
+        # Atualiza a acao de cada sprite.
         all_sprites.update()
         
         screen.fill(BLACK)
