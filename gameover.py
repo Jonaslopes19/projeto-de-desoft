@@ -46,8 +46,8 @@ def over_screen(screen, score, highscore):
         if score > highscore:
             highscore = score
             draw_text(background, " NEW HIGH SCORE!", 60, WIDTH/2, 100)
-            dir = path.dirname(__file__)
-            with open(path.join(dir, HS_FILE), 'w') as f:
+            dire = path.dirname(__file__)
+            with open(path.join(dire, HS_FILE), 'w') as f:
                 f.write(str(score))
         else: 
             draw_text(background, str(score), 60, WIDTH/2+150, 150)

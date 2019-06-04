@@ -1,9 +1,11 @@
 import pygame
 import random
-from init import HEIGHT, WIDTH, BLACK, mobs
+from init import mobs
 from os import path
-from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT 
+from init import HEIGHT, WIDTH, BLACK, img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT, mobs 
 from Bullet import Bullet
+
+
 # Classe Mob que representa o inimigo
 class Mob3(pygame.sprite.Sprite):
     
@@ -13,15 +15,15 @@ class Mob3(pygame.sprite.Sprite):
         # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
         
-        # Carregando a imagem de fundo.           
+        # Carregando a imagem ddo personagem.           
         self.imgs = []
         n=10
         for i in range(n):
             
             self.imgs.append(pygame.image.load(path.join(img_dir, "Tobi_walk{0}.png".format(i+1))).convert())
-        self.frame = 0
-        self.image = self.imgs[self.frame]
-        self.image = pygame.transform.scale(self.image, (100, 100))
+            self.frame = 0
+            self.image = self.imgs[self.frame]
+            self.image = pygame.transform.scale(self.image, (100, 100))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -29,12 +31,12 @@ class Mob3(pygame.sprite.Sprite):
         # Detalhes sobre o posicionamento.
         self.rect = self.image.get_rect()
         
-        # Sorteia um lugar inicial em x
-        self.rect.x = 700
-        # Sorteia um lugar inicial em y
+        # Local em x que tobi aparece
+        self.rect.x = 900
+        # Local em y que tobi aparece
         self.rect.y = HEIGHT/2 -45
         # Sorteia uma velocidade inicial
-        self.speedx = -1
+        self.speedx = random.randrange(-6,-1)
         self.speedy = 0
         self.step = 10
         self.ticks = 0
@@ -68,7 +70,7 @@ class Mob3(pygame.sprite.Sprite):
             
         # Se o meteoro passar do final da tela, volta para cima
         if self.rect.top > HEIGHT + 10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
-            self.rect.x = 700
+            self.rect.x = WIDTH
             self.rect.y = HEIGHT/2 -20
             self.speedx = random.randrange(-2, -1)
             self.speedy = 0
@@ -98,11 +100,11 @@ class Mob4(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Sorteia um lugar inicial em x
-        self.rect.x = 700
+        self.rect.x = 900
         # Sorteia um lugar inicial em y
         self.rect.y = HEIGHT/2 -45
         # Sorteia uma velocidade inicial
-        self.speedx = -1
+        self.speedx = -5
         self.speedy = 0
         self.step = 10
         self.ticks = 0
@@ -135,10 +137,10 @@ class Mob4(pygame.sprite.Sprite):
             self.rect.y = center[1]
             
         # Se o meteoro passar do final da tela, volta para cima
-        if self.rect.top > HEIGHT + 10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
-            self.rect.x = 700
+        if  self.rect.left < -25:
+            self.rect.x = WIDTH
             self.rect.y = HEIGHT/2 -20
-            self.speedx = random.randrange(-2, -1)
+            self.speedx = random.randrange(-8, -5)
             self.speedy = 0
 
 class Sasori(pygame.sprite.Sprite):
@@ -170,7 +172,7 @@ class Sasori(pygame.sprite.Sprite):
         # Sorteia um lugar inicial em y
         self.rect.y = HEIGHT/2 -60
         # Sorteia uma velocidade inicial
-        self.speedx = -0.5
+        self.speedx = -2
         self.speedy = 0
         self.step = 5
         self.ticks = 0
@@ -203,17 +205,17 @@ class Sasori(pygame.sprite.Sprite):
             self.rect.y = center[1]
             
         # Se o meteoro passar do final da tela, volta para cima
-        if self.rect.top > HEIGHT + 10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
-            self.rect.x = 700
-            self.rect.y = HEIGHT/2 -20
-            self.speedx = random.randrange(-2, -1)
+        if  self.rect.left < -25 or self.rect.right > WIDTH + 20:
+            self.rect.x = WIDTH
+            self.rect.y = HEIGHT/2 - 45
+            self.speedx = random.randrange(-5, -4)
             self.speedy = 0
 
 
 class Amaterasu(pygame.sprite.Sprite):
     
     # Construtor da classe.
-    def __init__(self):
+    def __init__(self, x):
         
         # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
@@ -235,9 +237,9 @@ class Amaterasu(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Sorteia um lugar inicial em x
-        self.rect.x = 700
+        self.rect.x = x - 30
         # Sorteia um lugar inicial em y
-        self.rect.y = HEIGHT/2 -45
+        self.rect.y = HEIGHT/2 - 45
         # Sorteia uma velocidade inicial
         self.speedx = -10
         self.speedy = 0
@@ -272,11 +274,8 @@ class Amaterasu(pygame.sprite.Sprite):
             self.rect.y = center[1]
             
         # Se o meteoro passar do final da tela, volta para cima
-        if self.rect.top > HEIGHT + 10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
-            self.rect.x = 700
-            self.rect.y = HEIGHT/2 -20
-            self.speedx = random.randrange(-2, -1)
-            self.speedy = 0
+        if  self.rect.left < -25 or self.rect.right > WIDTH + 20:
+            self.kill()
    
 class Golpetras(pygame.sprite.Sprite):
     
@@ -286,15 +285,15 @@ class Golpetras(pygame.sprite.Sprite):
         # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
         
-        # Carregando a imagem de fundo.           
+        # Carregando a imagem de fundo. 
+        if self.rect.x <=          
         self.imgs = []
         n=6
         for i in range(n):
-            
             self.imgs.append(pygame.image.load(path.join(img_dir, "M{0}.png".format(i+1))).convert())
-        self.frame = 0
-        self.image = self.imgs[self.frame]
-        self.image = pygame.transform.scale(self.image, (100, 100))
+            self.frame = 0
+            self.image = self.imgs[self.frame]
+            self.image = pygame.transform.scale(self.image, (100, 100))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -303,11 +302,11 @@ class Golpetras(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Sorteia um lugar inicial em x
-        self.rect.x = WIDTH / 2 -400
+        self.rect.x = WIDTH / 2 - 600
         # Sorteia um lugar inicial em y
         self.rect.y = HEIGHT/2 -45
         # Sorteia uma velocidade inicial
-        self.speedx = 7
+        self.speedx = random.randrange(8,15)
         self.speedy = 0
         self.step = 10
         self.ticks = 0
@@ -340,11 +339,72 @@ class Golpetras(pygame.sprite.Sprite):
             self.rect.y = center[1]
             
         # Se o meteoro passar do final da tela, volta para cima
-        if self.rect.top > HEIGHT + 10 or self.rect.left < -25 or self.rect.right > WIDTH + 20:
-            self.rect.x = 700
-            self.rect.y = HEIGHT/2 -20
-            self.speedx = random.randrange(-2, -1)
-            self.speedy = 0
+        if  self.rect.right > WIDTH + 100:
+            self.kill()
+            
+class Golpetrascontra(pygame.sprite.Sprite):
+    
+    # Construtor da classe.
+    def __init__(self):
+        
+        # Construtor da classe pai (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+        
+        # Carregando a imagem de fundo.           
+        self.imgs = []
+        n=6
+        for i in range(n):
+            self.imgs.append(pygame.image.load(path.join(img_dir, "Madara{0}.png".format(i+1))).convert())
+            self.frame = 0
+            self.image = self.imgs[self.frame]
+            self.image = pygame.transform.scale(self.image, (100, 100))
+        
+        # Deixando transparente.
+        self.image.set_colorkey(BLACK)
+
+        # Detalhes sobre o posicionamento.
+        self.rect = self.image.get_rect()
+        
+        # Sorteia um lugar inicial em x
+        self.rect.x = WIDTH + 100
+        # Sorteia um lugar inicial em y
+        self.rect.y = HEIGHT/2 -45
+        # Sorteia uma velocidade inicial
+        self.speedx = random.randrange(-25, -19)
+        self.speedy = 0
+        self.step = 10
+        self.ticks = 0
+            
+        # Melhora a colisão estabelecendo um raio de um circulo
+        self.radius = int(self.rect.width * .85 / 2)
+        
+        # Metodo que atualiza a posição do personagem
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        self.ticks +=1
+        
+        if self.ticks % self.step == 0:
+            self.frame += 1
+            
+            if self.frame == len(self.imgs):
+                self.frame = 0
+                self.ticks = 0
+            
+            center = [self.rect.x, self.rect.y]
+            self.image = self.imgs[self.frame]
+            self.image = pygame.transform.scale(self.image, (100, 100))
+    
+            # Deixando transparente.
+            self.image.set_colorkey(BLACK)
+      
+            self.rect = self.image.get_rect()
+            self.rect.x = center[0]
+            self.rect.y = center[1]
+            
+        # se o madara voltar e passar do personagem, morre ao final da tela
+        if  self.rect.right < WIDTH - 630:
+            self.kill()
              
 class Kisame(pygame.sprite.Sprite):
     
@@ -417,7 +477,7 @@ class Kisame(pygame.sprite.Sprite):
 class Water(pygame.sprite.Sprite):
     
     # Construtor da classe.
-    def __init__(self):
+    def __init__(self, x, y):
         
         # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
@@ -439,9 +499,9 @@ class Water(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Sorteia um lugar inicial em x
-        self.rect.x = 700
+        self.rect.x = x - 30
         # Sorteia um lugar inicial em y
-        self.rect.y = HEIGHT/2 -20
+        self.rect.y = y + 30
         # Sorteia uma velocidade inicial
         self.speedx = -10
         self.speedy = 0

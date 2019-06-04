@@ -104,7 +104,7 @@ class Nrpower(pygame.sprite.Sprite):
         
         # Coloca no lugar inicial definido em x, y do constutor
         self.rect.bottom = y + 100
-        self.rect.centerx = x + 40
+        self.rect.centerx = x + 80
         self.speedx = 5
         self.step = 5
         self.ticks = 0

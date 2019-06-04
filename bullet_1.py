@@ -15,7 +15,7 @@ class Bullet1(pygame.sprite.Sprite):
         self.image = kunai_img
         
         # Diminuindo o tamanho da imagem.
-        self.image = pygame.transform.scale(kunai_img, (40, 48))
+        self.image = pygame.transform.scale(kunai_img, (60, 72))
         
         # Deixando transparente.
         self.image.set_colorkey(BLACK)
@@ -24,8 +24,8 @@ class Bullet1(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         # Coloca no lugar inicial definido em x, y do constutor
-        self.rect.bottom = y
-        self.rect.centerx = x 
+        self.rect.y = y + 30
+        self.rect.x = x - 30
         self.speedx = -15
 
     # Metodo que atualiza a posição da navinha
@@ -33,9 +33,7 @@ class Bullet1(pygame.sprite.Sprite):
         self.rect.x += self.speedx
         
         # Se o tiro passar do inicio da tela, morre.
-        if self.rect.bottom < 0:
-            self.kill()
-        elif self.rect.x > WIDTH:
+        if self.rect.x < 0:
             self.kill()
 
 class Bullet_inv(pygame.sprite.Sprite):

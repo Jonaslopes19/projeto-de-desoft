@@ -1,15 +1,13 @@
-import time
 import random
 import pygame
 from os import path
 from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir,sons_dir, snd_dir, FPS, OVER, QUIT,HS_FILE, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
 from player import Player
 from Bullet import Bullet
-from mob import Mob
-from Mob2 import Mob2
-from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Sasori, Kisame, Water, Deidara, Bird
-from Rasengan import Rasengan, Nrpower, Nrm, Clone
 from bullet_1 import Bullet1
+from Mob2 import Mob2
+from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Golpetrascontra, Sasori, Kisame, Water, Deidara, Bird
+from Rasengan import Rasengan, Nrpower, Nrm, Clone
 
 highscore = 0
 score = 0
@@ -52,7 +50,7 @@ def game_screen(screen):
         m = 'naruto_normal.mp3'
     else:
         m = 'naruto.mp3'
-    m = 'naruto.mp3'
+        
     # Carrega os sons do jogo
     pygame.mixer.music.load(path.join(sons_dir, '{0}'.format(m)))
     pygame.mixer.music.set_volume(0.7)
@@ -92,12 +90,16 @@ def game_screen(screen):
         if random.randrange(1, 201) == 1:
             mob1 = Mob2()
             all_sprites.add(mob1)
-            monsters.add(mob1)    
+            monsters.add(mob1)
+            kunaiinversa = Bullet1(mob1.rect.x, mob1.rect.y)
+            all_sprites.add(kunaiinversa)
+            monsters.add(kunaiinversa)
         
         
         for event in pygame.event.get():
             
             if event.type == pygame.QUIT:
+                state = QUIT
                 running = False
             
             if event.type == pygame.KEYDOWN:
@@ -229,7 +231,6 @@ def game_screen(screen):
 
         running = player.vidas >= 0
             
-        chakra += 0.5
         if chakra > 149.5:
             chakra =150
         elif chakra < 0.5:
@@ -263,14 +264,14 @@ def game_screen(screen):
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
         
-    chakra = 400
 ##Segundo while
     while state != DONE and score >= 500  and running:
         
-        # Ajusta a velocidade do jogo.
         
         clock.tick(FPS)
+        
         if score >= 500:
+            
             if random.randrange(1,300) == 1:
                 deid = Deidara()
                 all_sprites.add(deid)
@@ -278,21 +279,10 @@ def game_screen(screen):
                 bird = Bird()
                 all_sprites.add(bird)
                 monsters.add(bird)
-                if random.randrange(1, 10) == 2:
+                if random.randrange(1, 5) == 2:
                     all_sprites.add(bird)
                     monsters.add(bird)
-               
-        if score >= 1000:
-            if random.randrange(1,300) == 1:
-                mob4 = Mob4()
-                am = Amaterasu()
-                amaterasu_sound.play()
-                all_sprites.add(am)
-                all_sprites.add(mob4)
-                monsters.add(am)
-                monsters.add(mob4)
-                
-        if score >= 500:
+                    
             if random.randrange(1,200) == 1:
                 tobi = Mob3()
                 all_sprites.add(tobi)
@@ -303,7 +293,17 @@ def game_screen(screen):
                 madara = Golpetras()
                 all_sprites.add(madara)
                 monsters.add(madara)
-                
+               
+        if score >= 1000:
+            if random.randrange(1,300) == 1:
+                mob4 = Mob4()
+                am = Amaterasu(mob4.rect.x)
+                amaterasu_sound.play()
+                all_sprites.add(am)
+                all_sprites.add(mob4)
+                monsters.add(am)
+                monsters.add(mob4)
+     
         if score >= 1300:
             if random.randrange(1,400) == 1:
                 sas = Sasori()
@@ -312,16 +312,23 @@ def game_screen(screen):
                 
         if score >= 2000:   
             if random.randrange(1,500) == 1:
+                madaracontra = Golpetrascontra()
+                all_sprites.add(madaracontra)
+                monsters.add(madaracontra)
+                madara_voice.play()
+                
+            if random.randrange(1,500) == 1:
                 ki = Kisame()
                 all_sprites.add(ki)
                 monsters.add(ki)
-                wa = Water()
+                wa = Water(ki.rect.x, ki.rect.y)
                 all_sprites.add(wa)
                 monsters.add(wa)
-        
+                
         for event in pygame.event.get():
             
             if event.type == pygame.QUIT:
+                state = QUIT
                 running = False
             
             if event.type == pygame.KEYDOWN:
@@ -465,13 +472,15 @@ def game_screen(screen):
             
         running = player.vidas >= 0
         
-        chakra += 1.5
+        chakra += 1
         if chakra > 399.5:
             chakra =400
         elif chakra < 0.5:
             chakra = 0
-        vx = -8 - (score/1000)
+        vx = -8 - (score/5000)
         x += vx
+        
+        
         # Depois de processar os eventos.
         # Atualiza a acao de cada sprite.
         all_sprites.update()
