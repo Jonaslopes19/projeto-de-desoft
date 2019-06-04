@@ -7,6 +7,7 @@ from screen import init_screen
 from game1 import game_screen
 from gameover import over_screen
 
+
 # Inicialização do Pygame.
 pygame.init() 
 pygame.mixer.init()

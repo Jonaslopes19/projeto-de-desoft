@@ -14,7 +14,7 @@ fundos = path.join(path.dirname(__file__), 'Fundos')
 personagem = path.join(path.dirname(__file__), 'Personagem1')
 mobs =  path.join(path.dirname(__file__), 'Mob1')
 plataforma = path.join(path.dirname(__file__), 'plataforma')
-
+sons_dir = path.join(path.dirname(__file__), 'Sons')
 
 # Dados gerais do jogo.
 WIDTH = 1000 # Largura da tela

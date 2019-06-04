@@ -2,7 +2,7 @@ import time
 import random
 import pygame
 from os import path
-from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir, snd_dir, FPS, OVER, QUIT,HS_FILE, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
+from init import HEIGHT, WIDTH, BLACK, WHITE, img_dir,sons_dir, snd_dir, FPS, OVER, QUIT,HS_FILE, PLAYER_STATE_MORRENDO, PLAYER_STATE_MORTO, PLAYER_STATE_VIVO
 from player import Player
 from Bullet import Bullet
 from mob import Mob
@@ -11,19 +11,11 @@ from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Sasori, Kisame, Water, Deidar
 from Rasengan import Rasengan, Nrpower, Nrm, Clone
 from bullet_1 import Bullet1
 
-
-
-#def load_assets(img_dir, snd_dir, fnt_dir):
-    #assets = {}
-    #assets["score_font"] = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
-    #return assets
-#load_assets  
-#print
-
 highscore = 0
 score = 0
 
 font_name = pygame.font.match_font('arial')
+
 def draw_text(surf, text, size, x, y):
     font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, WHITE)
@@ -31,8 +23,6 @@ def draw_text(surf, text, size, x, y):
     text_rect.midtop = (x, y)
     surf.blit(text_surface, text_rect)
     
-
-
 def game_screen(screen):
     
     g = 1
@@ -40,7 +30,7 @@ def game_screen(screen):
     contador = 0
     
     clock = pygame.time.Clock()
-    # Carrega o fundo do jogo
+    
     background = pygame.image.load(path.join('Fundo4.jpg')).convert()
     x = 0 
     vx = 0
@@ -49,8 +39,6 @@ def game_screen(screen):
     score = 0
     
     chakra = 150
-    #assets = load_assets(img_dir, snd_dir, fnt_dir)
-    #score_font = assets["score_font"]
     
     dir = path.dirname(__file__)
     with open(path.join(dir, HS_FILE), 'w') as f:
@@ -64,10 +52,12 @@ def game_screen(screen):
         m = 'naruto_normal.mp3'
     else:
         m = 'naruto.mp3'
-        
+    m = 'naruto.mp3'
     # Carrega os sons do jogo
-    pygame.mixer.music.load(path.join(snd_dir, '{0}'.format(m)))
+    pygame.mixer.music.load(path.join(sons_dir, '{0}'.format(m)))
     pygame.mixer.music.set_volume(0.7)
+    pygame.mixer.music.play(loops=-1)
+    
     boom_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl3.wav'))
     destroy_sound = pygame.mixer.Sound(path.join(snd_dir, 'expl6.wav'))
     kunai_sound = pygame.mixer.Sound(path.join(snd_dir, 'kunai_sound.wav'))
@@ -86,9 +76,10 @@ def game_screen(screen):
     # Cria um grupo de todos os sprites e adiciona a nave.
     all_sprites = pygame.sprite.Group()
     all_sprites.add(player)
+    
     power = pygame.sprite.Group()
+    
     bullets = pygame.sprite.Group()
-    pygame.mixer.music.play(loops=-1)
     PLAYING = 0
     state = PLAYING
     DONE = 2
@@ -98,7 +89,7 @@ def game_screen(screen):
     while state != DONE and score < 500 and running:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
-        if random.randrange(1,21) == 1:
+        if random.randrange(1, 201) == 1:
             mob1 = Mob2()
             all_sprites.add(mob1)
             monsters.add(mob1)    
@@ -287,6 +278,9 @@ def game_screen(screen):
                 bird = Bird()
                 all_sprites.add(bird)
                 monsters.add(bird)
+                if random.randrange(1, 10) == 2:
+                    all_sprites.add(bird)
+                    monsters.add(bird)
                
         if score >= 1000:
             if random.randrange(1,300) == 1:
@@ -442,7 +436,6 @@ def game_screen(screen):
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                     
-        
                     
         if player.rect.y < HEIGHT/2 - 45.5:#gravidade
             player.speedy +=g 
