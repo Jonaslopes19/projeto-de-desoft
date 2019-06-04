@@ -6,7 +6,7 @@ from player import Player
 from Bullet import Bullet
 from bullet_1 import Bullet1
 from Mob2 import Mob2
-from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Golpetrascontra, Sasori, Kisame, Water, Deidara, Bird
+from Mob3 import Mob3, Mob4, Amaterasu, Golpetras, Golpetrascontra, Sasori, Kisame, Water, Deidara, Bird, Birdvoador
 from Rasengan import Rasengan, Nrpower, Nrm, Clone
 
 highscore = 0
@@ -129,7 +129,7 @@ def game_screen(screen):
                 if event.key == pygame.K_UP and player.rect.y == HEIGHT/2 - 45.5:#pulo
                     player.speedy = -20
                     
-                if event.key == pygame.K_SPACE and chakra >= 10:
+                if event.key == pygame.K_e and chakra >= 10:
                     chakra -= 10
                     player.imgs = []
                     n=5
@@ -144,7 +144,7 @@ def game_screen(screen):
                     bullets.add(bullet)
                     kunai_sound.play()
                     
-                if event.key == pygame.K_m and chakra >= 50:
+                if event.key == pygame.K_w and chakra >= 50:
                     chakra -= 50
                     player.imgs = []
                     n=6
@@ -186,7 +186,7 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_e:
                     player.imgs = []
                     n=6
                     for i in range(n):
@@ -196,7 +196,7 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.step=5
                     
-                if event.key == pygame.K_m:
+                if event.key == pygame.K_w:
                     player.imgs = []
                     player.steps = 5
                     n=6
@@ -264,9 +264,9 @@ def game_screen(screen):
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
         
-##Segundo while
+    chakra = 400    
+    ##Segundo while
     while state != DONE and score >= 500  and running:
-        
         
         clock.tick(FPS)
         
@@ -279,9 +279,9 @@ def game_screen(screen):
                 bird = Bird()
                 all_sprites.add(bird)
                 monsters.add(bird)
-                if random.randrange(1, 5) == 2:
-                    all_sprites.add(bird)
-                    monsters.add(bird)
+                birdvoador = Birdvoador()
+                all_sprites.add(birdvoador)
+                monsters.add(birdvoador)
                     
             if random.randrange(1,200) == 1:
                 tobi = Mob3()
@@ -359,21 +359,21 @@ def game_screen(screen):
                     player.speedy = -20
                     g = 1
                     
-                if event.key == pygame.K_SPACE and chakra>=20:
+                if event.key == pygame.K_e and chakra>=20:
                     chakra-=20
                     bullet = Nrpower(player.rect.centerx, player.rect.top)
                     all_sprites.add(bullet)
                     bullets.add(bullet)
                     rasengan_sound.play()
                     
-                if event.key == pygame.K_m and chakra >= 300:
+                if event.key == pygame.K_w and chakra >= 300:
                     chakra -= 300
                     powe = Nrm(player.rect.centerx, player.rect.top)
                     all_sprites.add(powe)
                     power.add(powe)
                     rasenshuriken_sound.play()
                 
-                if event.key == pygame.K_n and chakra >= 25:
+                if event.key == pygame.K_q and chakra >= 25:
                     chakra -= 25
                     clone = Clone(player.rect.centerx, player.rect.top)
                     all_sprites.add(clone)
@@ -408,7 +408,7 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.speedx = 0
                     
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_e:
                     player.imgs = []
                     chakra -= 25
                     n=8
@@ -419,7 +419,7 @@ def game_screen(screen):
                     player.image = pygame.transform.scale(player.image, (1,1))
                     player.step=5
                     
-                if event.key == pygame.K_m:
+                if event.key == pygame.K_w:
                     player.imgs = []
                     player.steps = 5
                     chakra -= 25
@@ -431,7 +431,7 @@ def game_screen(screen):
                     player.image = player.imgs[player.frame]
                     player.image = pygame.transform.scale(player.image, (1,1))
                 
-                if event.key == pygame.K_n:
+                if event.key == pygame.K_q:
                     player.imgs = []
                     player.steps = 5
                     chakra -= 25
@@ -472,7 +472,7 @@ def game_screen(screen):
             
         running = player.vidas >= 0
         
-        chakra += 1
+        chakra += 1.5
         if chakra > 399.5:
             chakra =400
         elif chakra < 0.5:
