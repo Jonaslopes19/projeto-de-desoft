@@ -10,7 +10,7 @@ pois esse deve ser seu jeito ninja de ser!!
 
 setas: movimentam o personagem
 
-backspace: Ataque básico
+space: Ataque básico
 
 teclas 'N' e 'M': jutsus
 
