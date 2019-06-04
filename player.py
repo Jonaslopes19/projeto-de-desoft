@@ -9,17 +9,13 @@ from init import img_dir, snd_dir, fundos, FPS, INIT, GAME, QUIT
 
 class Player(pygame.sprite.Sprite):
     
-    # Construtor da classe.
     def __init__(self):
         
-        # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
         
-        # Velocidade da nave
         self.speedx = 0
         self.speedy = 0
         
-        # Carregando a imagem de fundo.
         if self.speedx == 0:
             self.imgs = []
             n=6
@@ -37,10 +33,8 @@ class Player(pygame.sprite.Sprite):
             self.image = self.imgs[self.frame]
             self.step = 5
         
-        # Diminuindo o tamanho da imagem.
         self.image = pygame.transform.scale(self.image, (75, 100))
     
-        # Deixando transparente.
         self.image.set_colorkey(BLACK)
     
         morte_anim = []
@@ -61,9 +55,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = WIDTH / 2 -150
         self.rect.y= HEIGHT/2 - 45.5
         
-
-        
-        # Melhora a colisão estabelecendo um raio de um circulo
         self.radius = 25
         
         self.step = 5
@@ -72,7 +63,6 @@ class Player(pygame.sprite.Sprite):
         self.state = PLAYER_STATE_VIVO
         self.vidas = 3
     
-    # Metodo que atualiza a posição da navinha
     def update(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
@@ -92,7 +82,6 @@ class Player(pygame.sprite.Sprite):
             self.image = self.imgs[self.frame]
             self.image = pygame.transform.scale(self.image, (100, 100))
     
-            # Deixando transparente.
             self.image.set_colorkey(BLACK)
       
             self.rect = self.image.get_rect()
@@ -113,8 +102,6 @@ class Player(pygame.sprite.Sprite):
         if self.vidas == 2:
             self.state = PLAYER_STATE_MORTO
             
-        
-        # Mantem dentro da tela
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
         if self.rect.left < 0:
