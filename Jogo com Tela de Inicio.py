@@ -8,7 +8,7 @@ from game1 import game_screen
 from gameover import over_screen
 
 
-# Inicialização do Pygame.
+# Inicializaçãqo do Pygame.
 pygame.init() 
 pygame.mixer.init()
 # Tamanho da tela.

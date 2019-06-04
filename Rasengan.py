@@ -147,8 +147,6 @@ class Nrm(pygame.sprite.Sprite):
         # Construtor da classe pai (Sprite).
         pygame.sprite.Sprite.__init__(self)
         
-        
-
         self.imgs = []
         n=5
         for i in range(n):
@@ -157,7 +155,6 @@ class Nrm(pygame.sprite.Sprite):
         self.image = self.imgs[self.frame]
         self.step = 0.5
     
-        
         # Diminuindo o tamanho da imagem.
         self.image = pygame.transform.scale(self.image, (250, 100))
         
@@ -166,6 +163,9 @@ class Nrm(pygame.sprite.Sprite):
         
         # Detalhes sobre o posicionamento.
         self.rect = self.image.get_rect()
+        
+        # Melhora a colisão estabelecendo um raio de um circulo
+        self.radius = int(self.rect.width * .85 / 2)
         
         # Coloca no lugar inicial definido em x, y do constutor
         self.rect.bottom = y + 100

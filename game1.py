@@ -39,7 +39,7 @@ def game_screen(screen):
     chakra = 150
     
     dir = path.dirname(__file__)
-    with open(path.join(dir, HS_FILE), 'w') as f:
+    with open(path.join(dir, HS_FILE), 'r') as f:
         try:
             highscore = int(f.read())
         except:
@@ -509,6 +509,4 @@ def game_screen(screen):
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
     
-    if score > highscore:
-        highscore=score
     return (OVER, score, highscore)
